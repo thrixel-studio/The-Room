@@ -29,6 +29,7 @@ interface JournalEntry {
   completion_percentage?: number;  // 0.0-1.0
   recent_messages?: RecentMessage[];  // Last few messages for draft preview
   last_message_timestamp?: string | null;
+  last_message?: string | null;
 }
 
 interface JournalEntryCardProps {
