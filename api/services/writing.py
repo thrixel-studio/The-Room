@@ -457,6 +457,60 @@ class WritingService:
             db.close()
     
     @staticmethod
+    def switch_session_framework(
+        db: Session,
+        session_id: UUID,
+        user_id: UUID,
+        framework_key: str
+    ) -> Optional[JournalChat]:
+        """Switch the framework on an existing active session, preserving all messages."""
+        chat = db.query(JournalChat).filter(
+            JournalChat.id == session_id,
+            JournalChat.user_id == user_id,
+            JournalChat.status == ChatStatusEnum.DRAFT,
+            JournalChat.deleted_at.is_(None)
+        ).first()
+
+        if not chat:
+            return None
+
+        new_framework = db.query(Framework).filter(
+            Framework.key == framework_key.upper()
+        ).first()
+
+        if not new_framework:
+            return None
+
+        previous_framework_key = chat.framework.key.lower() if chat.framework else None
+
+        chat.framework_id = new_framework.id
+        chat.updated_at = datetime.utcnow()
+
+        # Record the switch as a system message so it's stored in conversation history
+        max_seq = db.query(func.max(ChatMessage.seq)).filter(
+            ChatMessage.chat_id == session_id
+        ).scalar() or 0
+
+        switch_message = ChatMessage(
+            chat_id=session_id,
+            seq=max_seq + 1,
+            role=MessageRoleEnum.SYSTEM,
+            content=f"Framework switched from {previous_framework_key} to {framework_key.lower()}",
+            metadata_={
+                "event": "framework_switch",
+                "from_framework": previous_framework_key,
+                "to_framework": framework_key.lower(),
+            }
+        )
+        db.add(switch_message)
+
+        db.commit()
+        db.refresh(chat)
+
+        logger.info(f"Switched chat {session_id} from '{previous_framework_key}' to '{framework_key}'")
+        return chat
+
+    @staticmethod
     def delete_chat_session(
         db: Session,
         session_id: UUID,

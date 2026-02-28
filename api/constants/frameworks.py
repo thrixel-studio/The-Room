@@ -57,6 +57,14 @@ FRAMEWORK_TO_PROMPT_FOLDER = {
     Framework.PROBLEM_SOLVING: "problem_solving",
 }
 
+# Display names shown in the UI and communicated to the AI
+FRAMEWORK_DISPLAY_NAMES = {
+    Framework.MENTAL_WELLNESS: "Psychologist",
+    Framework.DECISION_MAKING: "Advisor",
+    Framework.PRODUCTIVITY_BOOST: "Strategist",
+    Framework.PROBLEM_SOLVING: "Mediator",
+}
+
 
 def get_valid_frameworks() -> list[str]:
     """Get list of all valid framework values."""

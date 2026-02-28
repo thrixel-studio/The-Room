@@ -9,6 +9,7 @@ from openai import AsyncOpenAI
 
 from config import get_settings
 from utils.prompts import load_framework_prompt
+from constants.frameworks import Framework, FRAMEWORK_DISPLAY_NAMES
 
 settings = get_settings()
 logger = logging.getLogger(__name__)
@@ -37,7 +38,15 @@ async def call_assistant_api(
     # Load framework-specific system instructions
     system_prompt = load_framework_prompt(framework, "assistant")
     logger.info(f"Loaded assistant prompt for framework: {framework}")
-    
+
+    # Inject the framework's display name so the AI knows how to refer to itself
+    try:
+        framework_enum = Framework(framework.lower())
+        display_name = FRAMEWORK_DISPLAY_NAMES.get(framework_enum, framework.replace("_", " ").title())
+    except ValueError:
+        display_name = framework.replace("_", " ").title()
+    system_prompt = f"**YOUR PERSONA NAME**: {display_name}\nWhen referring to yourself or your role, use the name \"{display_name}\".\n\n{system_prompt}"
+
     # Add user's first name to the system prompt if provided
     if user_first_name:
         system_prompt_with_name = f"{system_prompt}\n\n**USER'S FIRST NAME**: {user_first_name}\nYou may use this name naturally in your greetings and responses to create a more personal connection."

@@ -12,12 +12,13 @@ import {
   ChatProgress,
   LoadingIndicator,
   SwitchFrameworkButton,
+  FrameworkSwitchDivider,
   useGetChatSessionQuery,
   useSendMessageMutation,
   useAutoScroll,
   useSessionFinish,
   useMessageAnimations,
-  useCreateChatSessionMutation,
+  useSwitchSessionFrameworkMutation,
 } from "@/features/chat";
 import { useContentReady } from "@/shared/contexts/NavigationContext";
 import { tokenStorage } from "@/shared/lib/storage";
@@ -40,6 +41,10 @@ export default function ChatSessionPage() {
   const [error, setError] = useState<string | null>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  // Framework switching — stays in same session, context preserved
+  // switchedFramework is only for the optimistic badge update before session refetches
+  const [switchedFramework, setSwitchedFramework] = useState<FrameworkKey | null>(null);
+
   // Fetch session data
   const {
     data: session,
@@ -50,7 +55,7 @@ export default function ChatSessionPage() {
   });
 
   const [sendMessageMutation] = useSendMessageMutation();
-  const [createChatSession] = useCreateChatSessionMutation();
+  const [switchSessionFramework] = useSwitchSessionFrameworkMutation();
 
   // Initialize messages from loaded session
   useEffect(() => {
@@ -86,8 +91,14 @@ export default function ChatSessionPage() {
   // Auto-scroll hook
   const { messagesEndRef, lastUserMessageRef } = useAutoScroll(messages, isLoadingSession);
 
-  // Get the last user message ID for ref attachment
+  // Derive stable IDs for last user/AI messages (ignoring system messages)
   const lastUserMessageId = [...messages].reverse().find(m => m.role === 'user')?.id;
+  const lastAIMessageId = [...messages].reverse().find(m => m.role === 'assistant')?.id;
+
+  // True once any framework switch system message exists — hides switch button permanently
+  const hasEverSwitched = messages.some(
+    m => m.role === 'system' && m.metadata?.event === 'framework_switch'
+  );
 
   // Message animations hook
   const { shouldAnimate } = useMessageAnimations(messages);
@@ -165,12 +176,39 @@ export default function ChatSessionPage() {
     await finishSession();
   };
 
-  const handleSwitchFramework = async (frameworkKey: FrameworkKey) => {
+  const handleSwitchFramework = async (frameworkKey: FrameworkKey, triggerMessageId: string) => {
+    // Optimistic: insert a system message right after the trigger message so the
+    // divider appears immediately (before the session refetches from the server)
+    const optimisticMsg: ChatMessage = {
+      id: `switch-opt-${Date.now()}`,
+      session_id: sessionId,
+      role: 'system',
+      content: `Framework switched to ${frameworkKey}`,
+      created_at: new Date().toISOString(),
+      metadata: {
+        event: 'framework_switch',
+        from_framework: session?.framework ?? undefined,
+        to_framework: frameworkKey,
+      },
+    };
+
+    setMessages((prev) => {
+      const idx = prev.findIndex((m) => m.id === triggerMessageId);
+      const next = [...prev];
+      next.splice(idx >= 0 ? idx + 1 : next.length, 0, optimisticMsg);
+      return next;
+    });
+    setSwitchedFramework(frameworkKey);
+
     try {
-      const newSession = await createChatSession({ framework_key: frameworkKey }).unwrap();
-      router.push(`/chat/${newSession.id}`);
+      await switchSessionFramework({ sessionId, frameworkKey }).unwrap();
+      // Session auto-refetches via invalidatesTags, replacing the optimistic message
+      // with the real system message stored in the DB
     } catch (err) {
-      console.error('Failed to create new session:', err);
+      console.error('Failed to switch framework:', err);
+      // Revert optimistic message and badge
+      setMessages((prev) => prev.filter((m) => m.id !== optimisticMsg.id));
+      setSwitchedFramework(null);
     }
   };
 
@@ -182,15 +220,16 @@ export default function ChatSessionPage() {
     });
   };
 
-  // Show framework badge if session has a framework
-  const showBadge = !!session?.framework;
+  // Active framework: local switch overrides session default
+  const displayFramework = switchedFramework || session?.framework;
+  const showBadge = !!displayFramework;
 
   return (
     <div className="flex flex-col h-full flex-1 min-h-0 relative shadow-none">
       {/* Framework Badge - Bottom Right Corner */}
       {showBadge && (
         <div className="fixed bottom-4 right-5 z-30">
-          <FrameworkBadge frameworkKey={session?.framework as any} />
+          <FrameworkBadge frameworkKey={displayFramework as any} />
         </div>
       )}
 
@@ -212,8 +251,19 @@ export default function ChatSessionPage() {
           <div className="w-full max-w-2xl space-y-3 px-4">
             {messages.map((message, index) => {
               const isLastMessage = index === messages.length - 1;
+
+              // System framework-switch messages render as a divider, not a chat bubble
+              if (message.role === 'system' && message.metadata?.event === 'framework_switch') {
+                return (
+                  <React.Fragment key={message.id}>
+                    <FrameworkSwitchDivider frameworkKey={message.metadata.to_framework as FrameworkKey} />
+                    {isLastMessage && <div className="flex-1 min-h-[60vh]" />}
+                  </React.Fragment>
+                );
+              }
+
               const isLastUserMessage = message.id === lastUserMessageId;
-              const isLastAIMessage = message.role === 'assistant' && isLastMessage;
+              const isLastAIMessage = message.id === lastAIMessageId;
 
               return (
                 <React.Fragment key={message.id}>
@@ -227,12 +277,12 @@ export default function ChatSessionPage() {
                     />
                   </div>
 
-                  {/* Loading Indicator - Right after last user message */}
+                  {/* Loading Indicator - right after last user message */}
                   {isLastUserMessage && isSending && (
                     <LoadingIndicator show={true} />
                   )}
 
-                  {/* Analyze Button - Right after last AI message, only when 100% complete */}
+                  {/* Analyze Button - right after last AI message, only when 100% complete */}
                   {isLastAIMessage && isConversationComplete && !isFinishing && !isSending && typingMessageIds.size === 0 && (
                     <div className="flex justify-start">
                       <Button
@@ -247,13 +297,13 @@ export default function ChatSessionPage() {
                     </div>
                   )}
 
-                  {/* Switch Framework Button - shown on last AI message when suggested */}
+                  {/* Switch Framework Button - hidden permanently once any switch has occurred */}
                   {isLastAIMessage && message.suggested_framework && !isSending &&
-                    typingMessageIds.size === 0 && !isFinishing && (
+                    typingMessageIds.size === 0 && !isFinishing && !hasEverSwitched && (
                     <div className="flex justify-start">
                       <SwitchFrameworkButton
                         frameworkKey={message.suggested_framework}
-                        onClick={() => handleSwitchFramework(message.suggested_framework!)}
+                        onClick={() => handleSwitchFramework(message.suggested_framework!, message.id)}
                       />
                     </div>
                   )}

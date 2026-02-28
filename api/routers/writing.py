@@ -11,7 +11,8 @@ from schemas.writing import (
     ChatSessionCreate,
     ChatSessionResponse,
     ChatMessageCreate,
-    ChatMessageResponse
+    ChatMessageResponse,
+    SwitchFrameworkRequest
 )
 from services.writing import WritingService
 from models.entry import ChatMessage, ChatStatusEnum, JournalChat, ChatSummary, SummaryStateEnum, MessageRoleEnum
@@ -59,7 +60,11 @@ async def list_active_chat_sessions(
             ChatMessage.chat_id == chat.id
         ).order_by(ChatMessage.seq).all()
 
-        visible_messages = [msg for msg in messages if msg.role != MessageRoleEnum.SYSTEM]
+        visible_messages = [
+            msg for msg in messages
+            if msg.role != MessageRoleEnum.SYSTEM
+            or (msg.metadata_ or {}).get("event") == "framework_switch"
+        ]
 
         serialized_messages = [
             ChatMessageResponse(
@@ -98,7 +103,11 @@ async def get_chat_session(
     if not chat:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Session not found")
 
-    visible_messages = [msg for msg in chat.messages if msg.role != MessageRoleEnum.SYSTEM]
+    visible_messages = [
+        msg for msg in chat.messages
+        if msg.role != MessageRoleEnum.SYSTEM
+        or (msg.metadata_ or {}).get("event") == "framework_switch"
+    ]
 
     serialized_messages = [
         ChatMessageResponse(
@@ -267,6 +276,30 @@ async def get_analysis_status(
             "status": "ERROR",
             "error": "Unknown status"
         }
+
+
+@router.patch("/chat/sessions/{session_id}/framework", response_model=ChatSessionResponse)
+async def switch_session_framework(
+    session_id: UUID,
+    body: SwitchFrameworkRequest,
+    current_user_id: UUID = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Switch the active framework on an existing session without losing context."""
+    chat = WritingService.switch_session_framework(db, session_id, current_user_id, body.framework_key)
+    if not chat:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Session not found, inactive, or invalid framework key"
+        )
+    return {
+        "id": chat.id,
+        "state": "ACTIVE",
+        "framework": chat.framework.key.lower() if chat.framework else None,
+        "started_at": chat.started_at,
+        "ended_at": chat.completed_at,
+        "messages": []
+    }
 
 
 @router.delete("/chat/sessions/{session_id}", status_code=status.HTTP_204_NO_CONTENT)

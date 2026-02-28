@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import Image from 'next/image';
+import { Sparkles } from 'lucide-react';
 
 interface LoadingIndicatorProps {
   show: boolean;
@@ -29,13 +29,7 @@ export function LoadingIndicator({ show }: LoadingIndicatorProps) {
     <div className="flex justify-start animate-modal-fade-in">
       <div className="py-1.5 md:py-1.5">
         <div className="flex items-center gap-2 animate-pulse">
-          <Image
-            src="/images/logo/logo1.png"
-            alt="Loading"
-            width={20}
-            height={20}
-            className="rounded-sm"
-          />
+          <Sparkles className="w-4 h-4 text-[var(--app-text-secondary-color)]" />
           <span className="text-sm text-[var(--app-text-secondary-color)]">
             Thinking{'.'.repeat(dotCount)}
           </span>

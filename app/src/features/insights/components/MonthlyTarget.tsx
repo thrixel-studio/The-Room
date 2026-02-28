@@ -71,7 +71,7 @@ const MonthlyTarget = React.memo(function MonthlyTarget() {
             <div className="w-px h-full bg-white/10"></div>
             <div className="flex flex-col items-center flex-1">
               <p className="mb-1 text-xs text-gray-400">
-                Status
+                Daily Status
               </p>
               {isLoading ? (
                 <div style={{ width: '75px', height: '20px' }}>

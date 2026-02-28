@@ -3,10 +3,13 @@ import type { FrameworkKey } from '@/features/frameworks';
 export interface ChatMessage {
   id: string;
   session_id: string;
-  role: 'user' | 'assistant';
+  role: 'user' | 'assistant' | 'system';
   content: string;
   metadata?: {
     prompt_type?: string;
+    event?: string;
+    from_framework?: string;
+    to_framework?: string;
   };
   created_at: string;
   completion_percentage?: number;  // 0.0-1.0

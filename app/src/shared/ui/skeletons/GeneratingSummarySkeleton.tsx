@@ -44,7 +44,7 @@ export function GeneratingSummarySkeleton() {
             {/* Logo */}
             <div className="absolute inset-0 flex items-center justify-center">
               <Image
-                src="/images/logo/s3.png"
+                src="/images/logo/logo.svg"
                 alt="Loading"
                 width={32}
                 height={32}

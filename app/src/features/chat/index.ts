@@ -12,6 +12,7 @@ export { MessageRenderer } from './components/MessageRenderer';
 export { ChatProgress } from './components/ChatProgress';
 export { LoadingIndicator } from './components/LoadingIndicator';
 export { SwitchFrameworkButton } from './components/SwitchFrameworkButton';
+export { FrameworkSwitchDivider } from './components/FrameworkSwitchDivider';
 
 // Hooks
 export { useChat } from './hooks/useChat';
@@ -33,6 +34,7 @@ export {
   useGetChatSessionQuery,
   useSendMessageMutation,
   useFinishSessionMutation,
+  useSwitchSessionFrameworkMutation,
 } from './api/chat.endpoints';
 
 // Stream

@@ -42,6 +42,11 @@ class ChatSessionCreate(BaseModel):
     framework_key: Optional[str] = None
 
 
+class SwitchFrameworkRequest(BaseModel):
+    """Switch the active framework on an existing session"""
+    framework_key: str
+
+
 class AIResponse(BaseModel):
     """Structured response from AI"""
     content: str

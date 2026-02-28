@@ -52,6 +52,14 @@ export const chatApi = baseApi.injectEndpoints({
         { type: 'Entries', id: 'DRAFT_LIST' },
       ],
     }),
+    switchSessionFramework: builder.mutation<ChatSession, { sessionId: string; frameworkKey: string }>({
+      query: ({ sessionId, frameworkKey }) => ({
+        url: `/writing/chat/sessions/${sessionId}/framework`,
+        method: 'PATCH',
+        body: { framework_key: frameworkKey },
+      }),
+      invalidatesTags: (result, error, { sessionId }) => [{ type: 'WritingSession', id: sessionId }],
+    }),
   }),
 });
 
@@ -62,4 +70,5 @@ export const {
   useSendMessageMutation,
   useFinishSessionMutation,
   useDeleteChatSessionMutation,
+  useSwitchSessionFrameworkMutation,
 } = chatApi;
