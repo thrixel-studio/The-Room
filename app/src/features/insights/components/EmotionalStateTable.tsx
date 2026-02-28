@@ -85,6 +85,7 @@ const EmotionalStateTable = React.memo(function EmotionalStateTable() {
               <p className="text-xs">Start journaling to see your emotional patterns</p>
             </div>
           ) : (
+            <div style={{ width: "100%", height: "100%" }}>
             <TransformWrapper
               initialScale={1.3}
               minScale={0.2}
@@ -95,7 +96,6 @@ const EmotionalStateTable = React.memo(function EmotionalStateTable() {
               panning={{ velocityDisabled: false }}
               smooth={false}
               limitToBounds={false}
-              style={{ width: "100%", height: "100%" }}
             >
               {({ zoomIn, zoomOut }) => (
                 <>
@@ -181,6 +181,7 @@ const EmotionalStateTable = React.memo(function EmotionalStateTable() {
                 </>
               )}
             </TransformWrapper>
+            </div>
           )}
         </div>
       </div>
