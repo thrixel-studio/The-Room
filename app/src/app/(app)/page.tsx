@@ -11,8 +11,7 @@ export default function Home() {
   useContentReady(true);
 
   useEffect(() => {
-    // Redirect to chat page
-    router.push("/chat");
+    router.replace("/chat");
   }, [router]);
 
   return (

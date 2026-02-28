@@ -41,7 +41,7 @@ export default function SignInForm() {
       <div className="fixed top-6 left-6 z-50">
         <div className="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center">
           <Image
-            src="/images/logo/s3.png"
+            src="/images/logo/logo.svg"
             alt="The Room Logo"
             width={40}
             height={40}

@@ -48,7 +48,7 @@ const EmotionalStateTable = React.memo(function EmotionalStateTable() {
 
     const packLayout = pack<any>()
       .size([width, height])
-      .padding(25);
+      .padding(10);
 
     packLayout(root as any);
 
@@ -86,14 +86,16 @@ const EmotionalStateTable = React.memo(function EmotionalStateTable() {
             </div>
           ) : (
             <TransformWrapper
-              initialScale={1}
+              initialScale={1.3}
               minScale={0.2}
               maxScale={5}
               centerOnInit
-              wheel={{ disabled: false }}
+              wheel={{ step: 0.08 }}
               doubleClick={{ disabled: false, mode: "zoomIn", step: 0.5 }}
-              panning={{ velocityDisabled: true }}
+              panning={{ velocityDisabled: false }}
               smooth={false}
+              limitToBounds={false}
+              style={{ width: "100%", height: "100%" }}
             >
               {({ zoomIn, zoomOut }) => (
                 <>
@@ -105,22 +107,14 @@ const EmotionalStateTable = React.memo(function EmotionalStateTable() {
                     contentStyle={{
                       width: "100%",
                       height: "100%",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
                     }}
-                    wrapperClass="!transition-none"
-                    contentClass="!transition-none"
                   >
                     <svg
-                      width={width}
-                      height={height}
                       viewBox={`0 0 ${width} ${height}`}
-                      style={{ maxWidth: "600px", maxHeight: "400px" }}
-                      className="!transition-none"
+                      width="100%"
+                      height="100%"
+                      preserveAspectRatio="xMidYMid meet"
                     >
-                      <defs>
-                      </defs>
                       {nodes.map((node: any, i: number) => (
                         <g
                           key={i}

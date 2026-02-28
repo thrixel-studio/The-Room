@@ -13,7 +13,7 @@ from schemas.writing import (
     ChatMessageResponse
 )
 from services.writing import WritingService
-from models.entry import ChatMessage, ChatStatusEnum, JournalChat, ChatSummary, SummaryStateEnum
+from models.entry import ChatMessage, ChatStatusEnum, JournalChat, ChatSummary, SummaryStateEnum, MessageRoleEnum
 
 router = APIRouter(prefix="/writing", tags=["writing"])
 
@@ -57,6 +57,8 @@ async def list_active_chat_sessions(
             ChatMessage.chat_id == chat.id
         ).order_by(ChatMessage.seq).all()
 
+        visible_messages = [msg for msg in messages if msg.role != MessageRoleEnum.SYSTEM]
+
         serialized_messages = [
             ChatMessageResponse(
                 id=msg.id,
@@ -67,7 +69,7 @@ async def list_active_chat_sessions(
                 created_at=msg.created_at,
                 completion_percentage=(msg.metadata_ or {}).get("completion_percentage")
             )
-            for msg in messages
+            for msg in visible_messages
         ]
 
         result.append({
@@ -93,6 +95,8 @@ async def get_chat_session(
     if not chat:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Session not found")
 
+    visible_messages = [msg for msg in chat.messages if msg.role != MessageRoleEnum.SYSTEM]
+
     serialized_messages = [
         ChatMessageResponse(
             id=msg.id,
@@ -103,7 +107,7 @@ async def get_chat_session(
             created_at=msg.created_at,
             completion_percentage=(msg.metadata_ or {}).get("completion_percentage")
         )
-        for msg in chat.messages
+        for msg in visible_messages
     ]
 
     api_state = "ACTIVE"

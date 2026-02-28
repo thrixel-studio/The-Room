@@ -18,6 +18,8 @@ import { useContentReady } from "@/shared/contexts/NavigationContext";
 import { FrameworkBadge } from "@/features/frameworks";
 import type { FrameworkKey } from "@/features/frameworks";
 import { useCreateChatFromSuggestionMutation } from "@/features/suggestions";
+import { useAppDispatch } from "@/shared/store/hooks";
+import { journalApi } from "@/features/journal/api/journal.endpoints";
 
 export default function JournalEntryPage() {
   const params = useParams();
@@ -30,6 +32,7 @@ export default function JournalEntryPage() {
   const { data: entry, isLoading, error: queryError } = useGetEntryQuery(entryId);
   const [updateEntry, { isLoading: isUpdating }] = useUpdateEntryMutation();
   const [createChatFromSuggestion] = useCreateChatFromSuggestionMutation();
+  const dispatch = useAppDispatch();
 
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [imageDimensions, setImageDimensions] = useState<{ width: number; height: number } | null>(null);
@@ -158,6 +161,7 @@ export default function JournalEntryPage() {
   const handleStartSession = async (suggestionId: string) => {
     try {
       const result = await createChatFromSuggestion({ suggestion_id: suggestionId }).unwrap();
+      dispatch(journalApi.util.invalidateTags([{ type: 'Entry', id: entryId }]));
       router.push(`/chat/${result.session_id}`);
     } catch (err) {
       console.error('Failed to start session from suggestion:', err);
@@ -366,9 +370,6 @@ export default function JournalEntryPage() {
                 </div>
               </div>
 
-              {/* Separator */}
-              <div className="my-6 border-t border-white/20"></div>
-
               {/* Key Insight */}
               {entry.summary?.key_insight && (
                 <div className="mb-6 animate-slide-in-from-left" style={{ animationDelay: '0.25s' }}>
@@ -397,7 +398,6 @@ export default function JournalEntryPage() {
               {/* Patterns Noticed */}
               {entry.summary?.patterns && entry.summary.patterns.length > 0 && (
                 <>
-                  <div className="my-6 border-t border-white/20"></div>
                   <div className="mb-6 animate-slide-in-from-left" style={{ animationDelay: '0.5s' }}>
                     <h3 className="text-xl font-semibold text-white mb-4">Patterns Noticed</h3>
                     <div className="flex flex-wrap justify-between gap-3">
@@ -421,7 +421,6 @@ export default function JournalEntryPage() {
               {/* Reflect On */}
               {entry.summary?.reflection_questions && entry.summary.reflection_questions.length > 0 && (
                 <>
-                  <div className="my-6 border-t border-white/20"></div>
                   <div className="mb-6 animate-slide-in-from-left" style={{ animationDelay: '0.6s' }}>
                     <h3 className="text-xl font-semibold text-white mb-4">Reflect On</h3>
                     <div className="space-y-3">
@@ -439,21 +438,26 @@ export default function JournalEntryPage() {
               {/* Explore Further — tip-based cards */}
               {entry.suggestions && entry.suggestions.length > 0 && (
                 <>
-                  <div className="my-6 border-t border-white/20"></div>
                   <div className="mb-6 animate-slide-in-from-left" style={{ animationDelay: '0.7s' }}>
                     <h3 className="text-xl font-semibold text-white mb-4">Explore Further</h3>
                     <div className="space-y-3">
                       {entry.suggestions.map((suggestion) => (
-                        <div key={suggestion.id} className="bg-[var(--app-bg-secondary-color)] hover:brightness-90 rounded-xl p-4 transition-all duration-200">
-                          {suggestion.title && (
-                            <p className="text-sm font-semibold text-white mb-1">{suggestion.title}</p>
-                          )}
-                          <p className="text-sm text-white/60 leading-relaxed mb-3">{suggestion.suggestion_text}</p>
-                          <div className="flex items-center justify-between">
+                        <div
+                          key={suggestion.id}
+                          className="bg-[var(--app-bg-secondary-color)] hover:brightness-90 rounded-xl p-4 transition-all duration-200 cursor-pointer"
+                          onClick={() => handleStartSession(suggestion.id)}
+                        >
+                          <div className="flex items-center justify-between mb-1">
+                            {suggestion.title && (
+                              <p className="text-sm font-semibold text-white">{suggestion.title}</p>
+                            )}
                             <FrameworkBadge frameworkKey={suggestion.framework_key as FrameworkKey} />
+                          </div>
+                          <div className="flex items-end justify-between gap-3">
+                            <p className="text-sm text-white/60 leading-relaxed">{suggestion.suggestion_text}</p>
                             <button
-                              onClick={() => handleStartSession(suggestion.id)}
-                              className="flex items-center gap-1.5 text-xs text-white/60 transition-colors px-3 py-1 rounded-lg border border-white/10"
+                              onClick={e => { e.stopPropagation(); handleStartSession(suggestion.id); }}
+                              className="flex-shrink-0 flex items-center gap-1.5 text-xs text-white/60 transition-colors px-3 py-1 rounded-lg border border-white/10"
                               onMouseEnter={e => {
                                 e.currentTarget.style.color = 'var(--app-accent-secondary-color)';
                                 e.currentTarget.style.borderColor = 'var(--app-accent-secondary-color)';
@@ -477,7 +481,6 @@ export default function JournalEntryPage() {
               {/* Key Points */}
               {entry.summary && entry.summary.summary_bullets.length > 0 && (
                 <>
-                  <div className="my-6 border-t border-white/20"></div>
                   <div className="space-y-4 mb-6 animate-slide-in-from-left" style={{ animationDelay: '0.8s' }}>
                     <h3 className="text-xl font-semibold text-white mb-4">
                       Key Points
@@ -496,7 +499,7 @@ export default function JournalEntryPage() {
 
               {/* Tags */}
               {entry.tags.length > 0 && (
-                <div className="mt-6 pt-6 border-t border-white/20">
+                <div className="mt-6">
                   <h4 className="text-sm font-medium text-white mb-3">
                     Tags
                   </h4>

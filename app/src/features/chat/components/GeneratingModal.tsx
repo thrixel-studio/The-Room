@@ -4,13 +4,13 @@ import { useEffect, useState, useRef, useCallback } from 'react';
 import { Modal } from '@/shared/ui/modal';
 import JournalEntryCard from '@/features/journal/components/JournalEntryCard';
 import { GeneratingSummarySkeleton } from '@/shared/ui/skeletons/GeneratingSummarySkeleton';
-import { X, ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 import { tokenStorage } from '@/shared/lib/storage';
 import { authenticatedFetchJson } from '@/shared/lib/api-client';
 import { entriesApi, EntryDetail } from '@/shared/lib/entries';
 import { createBackoffPoller, PollerControls } from '@/shared/lib/polling';
-import Button from '@/shared/ui/button/Button';
 import { useRouter } from 'next/navigation';
+import { useToastContext } from '@/shared/contexts/ToastContext';
 
 interface GeneratingCardModalProps {
   isOpen: boolean;
@@ -29,39 +29,48 @@ interface AnalysisStatusResponse {
 
 export function GeneratingCardModal({ isOpen, sessionId, onComplete }: GeneratingCardModalProps) {
   const router = useRouter();
-  const [status, setStatus] = useState<'loading' | 'completed' | 'error'>('loading');
-  const [progress, setProgress] = useState({ percent: 0, stage: '', message: '' });
+  const { showToast } = useToastContext();
+  const [status, setStatus] = useState<'loading' | 'completed'>('loading');
   const [entry, setEntry] = useState<EntryDetail | null>(null);
-  const [error, setError] = useState<string | null>(null);
 
   const pollerRef = useRef<PollerControls | null>(null);
+  // Refs to avoid stale closures in poller callbacks
+  const onCompleteRef = useRef(onComplete);
+  const showToastRef = useRef(showToast);
+  useEffect(() => { onCompleteRef.current = onComplete; }, [onComplete]);
+  useEffect(() => { showToastRef.current = showToast; }, [showToast]);
 
-  // Fetch entry data after completion
+  // Called on any error path — shows toast and dismisses the modal
+  const handleAnalysisError = useCallback(() => {
+    showToastRef.current({
+      variant: 'error',
+      title: 'Analysis failed to create',
+      message: 'Something went wrong generating your analysis. Please try again.',
+      duration: 5000,
+    });
+    onCompleteRef.current('');
+  }, []);
+
   const fetchEntryData = useCallback(async (entryId: string) => {
     try {
       const accessToken = tokenStorage.getAccessToken();
       if (!accessToken) {
-        setStatus('error');
-        setError('Authentication required');
+        handleAnalysisError();
         return;
       }
       const entryData = await entriesApi.getEntry(entryId, accessToken);
       setEntry(entryData);
-      setProgress({ percent: 100, stage: 'COMPLETED', message: 'Complete!' });
       setStatus('completed');
     } catch (err) {
       console.error('Failed to fetch entry:', err);
-      setStatus('error');
-      setError('Failed to load generated card');
+      handleAnalysisError();
     }
-  }, []);
+  }, [handleAnalysisError]);
 
-  // Start polling fallback
   const startPollingFallback = useCallback(() => {
     const accessToken = tokenStorage.getAccessToken();
     if (!accessToken) {
-      setStatus('error');
-      setError('Authentication required');
+      handleAnalysisError();
       return;
     }
 
@@ -73,8 +82,7 @@ export function GeneratingCardModal({ isOpen, sessionId, onComplete }: Generatin
       onPoll: async () => {
         const currentToken = tokenStorage.getAccessToken();
         if (!currentToken) {
-          setStatus('error');
-          setError('Authentication required');
+          handleAnalysisError();
           return true;
         }
 
@@ -84,11 +92,6 @@ export function GeneratingCardModal({ isOpen, sessionId, onComplete }: Generatin
         );
 
         if (response.status === 'IN_PROGRESS' || response.status === 'PENDING') {
-          setProgress({
-            percent: response.progress_percent || 0,
-            stage: response.stage || '',
-            message: response.message || 'Processing...'
-          });
           return false;
         }
 
@@ -98,8 +101,7 @@ export function GeneratingCardModal({ isOpen, sessionId, onComplete }: Generatin
         }
 
         if (response.status === 'ERROR') {
-          setStatus('error');
-          setError(response.error || 'Failed to generate card');
+          handleAnalysisError();
           return true;
         }
 
@@ -109,13 +111,11 @@ export function GeneratingCardModal({ isOpen, sessionId, onComplete }: Generatin
         console.error('Polling error:', err);
       },
       onTimeout: () => {
-        setStatus('error');
-        setError('Analysis timed out. Please check your journal.');
+        handleAnalysisError();
       },
     });
-  }, [sessionId, fetchEntryData]);
+  }, [sessionId, fetchEntryData, handleAnalysisError]);
 
-  // Cleanup function
   const cleanup = useCallback(() => {
     if (pollerRef.current) {
       pollerRef.current.stop();
@@ -126,11 +126,8 @@ export function GeneratingCardModal({ isOpen, sessionId, onComplete }: Generatin
   useEffect(() => {
     if (!isOpen || !sessionId) return;
 
-    // Reset state when modal opens
     setStatus('loading');
-    setProgress({ percent: 0, stage: '', message: '' });
     setEntry(null);
-    setError(null);
 
     startPollingFallback();
 
@@ -168,15 +165,12 @@ export function GeneratingCardModal({ isOpen, sessionId, onComplete }: Generatin
 
         {status === 'loading' && (
           <div className="flex flex-col items-center space-y-4 -mt-16">
-            {/* Generating text */}
             <h3 className="text-3xl font-medium text-white mb-2">
               Analyzing...
             </h3>
             <p className="text-white/80 text-md text-center max-w-md mb-10">
               Conversation is under processing, please wait 20-25 seconds.
             </p>
-
-            {/* Generating card skeleton - same size as generated card */}
             <div className="w-[280px]">
               <GeneratingSummarySkeleton />
             </div>
@@ -185,15 +179,12 @@ export function GeneratingCardModal({ isOpen, sessionId, onComplete }: Generatin
 
         {status === 'completed' && entry && (
           <div className="flex flex-col items-center animate-modal-fade-in -mt-16">
-            {/* Completion text */}
             <h3 className="text-3xl font-medium text-white mb-2">
               Generated Successfully
             </h3>
             <p className="text-gray-400 text-md text-center max-w-md mb-10">
               Click on a card to see expanded analysis of your conversation.
             </p>
-
-
             <div
               className="w-[280px] cursor-pointer transform transition-transform hover:scale-102"
               onClick={handleCardClick}
@@ -204,28 +195,6 @@ export function GeneratingCardModal({ isOpen, sessionId, onComplete }: Generatin
                 summary_bullets: entry.summary?.summary_bullets || []
               }} />
             </div>
-          </div>
-        )}
-
-        {status === 'error' && (
-          <div className="text-center space-y-6 max-w-md">
-            <div className="w-20 h-20 mx-auto bg-red-500/20 rounded-full flex items-center justify-center">
-              <X className="w-10 h-10 text-red-400" />
-            </div>
-            <div className="space-y-2">
-              <h3 className="text-2xl font-semibold text-white">
-                Something went wrong
-              </h3>
-              <p className="text-gray-300">
-                {error || 'Failed to generate card'}
-              </p>
-            </div>
-            <Button
-              onClick={() => onComplete('')}
-              className="bg-purple-600 hover:bg-purple-700 px-3 py-2"
-            >
-              Go to Journal
-            </Button>
           </div>
         )}
       </div>

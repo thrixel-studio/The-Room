@@ -34,7 +34,7 @@ async def create_chat_from_suggestion(
     db: Session = Depends(get_db)
 ):
     """Create a new chat session from a suggestion, locked to the suggested framework."""
-    result = SuggestionService.create_chat_from_suggestion(
+    result = await SuggestionService.create_chat_from_suggestion(
         db, current_user_id, request.suggestion_id
     )
     if not result:

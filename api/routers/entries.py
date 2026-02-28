@@ -232,7 +232,8 @@ async def get_entry(
     # Get tip-based suggestions for this conversation
     entry_suggestions = db.query(ChatSuggestion).filter(
         ChatSuggestion.source_chat_id == chat.id,
-        ChatSuggestion.source_type == 'tip_based'
+        ChatSuggestion.source_type == 'tip_based',
+        ChatSuggestion.acted_on_chat_id == None
     ).all()
     suggestions = [
         {

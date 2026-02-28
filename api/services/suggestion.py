@@ -3,10 +3,13 @@ from sqlalchemy.orm import Session
 from uuid import UUID
 from datetime import datetime, date
 import logging
+import json
 
 from models.suggestion import ChatSuggestion
 from models.entry import JournalChat, ChatMessage, ChatSummary, ChatStatusEnum, MessageRoleEnum
 from models.framework import Framework
+from models.user import User
+from ai import call_assistant_api
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +22,8 @@ class SuggestionService:
         suggestions = db.query(ChatSuggestion).filter(
             ChatSuggestion.user_id == user_id,
             ChatSuggestion.is_dismissed == False,
-            ChatSuggestion.source_type == 'tip_based'
+            ChatSuggestion.source_type == 'tip_based',
+            ChatSuggestion.acted_on_chat_id == None
         ).order_by(ChatSuggestion.created_at.desc()).limit(limit).all()
 
         return [
@@ -38,7 +42,7 @@ class SuggestionService:
         ]
 
     @staticmethod
-    def create_chat_from_suggestion(
+    async def create_chat_from_suggestion(
         db: Session,
         user_id: UUID,
         suggestion_id: UUID
@@ -116,7 +120,48 @@ class SuggestionService:
         )
         db.add(context_message)
 
-        # 5. Mark suggestion as acted on
+        # 5. Fetch user for personalization
+        user = db.query(User).filter(User.id == user_id).first()
+        user_first_name = user.first_name.strip() if user and user.first_name else None
+
+        # 6. Generate AI opening message
+        opening_history = [
+            {"role": "system", "content": context_content},
+            {"role": "user", "content": suggestion.suggestion_text or suggestion.title or "Let's explore this."},
+        ]
+
+        api_result = await call_assistant_api(
+            opening_history,
+            suggestion.framework_key.lower(),
+            user_first_name
+        )
+
+        if api_result:
+            ai_content, api_metadata = api_result
+            try:
+                ai_response = json.loads(ai_content)
+                response_content = ai_response.get("content", ai_content)
+                completion_percentage = float(ai_response.get("completion_percentage", 0.1))
+            except (json.JSONDecodeError, ValueError):
+                ai_response = {}
+                response_content = ai_content
+                completion_percentage = 0.1
+
+            opening_message = ChatMessage(
+                chat_id=chat.id,
+                seq=1,
+                role=MessageRoleEnum.ASSISTANT,
+                content=response_content,
+                metadata_={
+                    "prompt_type": ai_response.get("prompt_type", "question") if isinstance(ai_response, dict) else "question",
+                    "framework": suggestion.framework_key,
+                    "completion_percentage": completion_percentage,
+                    "api_response": api_metadata,
+                }
+            )
+            db.add(opening_message)
+
+        # 7. Mark suggestion as acted on
         suggestion.acted_on_chat_id = chat.id
         suggestion.updated_at = datetime.utcnow()
 

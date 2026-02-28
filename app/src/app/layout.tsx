@@ -6,6 +6,7 @@ import { NProgressBar } from '@/shared/components/NProgressBar';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { NavigationProvider } from '@/shared/contexts/NavigationContext';
 import { UserDataProvider } from '@/shared/contexts/UserDataContext';
+import { ToastProvider } from '@/shared/contexts/ToastContext';
 import { UserDataInitializer } from '@/shared/components/UserDataInitializer';
 import { FrameworkInitializer } from '@/features/frameworks';
 
@@ -27,6 +28,7 @@ export default function RootLayout({
 }>) {
   const content = (
     <Providers>
+      <ToastProvider>
       <NavigationProvider>
         <UserDataProvider>
           <UserDataInitializer />
@@ -35,6 +37,7 @@ export default function RootLayout({
           {children}
         </UserDataProvider>
       </NavigationProvider>
+      </ToastProvider>
     </Providers>
   );
 
