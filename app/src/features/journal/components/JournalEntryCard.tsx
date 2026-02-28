@@ -267,40 +267,25 @@ const JournalEntryCard = React.memo(function JournalEntryCard({ entry, onImageLo
           <div ref={messagesRef} className="flex flex-col gap-1.5 overflow-y-auto" style={{ height: '85cqh', scrollbarWidth: 'none', maskImage: 'linear-gradient(to bottom, transparent 0%, black 16px)' }}>
             <div className="mt-auto" />
             {entry.recent_messages && entry.recent_messages.length > 0 ? (
-              entry.recent_messages.slice(-5).map((msg, idx) => {
-                // Framework switch system messages → render as inline divider
-                if (msg.role === 'system' && msg.metadata?.event === 'framework_switch') {
-                  const toFramework = msg.metadata.to_framework ?? '';
-                  const Icon = frameworkIcons[toFramework];
-                  const name = frameworkNames[toFramework] ?? toFramework;
-                  return (
-                    <div key={idx} className="flex items-center gap-2 py-1.5">
-                      <div className="flex-1 h-px opacity-20" style={{ background: 'var(--app-text-secondary-color)' }} />
-                      <span className="flex items-center gap-1 text-[10px] opacity-50 select-none" style={{ color: 'var(--app-text-secondary-color)' }}>
-                        {Icon && <Icon size={9} />}
-                        {name}
-                      </span>
-                      <div className="flex-1 h-px opacity-20" style={{ background: 'var(--app-text-secondary-color)' }} />
-                    </div>
-                  );
-                }
-                return (
-                <div key={idx} className={`${msg.role === 'assistant' ? 'w-full' : 'flex justify-end'}`}>
-                  {msg.role === 'assistant' ? (
-                    <div
-                      className="text-[13px] text-white/70 pl-1"
-                      style={{ borderLeft: '1px solid var(--app-accent-color)' }}
-                    >
-                      {decodeHtmlEntities(msg.content)}
-                    </div>
-                  ) : (
-                    <div className="text-[13px] text-white/70 px-2 py-0.5 rounded-tl-md rounded-tr-md rounded-bl-md rounded-br-[1.5px] bg-[var(--app-bg-primary-color)] max-w-[90%]">
-                      {decodeHtmlEntities(msg.content)}
-                    </div>
-                  )}
-                </div>
-                );
-              })
+              entry.recent_messages
+                .filter(msg => !(msg.role === 'system' && msg.metadata?.event === 'framework_switch'))
+                .slice(-5)
+                .map((msg, idx) => (
+                  <div key={idx} className={`${msg.role === 'assistant' ? 'w-full' : 'flex justify-end'}`}>
+                    {msg.role === 'assistant' ? (
+                      <div
+                        className="text-[13px] text-white/70 pl-1"
+                        style={{ borderLeft: '1px solid var(--app-accent-color)' }}
+                      >
+                        {decodeHtmlEntities(msg.content)}
+                      </div>
+                    ) : (
+                      <div className="text-[13px] text-white/70 px-2 py-0.5 rounded-tl-md rounded-tr-md rounded-bl-md rounded-br-[1.5px] bg-[var(--app-bg-primary-color)] max-w-[90%]">
+                        {decodeHtmlEntities(msg.content)}
+                      </div>
+                    )}
+                  </div>
+                ))
             ) : entry.last_message ? (
               <div className="text-xs text-white/70 truncate">
                 {decodeHtmlEntities(entry.last_message)}
@@ -310,7 +295,21 @@ const JournalEntryCard = React.memo(function JournalEntryCard({ entry, onImageLo
                 Start your conversation...
               </div>
             )}
-            <div className="mb-1" />
+            {/* Current framework separator — always shown at the bottom of draft history */}
+            {entry.framework && (() => {
+              const Icon = frameworkIcons[entry.framework];
+              const name = frameworkNames[entry.framework] ?? entry.framework;
+              return (
+                <div className="flex items-center gap-2 py-1.5 mb-1">
+                  <div className="flex-1 h-px opacity-20" style={{ background: 'var(--app-text-secondary-color)' }} />
+                  <span className="flex items-center gap-1 text-[10px] opacity-50 select-none" style={{ color: 'var(--app-text-secondary-color)' }}>
+                    {Icon && <Icon size={9} />}
+                    {name}
+                  </span>
+                  <div className="flex-1 h-px opacity-20" style={{ background: 'var(--app-text-secondary-color)' }} />
+                </div>
+              );
+            })()}
           </div>
         ) : (
           /* Generated: Show title */
