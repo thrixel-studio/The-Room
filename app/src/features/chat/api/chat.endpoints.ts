@@ -8,10 +8,11 @@ export const chatApi = baseApi.injectEndpoints({
       providesTags: [{ type: 'WritingSession', id: 'LIST' }],
       keepUnusedDataFor: CACHE_TIERS.VOLATILE, // 60s - sessions are volatile
     }),
-    createChatSession: builder.mutation<ChatSession, void>({
-      query: () => ({
+    createChatSession: builder.mutation<ChatSession, { framework_key?: string } | void>({
+      query: (body) => ({
         url: '/writing/chat/sessions',
         method: 'POST',
+        body: body || {},
       }),
       invalidatesTags: [{ type: 'WritingSession', id: 'LIST' }],
     }),

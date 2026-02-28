@@ -11,6 +11,7 @@ export { EmptyStatePrompt } from './components/EmptyStatePrompt';
 export { MessageRenderer } from './components/MessageRenderer';
 export { ChatProgress } from './components/ChatProgress';
 export { LoadingIndicator } from './components/LoadingIndicator';
+export { SwitchFrameworkButton } from './components/SwitchFrameworkButton';
 
 // Hooks
 export { useChat } from './hooks/useChat';

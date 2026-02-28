@@ -1,3 +1,5 @@
+import type { FrameworkKey } from '@/features/frameworks';
+
 export interface ChatMessage {
   id: string;
   session_id: string;
@@ -8,6 +10,7 @@ export interface ChatMessage {
   };
   created_at: string;
   completion_percentage?: number;  // 0.0-1.0
+  suggested_framework?: FrameworkKey;
 }
 
 export interface ChatSession {

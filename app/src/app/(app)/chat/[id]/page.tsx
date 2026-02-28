@@ -11,15 +11,18 @@ import {
   MessageRenderer,
   ChatProgress,
   LoadingIndicator,
+  SwitchFrameworkButton,
   useGetChatSessionQuery,
   useSendMessageMutation,
   useAutoScroll,
   useSessionFinish,
   useMessageAnimations,
+  useCreateChatSessionMutation,
 } from "@/features/chat";
 import { useContentReady } from "@/shared/contexts/NavigationContext";
 import { tokenStorage } from "@/shared/lib/storage";
 import type { ChatMessage } from "@/features/chat";
+import type { FrameworkKey } from "@/features/frameworks";
 
 /**
  * Chat session page - displays an existing chat with messages.
@@ -47,6 +50,7 @@ export default function ChatSessionPage() {
   });
 
   const [sendMessageMutation] = useSendMessageMutation();
+  const [createChatSession] = useCreateChatSessionMutation();
 
   // Initialize messages from loaded session
   useEffect(() => {
@@ -161,6 +165,15 @@ export default function ChatSessionPage() {
     await finishSession();
   };
 
+  const handleSwitchFramework = async (frameworkKey: FrameworkKey) => {
+    try {
+      const newSession = await createChatSession({ framework_key: frameworkKey }).unwrap();
+      router.push(`/chat/${newSession.id}`);
+    } catch (err) {
+      console.error('Failed to create new session:', err);
+    }
+  };
+
   const markTypingComplete = (messageId: string) => {
     setTypingMessageIds((prev) => {
       const newSet = new Set(prev);
@@ -231,6 +244,17 @@ export default function ChatSessionPage() {
                       >
                         Analyze
                       </Button>
+                    </div>
+                  )}
+
+                  {/* Switch Framework Button - shown on last AI message when suggested */}
+                  {isLastAIMessage && message.suggested_framework && !isSending &&
+                    typingMessageIds.size === 0 && !isFinishing && (
+                    <div className="flex justify-start">
+                      <SwitchFrameworkButton
+                        frameworkKey={message.suggested_framework}
+                        onClick={() => handleSwitchFramework(message.suggested_framework!)}
+                      />
                     </div>
                   )}
 

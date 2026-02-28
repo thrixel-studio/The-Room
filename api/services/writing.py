@@ -24,19 +24,30 @@ class WritingService:
     """
     
     @staticmethod
-    async def create_chat_session(db: Session, user_id: UUID) -> JournalChat:
+    async def create_chat_session(db: Session, user_id: UUID, framework_key: Optional[str] = None) -> JournalChat:
         """Create a new chat-based writing session"""
-        # Get user's current framework
-        user = db.query(User).filter(User.id == user_id).first()
-        framework_id = user.current_framework_id if user and user.current_framework_id else None
-        
-        # If no framework set, get the default (MENTAL_WELLNESS)
+        framework_id = None
+
+        # If a specific framework_key is provided, look it up directly
+        if framework_key:
+            framework = db.query(Framework).filter(
+                Framework.key == framework_key.upper()
+            ).first()
+            if framework:
+                framework_id = framework.id
+
+        # Fall back to user's current framework
+        if not framework_id:
+            user = db.query(User).filter(User.id == user_id).first()
+            framework_id = user.current_framework_id if user and user.current_framework_id else None
+
+        # If still no framework, get the default (MENTAL_WELLNESS)
         if not framework_id:
             framework = db.query(Framework).filter(Framework.key == "MENTAL_WELLNESS").first()
             if not framework:
                 # If no frameworks exist at all, get any active framework
                 framework = db.query(Framework).filter(Framework.is_active == True).first()
-            
+
             if framework:
                 framework_id = framework.id
             else:
@@ -220,6 +231,16 @@ class WritingService:
             # Add completion_percentage to metadata if present
             if completion_percentage is not None:
                 metadata["completion_percentage"] = completion_percentage
+
+            # Extract and validate suggested_framework
+            valid_frameworks = {"mental_wellness", "decision_making", "productivity_boost", "problem_solving"}
+            suggested_framework = ai_response.get("suggested_framework")
+            if suggested_framework:
+                suggested_framework = suggested_framework.lower()
+                if suggested_framework not in valid_frameworks or suggested_framework == framework_key.lower():
+                    suggested_framework = None
+            if suggested_framework:
+                metadata["suggested_framework"] = suggested_framework
 
         except json.JSONDecodeError:
             logger.warning(f"AI returned invalid JSON, using raw content")

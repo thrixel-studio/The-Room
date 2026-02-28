@@ -13,6 +13,7 @@ class ChatMessageResponse(BaseModel):
     metadata: Optional[Dict] = {}
     created_at: datetime
     completion_percentage: Optional[float] = None
+    suggested_framework: Optional[str] = None
 
     class Config:
         from_attributes = True
@@ -38,6 +39,7 @@ class ChatSessionResponse(BaseModel):
 class ChatSessionCreate(BaseModel):
     """Create a new chat-based writing session"""
     mode: str = "CHAT"
+    framework_key: Optional[str] = None
 
 
 class AIResponse(BaseModel):

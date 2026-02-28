@@ -2,12 +2,13 @@
 
 from uuid import UUID
 
-from fastapi import APIRouter, Depends, HTTPException, status, BackgroundTasks, Request
+from fastapi import APIRouter, Body, Depends, HTTPException, status, BackgroundTasks, Request
 from sqlalchemy.orm import Session
 
 from database import get_db
 from dependencies import get_current_user
 from schemas.writing import (
+    ChatSessionCreate,
     ChatSessionResponse,
     ChatMessageCreate,
     ChatMessageResponse
@@ -20,11 +21,12 @@ router = APIRouter(prefix="/writing", tags=["writing"])
 
 @router.post("/chat/sessions", response_model=ChatSessionResponse, status_code=status.HTTP_201_CREATED)
 async def create_chat_session(
+    body: ChatSessionCreate = Body(default_factory=ChatSessionCreate),
     current_user_id: UUID = Depends(get_current_user),
     db: Session = Depends(get_db)
 ):
     """Create new chat-based writing session."""
-    chat = await WritingService.create_chat_session(db, current_user_id)
+    chat = await WritingService.create_chat_session(db, current_user_id, framework_key=body.framework_key)
 
     return {
         "id": chat.id,
@@ -67,7 +69,8 @@ async def list_active_chat_sessions(
                 content=msg.content,
                 metadata=msg.metadata_ or {},
                 created_at=msg.created_at,
-                completion_percentage=(msg.metadata_ or {}).get("completion_percentage")
+                completion_percentage=(msg.metadata_ or {}).get("completion_percentage"),
+                suggested_framework=(msg.metadata_ or {}).get("suggested_framework")
             )
             for msg in visible_messages
         ]
@@ -105,7 +108,8 @@ async def get_chat_session(
             content=msg.content,
             metadata=msg.metadata_ or {},
             created_at=msg.created_at,
-            completion_percentage=(msg.metadata_ or {}).get("completion_percentage")
+            completion_percentage=(msg.metadata_ or {}).get("completion_percentage"),
+            suggested_framework=(msg.metadata_ or {}).get("suggested_framework")
         )
         for msg in visible_messages
     ]
@@ -169,7 +173,8 @@ async def send_chat_message(
         content=ai_message.content,
         metadata=ai_message.metadata_ or {},
         created_at=ai_message.created_at,
-        completion_percentage=(ai_message.metadata_ or {}).get("completion_percentage")
+        completion_percentage=(ai_message.metadata_ or {}).get("completion_percentage"),
+        suggested_framework=(ai_message.metadata_ or {}).get("suggested_framework")
     )
 
 
