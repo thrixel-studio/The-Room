@@ -1,6 +1,11 @@
 export interface RecentMessage {
-  role: 'user' | 'assistant';
+  role: 'user' | 'assistant' | 'system';
   content: string;
+  metadata?: {
+    event?: string;
+    from_framework?: string;
+    to_framework?: string;
+  } | null;
 }
 
 export interface JournalEntry {

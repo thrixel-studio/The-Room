@@ -106,7 +106,7 @@ async def list_entries(
                 # Reverse to get chronological order
                 messages = list(reversed(messages))
                 recent_messages = [
-                    {"role": msg.role, "content": msg.content}
+                    {"role": msg.role, "content": msg.content, "metadata": msg.metadata_ or None}
                     for msg in messages
                 ]
 

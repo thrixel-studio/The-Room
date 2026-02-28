@@ -83,6 +83,7 @@ class ChatMessageResponse(BaseModel):
 class RecentMessageResponse(BaseModel):
     role: str
     content: str
+    metadata: Optional[Dict] = None
 
     class Config:
         from_attributes = True

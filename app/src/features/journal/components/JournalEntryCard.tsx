@@ -1,11 +1,30 @@
 import React, { useState, useRef, useEffect } from "react";
-import { NotebookText, Image, Sparkles, CirclePlay, Play, ExternalLink } from "lucide-react";
+import { NotebookText, Image, Sparkles, CirclePlay, Play, ExternalLink, Heart, Target, Zap, Lightbulb, type LucideIcon } from "lucide-react";
 import { decodeHtmlEntities } from "@/shared/lib/text";
 import OptimizedImage from "@/shared/components/OptimizedImage";
 
+const frameworkIcons: Record<string, LucideIcon> = {
+  mental_wellness: Heart,
+  decision_making: Target,
+  productivity_boost: Zap,
+  problem_solving: Lightbulb,
+};
+
+const frameworkNames: Record<string, string> = {
+  mental_wellness: 'Psychologist',
+  decision_making: 'Advisor',
+  productivity_boost: 'Strategist',
+  problem_solving: 'Mediator',
+};
+
 interface RecentMessage {
-  role: 'user' | 'assistant';
+  role: 'user' | 'assistant' | 'system';
   content: string;
+  metadata?: {
+    event?: string;
+    from_framework?: string;
+    to_framework?: string;
+  } | null;
 }
 
 interface JournalEntry {
@@ -248,8 +267,25 @@ const JournalEntryCard = React.memo(function JournalEntryCard({ entry, onImageLo
           <div ref={messagesRef} className="flex flex-col gap-1.5 overflow-y-auto" style={{ height: '85cqh', scrollbarWidth: 'none', maskImage: 'linear-gradient(to bottom, transparent 0%, black 16px)' }}>
             <div className="mt-auto" />
             {entry.recent_messages && entry.recent_messages.length > 0 ? (
-              entry.recent_messages.slice(-5).map((msg, idx) => (
-                <div key={idx} className={`last:mb-3 ${msg.role === 'assistant' ? 'w-full' : 'flex justify-end'}`}>
+              entry.recent_messages.slice(-5).map((msg, idx) => {
+                // Framework switch system messages → render as inline divider
+                if (msg.role === 'system' && msg.metadata?.event === 'framework_switch') {
+                  const toFramework = msg.metadata.to_framework ?? '';
+                  const Icon = frameworkIcons[toFramework];
+                  const name = frameworkNames[toFramework] ?? toFramework;
+                  return (
+                    <div key={idx} className="flex items-center gap-2 py-1.5">
+                      <div className="flex-1 h-px opacity-20" style={{ background: 'var(--app-text-secondary-color)' }} />
+                      <span className="flex items-center gap-1 text-[10px] opacity-50 select-none" style={{ color: 'var(--app-text-secondary-color)' }}>
+                        {Icon && <Icon size={9} />}
+                        {name}
+                      </span>
+                      <div className="flex-1 h-px opacity-20" style={{ background: 'var(--app-text-secondary-color)' }} />
+                    </div>
+                  );
+                }
+                return (
+                <div key={idx} className={`${msg.role === 'assistant' ? 'w-full' : 'flex justify-end'}`}>
                   {msg.role === 'assistant' ? (
                     <div
                       className="text-[13px] text-white/70 pl-1"
@@ -263,7 +299,8 @@ const JournalEntryCard = React.memo(function JournalEntryCard({ entry, onImageLo
                     </div>
                   )}
                 </div>
-              ))
+                );
+              })
             ) : entry.last_message ? (
               <div className="text-xs text-white/70 truncate">
                 {decodeHtmlEntities(entry.last_message)}
@@ -273,6 +310,7 @@ const JournalEntryCard = React.memo(function JournalEntryCard({ entry, onImageLo
                 Start your conversation...
               </div>
             )}
+            <div className="mb-1" />
           </div>
         ) : (
           /* Generated: Show title */
