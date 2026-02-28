@@ -58,7 +58,7 @@ export default function ContentSpinner({ size = 'md', className = '' }: ContentS
         >
           <div className="relative">
             <Image
-              src="/images/logo/s3.png"
+              src="/images/logo/logo1.png"
               alt="Loading"
               width={logo}
               height={logo}

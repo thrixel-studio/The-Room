@@ -67,7 +67,7 @@ export default function AppLoading({ isFadingOut = false, onComplete }: AppLoadi
               {/* Logo */}
               <div className="relative z-10">
                 <Image
-                  src="/images/logo/s3.png"
+                  src="/images/logo/logo1.png"
                   alt="Loading"
                   width={45}
                   height={45}

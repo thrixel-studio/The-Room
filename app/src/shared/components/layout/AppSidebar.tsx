@@ -267,7 +267,7 @@ const AppSidebar: React.FC = React.memo(() => {
         <div className="flex-shrink-0 mb-3 flex justify-center">
           <div className="w-10 h-10 rounded-xl overflow-hidden flex items-center justify-center">
             <Image
-              src="/images/logo/s3.png"
+              src="/images/logo/logo1.png"
               alt="The Room Logo"
               width={40}
               height={40}

@@ -38,7 +38,7 @@ const AppHeader: React.FC = () => {
             <Image
               width={32}
               height={32}
-              src="/images/logo/logo.svg"
+              src="/images/logo/logo1.png"
               alt="Logo"
             />
             <span className="text-2xl text-black text-white">

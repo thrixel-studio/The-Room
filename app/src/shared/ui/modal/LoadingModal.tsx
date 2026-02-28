@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import { Modal } from "./index";
-import { Sparkles } from "lucide-react";
+import Image from "next/image";
 import Button from "../button/Button";
 
 interface LoadingModalProps {
@@ -23,9 +23,13 @@ export const LoadingModal: React.FC<LoadingModalProps> = ({
       className="max-w-md p-8"
     >
       <div className="flex flex-col items-center justify-center space-y-6">
-        <Sparkles 
-          className="w-16 h-16 animate-pulse" 
-          style={{ color: '#3B82F6' }}
+        <Image
+          src="/images/logo/logo1.png"
+          alt="Loading"
+          width={64}
+          height={64}
+          className="animate-pulse drop-shadow-xl rounded-lg"
+          priority
         />
         <div className="text-center">
           <h3 className="text-lg font-semibold text-gray-800 text-white/90 mb-2">
