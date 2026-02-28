@@ -1,0 +1,93 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "key_points": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "emotions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "MUST be strictly ONE WORD only (e.g., 'anxious', 'hopeful', 'determined')",
+            "pattern": "^[a-zA-Z]+$"
+          },
+          "percentage": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "evidence": {
+            "type": "string"
+          },
+          "visual_qualities": {
+            "type": "string"
+          }
+        },
+        "required": ["name", "percentage", "evidence", "visual_qualities"]
+      }
+    },
+    "key_insight": {
+      "type": "string",
+      "description": "The single most meaningful observation from this conversation (1-2 sentences, written in second person directly to the user)"
+    },
+    "patterns": {
+      "type": "array",
+      "description": "2-3 recurring thought patterns or themes noticed across this conversation, written in second person",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 2,
+      "maxItems": 3
+    },
+    "reflection_questions": {
+      "type": "array",
+      "description": "2-3 open, thought-provoking questions for the user to sit with — no answers, just prompts for deeper reflection",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 2,
+      "maxItems": 3
+    },
+    "tips": {
+      "type": "array",
+      "description": "2-4 exploration cards for future The Room sessions",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Short card title, 4-6 words, captures the essence of the topic"
+          },
+          "description": {
+            "type": "string",
+            "description": "One sentence describing the specific topic or question to explore"
+          },
+          "framework_key": {
+            "type": "string",
+            "enum": ["mental_wellness", "decision_making", "productivity_boost", "problem_solving"],
+            "description": "Framework best suited for this topic — choose based on content, not the current framework"
+          }
+        },
+        "required": ["title", "description", "framework_key"]
+      },
+      "minItems": 2,
+      "maxItems": 4
+    }
+  },
+  "required": ["title", "summary", "key_points", "emotions", "key_insight", "patterns", "reflection_questions", "tips"]
+}

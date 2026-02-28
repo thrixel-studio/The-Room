@@ -1,0 +1,14 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "content": {
+      "type": "string"
+    },
+    "prompt_type": {
+      "type": "string",
+      "enum": ["question", "reflection", "encouragement", "clarification"]
+    }
+  },
+  "required": ["content", "prompt_type"]
+}

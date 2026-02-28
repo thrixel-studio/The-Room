@@ -1,0 +1,39 @@
+# Web Framework
+fastapi
+uvicorn[standard]
+python-multipart
+
+# Database
+sqlalchemy
+psycopg2-binary
+alembic
+
+# Authentication & Security
+python-jose[cryptography]
+passlib[bcrypt]
+bcrypt
+
+# Configuration
+pydantic
+pydantic-settings
+python-dotenv
+pydantic[email]
+
+# HTTP Client
+httpx
+
+# OpenAI
+openai
+
+# AWS S3 (for image storage)
+boto3
+botocore
+
+# Image Processing
+Pillow>=10.0.0
+
+# Utilities
+python-dateutil
+
+# Server-Sent Events for streaming
+sse-starlette

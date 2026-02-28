@@ -1,0 +1,1 @@
+self.__NEXT_FONT_MANIFEST="{\"pages\":{},\"app\":{\"/Users/dmitriyvolynov/Scriptorium/Thrixel-Studio/Projects/Solace-AI/landing/src/app/layout\":[\"static/media/0e9d289c6eb42bf7-s.p.woff2\",\"static/media/7b0b24f36b1a6d0b-s.p.woff2\"]},\"appUsingSizeAdjust\":true,\"pagesUsingSizeAdjust\":false}"

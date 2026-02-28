@@ -1,0 +1,32 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "suggestions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "suggestion_text": {
+            "type": "string",
+            "description": "A compelling 1-2 sentence suggestion for the user to explore further"
+          },
+          "framework_key": {
+            "type": "string",
+            "enum": ["mental_wellness", "decision_making", "productivity_boost", "problem_solving"],
+            "description": "The framework best suited for this exploration"
+          },
+          "context_brief": {
+            "type": "string",
+            "description": "A concise handoff note (3-5 sentences) summarizing what was discussed and what direction to explore, written as one specialist referring to another"
+          }
+        },
+        "required": ["suggestion_text", "framework_key", "context_brief"]
+      },
+      "minItems": 2,
+      "maxItems": 3
+    }
+  },
+  "required": ["suggestions"]
+}
