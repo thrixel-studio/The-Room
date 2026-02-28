@@ -20,8 +20,7 @@ export function FrameworkSwitchDivider({ frameworkKey }: { frameworkKey: Framewo
         className="flex items-center gap-1.5 text-xs select-none"
         style={{ color: 'var(--app-accent-secondary-color)' }}
       >
-        <Icon size={11} />
-        Switched to {name}
+        Switched to <Icon size={11} /> {name}
       </span>
       <div className="flex-1 h-px opacity-20" style={{ background: 'var(--app-accent-secondary-color)' }} />
     </div>
