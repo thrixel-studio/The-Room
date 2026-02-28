@@ -14,7 +14,7 @@ export default function EmotionalStateTable() {
 
   // Fetch real emotion insights from API
   const { data: insightsData, error } = useQuery({
-    queryKey: queryKeys.insights.dashboard('30d'),
+    queryKey: queryKeys.insights.dashboard(),
     queryFn: async () => {
       const accessToken = tokenStorage.getAccessToken();
       if (!accessToken) {

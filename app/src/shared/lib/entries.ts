@@ -49,4 +49,10 @@ export const entriesApi = {
       method: 'DELETE',
     });
   },
+
+  async deleteAllEntries(accessToken: string): Promise<void> {
+    await authenticatedFetchJson(`/entries`, accessToken, {
+      method: 'DELETE',
+    });
+  },
 };

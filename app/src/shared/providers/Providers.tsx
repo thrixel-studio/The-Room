@@ -7,7 +7,7 @@ import { makeStore, AppStore } from '@/shared/store/store';
 import { LoadingProvider } from '@/shared/components/LoadingProvider';
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  const storeRef = useRef<AppStore>();
+  const storeRef = useRef<AppStore | null>(null);
   
   // Initialize QueryClient
   const [queryClient] = useState(() => new QueryClient({
@@ -56,7 +56,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <Provider store={storeRef.current}>
+    <Provider store={storeRef.current!}>
       <QueryClientProvider client={queryClient}>
         <LoadingProvider>
           {children}
