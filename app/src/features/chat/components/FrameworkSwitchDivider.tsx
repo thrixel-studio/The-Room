@@ -15,15 +15,15 @@ export function FrameworkSwitchDivider({ frameworkKey }: { frameworkKey: Framewo
 
   return (
     <div className="flex items-center gap-3 py-3">
-      <div className="flex-1 h-px opacity-20" style={{ background: 'var(--app-text-secondary-color)' }} />
+      <div className="flex-1 h-px opacity-20" style={{ background: 'var(--app-accent-secondary-color)' }} />
       <span
-        className="flex items-center gap-1.5 text-xs opacity-50 select-none"
-        style={{ color: 'var(--app-text-secondary-color)' }}
+        className="flex items-center gap-1.5 text-xs select-none"
+        style={{ color: 'var(--app-accent-secondary-color)' }}
       >
         <Icon size={11} />
         Switched to {name}
       </span>
-      <div className="flex-1 h-px opacity-20" style={{ background: 'var(--app-text-secondary-color)' }} />
+      <div className="flex-1 h-px opacity-20" style={{ background: 'var(--app-accent-secondary-color)' }} />
     </div>
   );
 }

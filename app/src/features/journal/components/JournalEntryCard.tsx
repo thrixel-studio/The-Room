@@ -301,12 +301,12 @@ const JournalEntryCard = React.memo(function JournalEntryCard({ entry, onImageLo
               const name = frameworkNames[entry.framework] ?? entry.framework;
               return (
                 <div className="flex items-center gap-2 py-1.5 mb-1">
-                  <div className="flex-1 h-px opacity-20" style={{ background: 'var(--app-text-secondary-color)' }} />
-                  <span className="flex items-center gap-1 text-[10px] opacity-50 select-none" style={{ color: 'var(--app-text-secondary-color)' }}>
+                  <div className="flex-1 h-px opacity-20" style={{ background: 'var(--app-accent-secondary-color)' }} />
+                  <span className="flex items-center gap-1 text-[10px] select-none" style={{ color: 'var(--app-accent-secondary-color)' }}>
                     {Icon && <Icon size={9} />}
                     {name}
                   </span>
-                  <div className="flex-1 h-px opacity-20" style={{ background: 'var(--app-text-secondary-color)' }} />
+                  <div className="flex-1 h-px opacity-20" style={{ background: 'var(--app-accent-secondary-color)' }} />
                 </div>
               );
             })()}
