@@ -1,5 +1,9 @@
-import PageLoadingWrapper from '@/shared/components/PageLoadingWrapper';
+import ContentSpinner from '@/shared/components/ContentSpinner';
 
 export default function Loading() {
-  return <PageLoadingWrapper />;
+  return (
+    <div className="flex items-center justify-center h-full min-h-[200px]">
+      <ContentSpinner size="md" />
+    </div>
+  );
 }
