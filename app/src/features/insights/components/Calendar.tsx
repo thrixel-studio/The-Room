@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import { entriesApi } from "@/shared/lib/entries";
+import { entriesApi, EntryDetail } from "@/shared/lib/entries";
 import { tokenStorage } from "@/shared/lib/storage";
 import { queryKeys } from "@/shared/lib/query-keys";
 
@@ -45,7 +45,7 @@ export default function JournalCalendar() {
     if (!entriesData?.items) return new Set<string>();
     
     const dateSet = new Set<string>();
-    entriesData.items.forEach(entry => {
+    entriesData.items.forEach((entry: EntryDetail) => {
       dateSet.add(entry.entry_date);
     });
     return dateSet;

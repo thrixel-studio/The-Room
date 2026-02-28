@@ -1,5 +1,35 @@
-.branding
-.claude
-.cursor
+# ─── OS ───────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ─── Editors / IDEs ───────────────────────────────────
+.vscode/
+.cursor/
+.idea/
+*.swp
+*.swo
+*~
+
+# ─── Private / local tooling ──────────────────────────
+.branding/
+.claude/
+
+# ─── Environment ──────────────────────────────────────
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# ─── Dependencies ─────────────────────────────────────
 node_modules/
-*/node_modules/
+
+# ─── Logs ─────────────────────────────────────────────
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
