@@ -49,6 +49,7 @@ interface JournalEntry {
   recent_messages?: RecentMessage[];  // Last few messages for draft preview
   last_message_timestamp?: string | null;
   last_message?: string | null;
+  framework?: string | null;
 }
 
 interface JournalEntryCardProps {
