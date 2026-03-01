@@ -23,20 +23,12 @@ export function Features() {
         transition={{ duration: 0.5 }}
       >
         {/* Card */}
-        <div className="relative overflow-hidden rounded-2xl border border-[var(--app-border-primary-color)]">
-
-          {/* Gradient bottom accent line */}
-          <div className="absolute bottom-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-[var(--app-accent-color)] via-[var(--app-accent-secondary-color)] to-[var(--app-accent-color)] z-10" />
+        <div className="relative overflow-hidden rounded-2xl">
 
           <div className="flex flex-col lg:flex-row">
 
             {/* Left panel */}
-            <div className="flex-1 bg-[var(--app-bg-secondary-color)] p-8 sm:p-10 lg:p-12 relative overflow-hidden">
-              {/* Decorative ring */}
-              <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full border border-[var(--app-accent-color)]/10 pointer-events-none" />
-              <div className="absolute -bottom-10 -left-10 w-40 h-40 rounded-full border border-[var(--app-accent-color)]/8 pointer-events-none" />
-              {/* Ambient glow */}
-              <div className="absolute top-0 right-0 w-72 h-72 bg-[var(--app-accent-color)]/5 rounded-full blur-3xl pointer-events-none" />
+            <div className="flex-1 p-8 sm:p-10 lg:p-12 relative overflow-hidden ">
 
               <div className="relative z-10 flex flex-col sm:flex-row h-full gap-8 sm:gap-10">
 

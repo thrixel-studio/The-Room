@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 
@@ -11,6 +11,7 @@ import { Container } from "@/components/ui/Container";
 const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://app-the-room.vercel.app";
 
 const images = [
+  { src: "/demo/0.webp", alt: "The Room - Screen 0" },
   { src: "/demo/1.webp", alt: "The Room - Screen 1" },
   { src: "/demo/2.webp", alt: "The Room - Screen 2" },
   { src: "/demo/3.webp", alt: "The Room - Screen 3" },
@@ -21,7 +22,21 @@ const images = [
 
 export function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [autoPlay, setAutoPlay] = useState(true);
   const galleryRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!autoPlay) return;
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % images.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [autoPlay]);
+
+  const handleManualSelect = (i: number) => {
+    setAutoPlay(false);
+    setActiveIndex(i);
+  };
 
   const scrollToGallery = () => {
     galleryRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
@@ -83,7 +98,7 @@ export function Hero() {
             className="mt-12 relative hero-fade-in-lg hero-delay-4"
           >
             {/* Image carousel — dissolve */}
-            <div className="relative rounded-2xl overflow-hidden border-[1.5px] border-[var(--app-border-primary-color)] max-w-4xl mx-auto aspect-[1400/876] shadow-xl">
+            <div className="relative rounded-2xl overflow-hidden border-[1.5px] border-[var(--app-border-primary-color)] max-w-4xl mx-auto aspect-[1400/876] shadow-xl cursor-pointer" onClick={() => handleManualSelect(activeIndex)}>
               {images.map((img, i) => (
                 <div
                   key={i}
@@ -110,7 +125,7 @@ export function Hero() {
               {images.map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => setActiveIndex(i)}
+                  onClick={() => handleManualSelect(i)}
                   className={`w-8 h-8 rounded-full text-sm font-medium transition-all ${
                     i === activeIndex
                       ? "bg-white text-[var(--app-bg-primary-color)] scale-110"
