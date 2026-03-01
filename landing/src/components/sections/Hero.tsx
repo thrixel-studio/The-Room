@@ -28,7 +28,7 @@ export function Hero() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center pt-10 overflow-hidden">
+    <section className="relative min-h-screen flex items-center pt-10 overflow-x-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 grid-pattern" />
       <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-gradient-radial opacity-30" />
@@ -122,7 +122,7 @@ export function Hero() {
             </div>
 
             {/* Decorative glow */}
-            <div className="absolute -inset-4 bg-violet-600/10 rounded-3xl blur-3xl -z-10" />
+            <div className="absolute -inset-4 bg-[var(--app-accent-color)]/5 rounded-3xl blur-3xl -z-10" />
           </div>
         </div>
       </Container>

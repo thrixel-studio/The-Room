@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Sparkles, Mail, Heart } from "lucide-react";
 import { Container } from "@/components/ui/Container";
-import { Button } from "@/components/ui/Button";
 
 const footerLinks = {
   product: [
@@ -25,29 +24,6 @@ const footerLinks = {
 export function Footer() {
   return (
     <footer className="bg-[var(--app-bg-tertiary-color)] border-t border-[var(--app-border-primary-color)]">
-      {/* CTA Section */}
-      <div className="bg-gradient-to-r from-[var(--app-bg-secondary-color)] via-[var(--app-bg-primary-color)] to-[var(--app-bg-secondary-color)]">
-        <Container>
-          <div className="py-16 sm:py-20 text-center">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-[var(--app-text-primary-color)]">
-              Begin Your Journey
-            </h2>
-            <p className="text-lg text-[var(--app-text-secondary-color)] mb-8 max-w-2xl mx-auto">
-              Take the first step toward better mental wellness today. The Room
-              is here to support you 24/7.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="primary" size="lg">
-                Start Free Trial
-              </Button>
-              <Button variant="outline" size="lg">
-                Learn More
-              </Button>
-            </div>
-          </div>
-        </Container>
-      </div>
-
       {/* Main Footer */}
       <Container>
         <div className="py-12 sm:py-16">
