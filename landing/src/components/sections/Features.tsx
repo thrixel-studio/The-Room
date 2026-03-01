@@ -95,7 +95,7 @@ const getIconClass = (colorClass: string) => {
 
 export function Features() {
   return (
-    <Section id="features" background="secondary">
+    <Section id="features">
       <SectionHeader
         badge="Features"
         title="Everything You Need for Mental Wellness"

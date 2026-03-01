@@ -297,12 +297,7 @@
 }
 
 /* Grid background pattern */
-.grid-pattern {
-  background-image:
-    linear-gradient(rgba(83, 85, 200, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(83, 85, 200, 0.03) 1px, transparent 1px);
-  background-size: 50px 50px;
-}
+.grid-pattern {}
 
 /* Glow effects */
 .glow-accent {

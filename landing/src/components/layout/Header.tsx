@@ -1,8 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, Sparkles } from "lucide-react";
+import Image from "next/image";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import clsx from "clsx";
@@ -13,37 +14,25 @@ const navigation = [
   { name: "Resources", href: "/resources" },
 ];
 
+const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://app-the-room.vercel.app";
+
 export function Header() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
   return (
-    <header
-      className={clsx(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-        isScrolled
-          ? "bg-[var(--app-bg-primary-color)]/95 backdrop-blur-lg border-b border-[var(--app-border-primary-color)] shadow-lg"
-          : "bg-transparent"
-      )}
-    >
+    <header className="w-full z-50 bg-transparent">
       <Container>
         <nav className="flex items-center justify-between h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-600 to-amber-500 flex items-center justify-center transition-transform group-hover:scale-105">
-              <Sparkles className="w-5 h-5 text-white" />
-            </div>
-            <span className="text-xl font-bold text-[var(--app-text-primary-color)]">
-              The Room
-            </span>
+          <Link href="/" className="flex items-center group">
+            <Image
+              src="/logo/logo-full.png"
+              alt="The Room"
+              width={210}
+              height={70}
+              className="h-16 w-auto transition-opacity group-hover:opacity-80"
+              priority
+            />
           </Link>
 
           {/* Desktop Navigation */}
@@ -59,11 +48,18 @@ export function Header() {
             ))}
           </div>
 
-          {/* CTA Button */}
-          <div className="hidden md:block">
-            <Button variant="primary" size="md">
-              Get Started
-            </Button>
+          {/* CTA Buttons */}
+          <div className="hidden md:flex items-center gap-3">
+            <a href={`${appUrl}/signin`}>
+              <Button variant="outline" size="md" className="!p-0 !border-0 !text-[var(--app-text-secondary-color)] hover:!opacity-70 hover:!bg-transparent">
+                Login
+              </Button>
+            </a>
+            <a href={`${appUrl}/signup`}>
+              <Button variant="primary" size="md" className="!bg-[var(--app-accent-secondary-color)] border-0 !text-[#1e1f22] !px-3 !py-2 hover:brightness-90">
+                Try it out
+              </Button>
+            </a>
           </div>
 
           {/* Mobile Menu Button */}
@@ -101,10 +97,17 @@ export function Header() {
                   {item.name}
                 </Link>
               ))}
-              <div className="pt-4">
-                <Button variant="primary" size="md" fullWidth>
-                  Get Started
-                </Button>
+              <div className="pt-4 flex flex-col gap-2">
+                <a href={`${appUrl}/signin`} className="w-full">
+                  <Button variant="outline" size="md" fullWidth>
+                    Login
+                  </Button>
+                </a>
+                <a href={`${appUrl}/signup`} className="w-full">
+                  <Button variant="primary" size="md" fullWidth className="!bg-[var(--app-accent-secondary-color)] border-0 !text-[#1e1f22] !px-3 !py-2 hover:brightness-90">
+                    Try it out
+                  </Button>
+                </a>
               </div>
             </div>
           </Container>

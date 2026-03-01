@@ -1,23 +1,53 @@
 import type { Metadata } from "next";
-import { Outfit, Dancing_Script } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 
-const outfit = Outfit({
+const outfit = localFont({
+  src: [
+    {
+      path: "../../public/fonts/outfit-latin-ext.woff2",
+      weight: "100 900",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/outfit-latin.woff2",
+      weight: "100 900",
+      style: "normal",
+    },
+  ],
   variable: "--font-outfit",
-  subsets: ["latin"],
   display: "swap",
 });
 
-const dancingScript = Dancing_Script({
-  variable: "--font-dancing",
-  subsets: ["latin"],
+const dancingScript = localFont({
+  src: [
+    {
+      path: "../../public/fonts/dancing-script-vietnamese.woff2",
+      weight: "400 700",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/dancing-script-latin-ext.woff2",
+      weight: "400 700",
+      style: "normal",
+    },
+    {
+      path: "../../public/fonts/dancing-script-latin.woff2",
+      weight: "400 700",
+      style: "normal",
+    },
+  ],
+  variable: "--font-dancing-script",
   display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "The Room - Your AI-Powered Mental Wellness Companion",
+  title: {
+    default: "The Room",
+    template: "%s | The Room",
+  },
   description:
     "24/7 emotional support through AI-powered journaling, insights, and personalized guidance. Begin your journey to better mental wellness today.",
   keywords: [
