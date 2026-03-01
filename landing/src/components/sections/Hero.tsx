@@ -47,6 +47,7 @@ export function Hero() {
                 size="md"
                 icon={<ArrowRight className="w-4 h-4" />}
                 iconPosition="right"
+                className="shadow-md"
               >
                 Go to Application
               </Button>
@@ -54,7 +55,7 @@ export function Hero() {
             <Button
               variant="ghost"
               size="sm"
-              className="bg-white/5 !text-white/90 hover:bg-white/10 hover:!text-white/90 !py-2.5"
+              className="bg-white/5 !text-white/90 hover:bg-white/10 hover:!text-white/90 !py-2.5 shadow-sm"
               onClick={scrollToGallery}
             >
               Watch a Demo

@@ -6,9 +6,9 @@ import { motion } from "framer-motion";
 import { Section } from "@/components/ui/Section";
 
 const images = [
+  { src: "/demo/2.webp", alt: "The Room - Screen 2" },
   { src: "/demo/1.webp", alt: "The Room - Screen 1" },
   { src: "/demo/0.webp", alt: "The Room - Screen 0" },
-  { src: "/demo/2.webp", alt: "The Room - Screen 2" },
   { src: "/demo/3.webp", alt: "The Room - Screen 3" },
   { src: "/demo/4.webp", alt: "The Room - Screen 4" },
   { src: "/demo/5.webp", alt: "The Room - Screen 5" },

@@ -5,16 +5,10 @@ import { Container } from "@/components/ui/Container";
 
 const footerLinks = {
   product: [
-    { name: "Features", href: "/#features" },
-    { name: "How It Works", href: "/#how-it-works" },
-    { name: "Pricing", href: "/#pricing" },
-    { name: "FAQ", href: "/#faq" },
-  ],
-  company: [
-    { name: "About", href: "/about" },
-    { name: "Resources", href: "/resources" },
-    { name: "Careers", href: "#" },
-    { name: "Contact", href: "#" },
+    { name: "Journaling", href: "/#journaling" },
+    { name: "Frameworks", href: "/#frameworks" },
+    { name: "Demo", href: "/#demo" },
+    { name: "Team", href: "/#team" },
   ],
   legal: [
     { name: "Privacy Policy", href: "/privacy" },
@@ -27,7 +21,7 @@ export function Footer() {
     <footer className="bg-[var(--app-bg-tertiary-color)] border-t border-[var(--app-border-primary-color)]">
       <Container>
         <div className="py-12 sm:py-16">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8 lg:gap-12">
 
             {/* Brand Column */}
             <div className="col-span-2 md:col-span-1">
@@ -45,11 +39,11 @@ export function Footer() {
                 support your journey.
               </p>
               <a
-                href="mailto:support@theroom.ai"
+                href="mailto:dvolynov@gmail.com"
                 className="inline-flex items-center gap-2 text-sm text-[var(--app-text-secondary-color)] hover:text-[var(--app-accent-secondary-color)] transition-colors"
               >
                 <Mail className="w-4 h-4" />
-                support@theroom.ai
+                dvolynov@gmail.com
               </a>
             </div>
 
@@ -60,25 +54,6 @@ export function Footer() {
               </h3>
               <ul className="space-y-3">
                 {footerLinks.product.map((link) => (
-                  <li key={link.name}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-[var(--app-text-secondary-color)] hover:text-[var(--app-text-primary-color)] transition-colors"
-                    >
-                      {link.name}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Company Links */}
-            <div>
-              <h3 className="text-sm font-medium text-[var(--app-text-primary-color)] mb-4">
-                Company
-              </h3>
-              <ul className="space-y-3">
-                {footerLinks.company.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}

@@ -7,27 +7,23 @@ import { Section } from "@/components/ui/Section";
 const members = [
   {
     name: "Dmitriy Volynov",
-    role: "Fullstack ML Engineer",
+    role: "ML Engineer",
     image: "/team/oyvr6cv2c5vvyqunkte5.webp",
-    href: "https://linkedin.com",
   },
   {
     name: "Artyom Ostrikov",
-    role: "Web Developer",
+    role: "Backend Developer",
     image: "/team/qfzssuxt1qsdovvrvye6.webp",
-    href: "https://linkedin.com",
   },
   {
     name: "Rasul Kusainov",
     role: "Web Developer",
     image: "/team/ebqidvxmk1f7dfbxukgc.webp",
-    href: "https://linkedin.com",
   },
   {
     name: "Yaroslav Knyazev",
-    role: "Vibe Coder",
+    role: "UI/UX Designer",
     image: "/team/wh9wf0se3oxhgfgdbqls.webp",
-    href: "https://linkedin.com",
   },
 ];
 
@@ -51,11 +47,8 @@ export function Team() {
 
       <div className="flex flex-wrap justify-center gap-8">
         {members.map((member, i) => (
-          <motion.a
+          <motion.div
             key={member.name}
-            href={member.href}
-            target="_blank"
-            rel="noopener noreferrer"
             className="flex flex-col items-center gap-4"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -78,7 +71,7 @@ export function Team() {
                 {member.role}
               </p>
             </div>
-          </motion.a>
+          </motion.div>
         ))}
       </div>
     </Section>

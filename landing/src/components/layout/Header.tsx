@@ -9,10 +9,12 @@ import { Container } from "@/components/ui/Container";
 import clsx from "clsx";
 
 const navigation = [
+  { name: "Journaling", href: "#journaling" },
+  { name: "Overview", href: "#features" },
+  { name: "Frameworks", href: "#frameworks" },
+  { name: "Insights", href: "#insights" },
   { name: "Demo", href: "#demo" },
-  { name: "Features", href: "#features" },
-  { name: "How It Works", href: "#how-it-works" },
-  { name: "FAQ", href: "#faq" },
+  { name: "Team", href: "#team" },
 ];
 
 const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://app-the-room.vercel.app";

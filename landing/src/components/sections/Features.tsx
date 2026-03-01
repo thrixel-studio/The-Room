@@ -52,7 +52,7 @@ export function Features() {
                     <div key={s.label} className="flex flex-col gap-0.5">
                       <div
                         className="text-2xl font-bold"
-                        style={{ color: "var(--app-accent-secondary-color)" }}
+                        style={{ color: "var(--app-accent-color)" }}
                       >
                         {s.value}
                       </div>
