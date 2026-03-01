@@ -1,6 +1,6 @@
 import { SkeletonBase } from './SkeletonBase';
 import { Sparkles } from 'lucide-react';
-import Image from 'next/image';
+import ContentSpinner from '@/shared/components/ContentSpinner';
 
 /**
  * Skeleton component shown while AI is generating the journal entry summary
@@ -13,45 +13,9 @@ export function GeneratingSummarySkeleton() {
       <div className="w-full aspect-square rounded-t-2xl overflow-hidden relative bg-[#16171a]">
         <SkeletonBase width="w-full" height="h-full" rounded="2xl" className="!rounded-b-none" />
 
-        {/* Custom Spinner in center */}
+        {/* Spinner in center */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-          <div className="relative w-[76px] h-[76px]">
-
-            {/* Static background ring */}
-            <svg viewBox="0 0 76 76" className="absolute inset-0 w-full h-full">
-              <circle
-                cx="38" cy="38" r="34"
-                fill="none"
-                stroke="rgba(255,255,255,0.12)"
-                strokeWidth="3"
-              />
-            </svg>
-
-            {/* Rotating arc */}
-            <div className="absolute inset-0 animate-spin [animation-duration:2.2s]">
-              <svg viewBox="0 0 76 76" className="w-full h-full">
-                <circle
-                  cx="38" cy="38" r="34"
-                  fill="none"
-                  stroke="rgba(255,255,255,0.65)"
-                  strokeWidth="3"
-                  strokeLinecap="round"
-                  strokeDasharray="53 160"
-                />
-              </svg>
-            </div>
-
-            {/* Logo */}
-            <div className="absolute inset-0 flex items-center justify-center">
-              <Image
-                src="/images/logo/logo.svg"
-                alt="Loading"
-                width={32}
-                height={32}
-              />
-            </div>
-
-          </div>
+          <ContentSpinner size="md" />
         </div>
 
         {/* Generating Badge - Top Left */}

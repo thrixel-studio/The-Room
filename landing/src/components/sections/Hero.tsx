@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Container } from "@/components/ui/Container";
 
+const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://app-the-room.vercel.app";
+
 export function Hero() {
   return (
     <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
@@ -59,14 +61,16 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
           >
-            <Button
-              variant="accent"
-              size="lg"
-              icon={<ArrowRight className="w-5 h-5" />}
-              iconPosition="right"
-            >
-              Try It Out
-            </Button>
+            <a href={appUrl}>
+              <Button
+                variant="accent"
+                size="lg"
+                icon={<ArrowRight className="w-5 h-5" />}
+                iconPosition="right"
+              >
+                Go to Application
+              </Button>
+            </a>
             <Button
               variant="ghost"
               size="lg"

@@ -52,6 +52,16 @@ MANDATORY PICK B — Aesthetic movement / design language (choose EXACTLY ONE pe
 25) wabi-sabi             26) zen minimal              27) post-impressionism
 28) chiaroscuro realism   29) sci-fi concept art       30) speculative naturalism
 31) dreamlike children’s-book (no text)               32) architectural visualization
+33) Renaissance realism (balanced composition, classical anatomy, oil glaze look)
+34) Rococo (pastel palette, ornate details, airy brushwork, playful elegance)
+35) Neoclassicism (crisp edges, idealized forms, marble-like tones, restrained color)
+36) Impressionism / plein-air (broken brushstrokes, soft edges, visible paint texture)
+37) Fauvism (wild saturated colors, simplified shapes, high visual energy)
+38) Color Field painting (huge soft gradients, minimal forms, mood via color alone)
+39) Pop Art (flat graphic colors, halftone dots, bold outlines, commercial graphic feel)
+40) Hard-edge minimalism (sparse composition, limited palette, strong negative space)
+41) Mid-century modern illustration (simplified forms, warm retro palette, playful shapes)
+42) Graphic novel / comic ink art (strong inks, cel shading, dramatic panel framing)
 
 MANDATORY PICK C — Palette family (choose EXACTLY ONE per run):
 1) near-monochrome graphite
