@@ -45,13 +45,13 @@ export function Hero() {
           </div>
 
           {/* Main Heading */}
-          <h1 className="mt-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight font-[family-name:var(--font-dancing-script)] hero-fade-in hero-delay-1">
-            <span className="font-bold text-[var(--app-text-primary-color)]">Master Your Mental Wellness</span>
+          <h1 className="mt-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium leading-tight font-[family-name:var(--font-dancing-script)] hero-fade-in hero-delay-1">
+            <span className="font-medium text-[var(--app-text-primary-color)]">Master Your Mental Wellness</span>
           </h1>
 
           {/* Subheading */}
-          <p className="mt-6 text-lg sm:text-xl text-[var(--app-text-secondary-color)] max-w-2xl mx-auto hero-fade-in hero-delay-2">
-            Journal. Reflect. Transform. — talk through anything with an AI that adapts to how your mind actually works. No judgment. No waiting. Just clarity.
+          <p className="mt-6 text-base sm:text-lg text-[var(--app-text-secondary-color)] max-w-3xl mx-auto hero-fade-in hero-delay-2">
+            Your private space to think, feel, and grow — with an AI that listens without judgment, helps you understand your patterns, and supports you at any hour of the day.
           </p>
 
           {/* CTA Buttons */}
@@ -79,10 +79,11 @@ export function Hero() {
           {/* Hero Gallery */}
           <div
             ref={galleryRef}
-            className="mt-16 relative hero-fade-in-lg hero-delay-4"
+            id="demo"
+            className="mt-12 relative hero-fade-in-lg hero-delay-4"
           >
             {/* Image carousel — dissolve */}
-            <div className="relative rounded-2xl overflow-hidden border-[1.5px] border-[var(--app-border-primary-color)] max-w-4xl mx-auto aspect-[1400/876] shadow-lg">
+            <div className="relative rounded-2xl overflow-hidden border-[1.5px] border-[var(--app-border-primary-color)] max-w-4xl mx-auto aspect-[1400/876] shadow-xl">
               {images.map((img, i) => (
                 <div
                   key={i}
@@ -121,8 +122,6 @@ export function Hero() {
               ))}
             </div>
 
-            {/* Decorative glow */}
-            <div className="absolute -inset-4 bg-[var(--app-accent-color)]/5 rounded-3xl blur-3xl -z-10" />
           </div>
         </div>
       </Container>

@@ -9,9 +9,10 @@ import { Container } from "@/components/ui/Container";
 import clsx from "clsx";
 
 const navigation = [
-  { name: "Home", href: "/" },
-  { name: "About", href: "/about" },
-  { name: "Resources", href: "/resources" },
+  { name: "Demo", href: "#demo" },
+  { name: "Features", href: "#features" },
+  { name: "How It Works", href: "#how-it-works" },
+  { name: "FAQ", href: "#faq" },
 ];
 
 const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://app-the-room.vercel.app";
@@ -56,7 +57,7 @@ export function Header() {
               </Button>
             </a>
             <a href={`${appUrl}/signin`}>
-              <Button variant="primary" size="md" icon={<LogIn className="w-4 h-4" />} className="!bg-transparent !border-[var(--app-accent-secondary-color)] !text-[var(--app-accent-secondary-color)] !px-3 !py-2 hover:!bg-[var(--app-accent-secondary-color)] hover:!text-[var(--app-bg-primary-color)]">
+              <Button variant="primary" size="md" icon={<LogIn className="w-4 h-4" />} className="!bg-transparent !border-[var(--app-accent-secondary-color)] !text-[var(--app-accent-secondary-color)] !px-2 !py-1 hover:!bg-[var(--app-accent-secondary-color)] hover:!text-[var(--app-bg-primary-color)]">
                 Sign in
               </Button>
             </a>
@@ -104,7 +105,7 @@ export function Header() {
                   </Button>
                 </a>
                 <a href={`${appUrl}/signin`} className="w-full">
-                  <Button variant="primary" size="md" fullWidth className="!bg-transparent !border-[var(--app-accent-secondary-color)] !text-[var(--app-accent-secondary-color)] !px-3 !py-2 hover:!bg-[var(--app-accent-secondary-color)] hover:!text-[var(--app-bg-primary-color)]">
+                  <Button variant="primary" size="md" fullWidth className="!bg-transparent !border-[var(--app-accent-secondary-color)] !text-[var(--app-accent-secondary-color)] !px-2 !py-1 hover:!bg-[var(--app-accent-secondary-color)] hover:!text-[var(--app-bg-primary-color)]">
                     Sign in
                   </Button>
                 </a>
