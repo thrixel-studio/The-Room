@@ -1,9 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
-import { ArrowRight, Play, ShieldCheck } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowRight, ShieldCheck } from "lucide-react";
 
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -22,17 +22,10 @@ const images = [
 
 export function Hero() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [direction, setDirection] = useState(1);
+  const galleryRef = useRef<HTMLDivElement>(null);
 
-  const goTo = (i: number) => {
-    setDirection(i > activeIndex ? 1 : -1);
-    setActiveIndex(i);
-  };
-
-  const slideVariants = {
-    enter: (dir: number) => ({ x: dir > 0 ? "100%" : "-100%" }),
-    center: { x: 0 },
-    exit: (dir: number) => ({ x: dir > 0 ? "-100%" : "100%" }),
+  const scrollToGallery = () => {
+    galleryRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
   };
 
   return (
@@ -79,7 +72,7 @@ export function Hero() {
 
           {/* CTA Buttons */}
           <motion.div
-            className="mt-10 flex flex-col sm:flex-row gap-4 justify-center"
+            className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.3 }}
@@ -87,8 +80,8 @@ export function Hero() {
             <a href={appUrl}>
               <Button
                 variant="accent"
-                size="lg"
-                icon={<ArrowRight className="w-5 h-5" />}
+                size="md"
+                icon={<ArrowRight className="w-4 h-4" />}
                 iconPosition="right"
               >
                 Go to Application
@@ -96,9 +89,9 @@ export function Hero() {
             </a>
             <Button
               variant="ghost"
-              size="lg"
-              icon={<Play className="w-5 h-5" />}
-              className="bg-white/5 !text-white/90 hover:bg-white/10 hover:!text-white/90"
+              size="sm"
+              className="bg-white/5 !text-white/90 hover:bg-white/10 hover:!text-white/90 !py-2.5"
+              onClick={scrollToGallery}
             >
               Watch a Demo
             </Button>
@@ -106,33 +99,33 @@ export function Hero() {
 
           {/* Hero Gallery */}
           <motion.div
+            ref={galleryRef}
             className="mt-16 relative"
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
           >
-            {/* Image carousel */}
+            {/* Image carousel — dissolve */}
             <div className="relative rounded-xl overflow-hidden border-[1.5px] border-[var(--app-border-primary-color)] shadow-2xl max-w-4xl mx-auto aspect-[1400/876]">
-              <AnimatePresence mode="sync" initial={false} custom={direction}>
-                <motion.div
-                  key={activeIndex}
+              {images.map((img, i) => (
+                <div
+                  key={i}
                   className="absolute inset-0"
-                  custom={direction}
-                  variants={slideVariants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{ duration: 0.8, ease: "linear" }}
+                  style={{
+                    opacity: i === activeIndex ? 1 : 0,
+                    zIndex: i === activeIndex ? 1 : 0,
+                    transition: "opacity 500ms ease",
+                  }}
                 >
                   <Image
-                    src={images[activeIndex].src}
-                    alt={images[activeIndex].alt}
+                    src={img.src}
+                    alt={img.alt}
                     fill
                     className="object-cover"
-                    priority={activeIndex === 0}
+                    priority={i < 2}
                   />
-                </motion.div>
-              </AnimatePresence>
+                </div>
+              ))}
             </div>
 
             {/* Numbered navigation */}
@@ -140,7 +133,7 @@ export function Hero() {
               {images.map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => goTo(i)}
+                  onClick={() => setActiveIndex(i)}
                   className={`w-8 h-8 rounded-full text-sm font-medium transition-all ${
                     i === activeIndex
                       ? "bg-white text-[var(--app-bg-primary-color)] scale-110"

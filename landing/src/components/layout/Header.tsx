@@ -50,14 +50,14 @@ export function Header() {
 
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center gap-3">
-            <a href={`${appUrl}/signin`}>
+            <a href={`${appUrl}/signup`}>
               <Button variant="outline" size="md" className="!p-0 !border-0 !text-[var(--app-text-secondary-color)] hover:!opacity-70 hover:!bg-transparent">
-                Login
+                Sign up
               </Button>
             </a>
-            <a href={`${appUrl}/signup`}>
-              <Button variant="primary" size="md" className="!bg-[var(--app-accent-secondary-color)] border-0 !text-[#1e1f22] !px-3 !py-2 hover:brightness-90">
-                Try it out
+            <a href={`${appUrl}/signin`}>
+              <Button variant="primary" size="md" className="!bg-transparent !border-[var(--app-accent-secondary-color)] !text-[var(--app-accent-secondary-color)] !px-3 !py-2 hover:!bg-[var(--app-accent-secondary-color)] hover:!text-[var(--app-bg-primary-color)]">
+                Sign in
               </Button>
             </a>
           </div>
@@ -98,14 +98,14 @@ export function Header() {
                 </Link>
               ))}
               <div className="pt-4 flex flex-col gap-2">
-                <a href={`${appUrl}/signin`} className="w-full">
+                <a href={`${appUrl}/signup`} className="w-full">
                   <Button variant="outline" size="md" fullWidth>
-                    Login
+                    Sign up
                   </Button>
                 </a>
-                <a href={`${appUrl}/signup`} className="w-full">
-                  <Button variant="primary" size="md" fullWidth className="!bg-[var(--app-accent-secondary-color)] border-0 !text-[#1e1f22] !px-3 !py-2 hover:brightness-90">
-                    Try it out
+                <a href={`${appUrl}/signin`} className="w-full">
+                  <Button variant="primary" size="md" fullWidth className="!bg-transparent !border-[var(--app-accent-secondary-color)] !text-[var(--app-accent-secondary-color)] !px-3 !py-2 hover:!bg-[var(--app-accent-secondary-color)] hover:!text-[var(--app-bg-primary-color)]">
+                    Sign in
                   </Button>
                 </a>
               </div>
