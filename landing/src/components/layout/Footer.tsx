@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Sparkles, Mail, Heart } from "lucide-react";
+import Image from "next/image";
+import { Mail } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 
 const footerLinks = {
@@ -24,27 +25,28 @@ const footerLinks = {
 export function Footer() {
   return (
     <footer className="bg-[var(--app-bg-tertiary-color)] border-t border-[var(--app-border-primary-color)]">
-      {/* Main Footer */}
       <Container>
         <div className="py-12 sm:py-16">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12">
+
             {/* Brand Column */}
             <div className="col-span-2 md:col-span-1">
-              <Link href="/" className="flex items-center gap-2 mb-4">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-600 to-amber-500 flex items-center justify-center">
-                  <Sparkles className="w-5 h-5 text-white" />
-                </div>
-                <span className="text-xl font-bold text-[var(--app-text-primary-color)]">
-                  The Room
-                </span>
+              <Link href="/" className="flex items-center mb-5 group">
+                <Image
+                  src="/logo/logo-full.svg"
+                  alt="The Room"
+                  width={210}
+                  height={70}
+                  className="h-10 w-auto transition-opacity group-hover:opacity-80"
+                />
               </Link>
-              <p className="text-[var(--app-text-secondary-color)] text-sm mb-6">
+              <p className="text-sm text-[var(--app-text-secondary-color)] mb-5 leading-relaxed">
                 Your AI-powered mental wellness companion. Available 24/7 to
                 support your journey.
               </p>
               <a
                 href="mailto:support@theroom.ai"
-                className="inline-flex items-center gap-2 text-[var(--app-text-secondary-color)] hover:text-violet-400 transition-colors text-sm"
+                className="inline-flex items-center gap-2 text-sm text-[var(--app-text-secondary-color)] hover:text-[var(--app-accent-secondary-color)] transition-colors"
               >
                 <Mail className="w-4 h-4" />
                 support@theroom.ai
@@ -53,7 +55,7 @@ export function Footer() {
 
             {/* Product Links */}
             <div>
-              <h3 className="text-[var(--app-text-primary-color)] font-semibold mb-4">
+              <h3 className="text-sm font-medium text-[var(--app-text-primary-color)] mb-4">
                 Product
               </h3>
               <ul className="space-y-3">
@@ -61,7 +63,7 @@ export function Footer() {
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-[var(--app-text-secondary-color)] hover:text-[var(--app-text-primary-color)] transition-colors text-sm"
+                      className="text-sm text-[var(--app-text-secondary-color)] hover:text-[var(--app-text-primary-color)] transition-colors"
                     >
                       {link.name}
                     </Link>
@@ -72,7 +74,7 @@ export function Footer() {
 
             {/* Company Links */}
             <div>
-              <h3 className="text-[var(--app-text-primary-color)] font-semibold mb-4">
+              <h3 className="text-sm font-medium text-[var(--app-text-primary-color)] mb-4">
                 Company
               </h3>
               <ul className="space-y-3">
@@ -80,7 +82,7 @@ export function Footer() {
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-[var(--app-text-secondary-color)] hover:text-[var(--app-text-primary-color)] transition-colors text-sm"
+                      className="text-sm text-[var(--app-text-secondary-color)] hover:text-[var(--app-text-primary-color)] transition-colors"
                     >
                       {link.name}
                     </Link>
@@ -91,13 +93,15 @@ export function Footer() {
 
             {/* Legal Links */}
             <div>
-              <h3 className="text-[var(--app-text-primary-color)] font-semibold mb-4">Legal</h3>
+              <h3 className="text-sm font-medium text-[var(--app-text-primary-color)] mb-4">
+                Legal
+              </h3>
               <ul className="space-y-3">
                 {footerLinks.legal.map((link) => (
                   <li key={link.name}>
                     <Link
                       href={link.href}
-                      className="text-[var(--app-text-secondary-color)] hover:text-[var(--app-text-primary-color)] transition-colors text-sm"
+                      className="text-sm text-[var(--app-text-secondary-color)] hover:text-[var(--app-text-primary-color)] transition-colors"
                     >
                       {link.name}
                     </Link>
@@ -109,16 +113,16 @@ export function Footer() {
         </div>
 
         {/* Crisis Disclaimer */}
-        <div className="py-6 border-t border-[var(--app-border-primary-color)]">
-          <p className="text-xs text-[var(--app-text-tertiary-color)] text-center max-w-4xl mx-auto">
-            <strong>Important:</strong> The Room is not designed to be used in
+        <div className="py-5 border-t border-[var(--app-border-primary-color)]">
+          <p className="text-xs text-[var(--app-text-tertiary-color)] text-center max-w-4xl mx-auto leading-relaxed">
+            <strong className="text-[var(--app-text-secondary-color)]">Important:</strong> The Room is not designed to be used in
             crisis situations. If you are experiencing a mental health
             emergency, please contact your local emergency services or visit{" "}
             <a
               href="https://findahelpline.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-violet-400 hover:underline"
+              className="text-[var(--app-accent-secondary-color)] hover:underline"
             >
               findahelpline.com
             </a>{" "}
@@ -127,13 +131,9 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="py-6 border-t border-[var(--app-border-primary-color)] flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-[var(--app-text-tertiary-color)]">
+        <div className="py-5 border-t border-[var(--app-border-primary-color)]">
+          <p className="text-xs text-[var(--app-text-tertiary-color)] text-center">
             &copy; {new Date().getFullYear()} The Room. All rights reserved.
-          </p>
-          <p className="text-sm text-[var(--app-text-tertiary-color)] flex items-center gap-1">
-            Made with <Heart className="w-4 h-4 text-red-500" /> for your
-            wellness
           </p>
         </div>
       </Container>

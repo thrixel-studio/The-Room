@@ -42,7 +42,7 @@ export function Header() {
               <Link
                 key={item.name}
                 href={item.href}
-                className="text-[var(--app-text-secondary-color)] hover:text-[var(--app-text-primary-color)] transition-colors duration-200 font-medium"
+                className="text-sm text-[var(--app-text-secondary-color)] hover:text-[var(--app-text-primary-color)] transition-colors duration-200 font-medium"
               >
                 {item.name}
               </Link>
@@ -52,12 +52,12 @@ export function Header() {
           {/* CTA Buttons */}
           <div className="hidden md:flex items-center gap-3">
             <a href={`${appUrl}/signup`}>
-              <Button variant="outline" size="md" className="!p-0 !border-0 !text-[var(--app-text-secondary-color)] hover:!opacity-70 hover:!bg-transparent">
+              <Button variant="outline" size="sm" className="!p-0 !border-0 !text-[var(--app-text-secondary-color)] hover:!opacity-70 hover:!bg-transparent">
                 Sign up
               </Button>
             </a>
             <a href={`${appUrl}/signin`}>
-              <Button variant="primary" size="md" icon={<LogIn className="w-4 h-4" />} className="!bg-transparent !border-[var(--app-accent-secondary-color)] !text-[var(--app-accent-secondary-color)] !px-2 !py-1 hover:!bg-[var(--app-accent-secondary-color)] hover:!text-[var(--app-bg-primary-color)]">
+              <Button variant="primary" size="sm" icon={<LogIn className="w-3.5 h-3.5" />} className="!bg-transparent !border !border-[var(--app-accent-secondary-color)] !rounded-lg !text-[var(--app-accent-secondary-color)] !px-3 !py-1.5 hover:!bg-[var(--app-accent-secondary-color)] hover:!text-[var(--app-bg-primary-color)]">
                 Sign in
               </Button>
             </a>
@@ -105,7 +105,7 @@ export function Header() {
                   </Button>
                 </a>
                 <a href={`${appUrl}/signin`} className="w-full">
-                  <Button variant="primary" size="md" fullWidth className="!bg-transparent !border-[var(--app-accent-secondary-color)] !text-[var(--app-accent-secondary-color)] !px-2 !py-1 hover:!bg-[var(--app-accent-secondary-color)] hover:!text-[var(--app-bg-primary-color)]">
+                  <Button variant="primary" size="md" fullWidth className="!bg-transparent !border-[var(--app-accent-secondary-color)] !text-[var(--app-accent-secondary-color)] !px-4 !py-2 hover:!bg-[var(--app-accent-secondary-color)] hover:!text-[var(--app-bg-primary-color)]">
                     Sign in
                   </Button>
                 </a>

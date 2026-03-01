@@ -14,7 +14,7 @@ const stats = [
 
 export function Features() {
   return (
-    <Section id="features">
+    <Section id="features" className="!py-0">
       <motion.div
         className="flex flex-col gap-8 max-w-4xl mx-auto"
         initial={{ opacity: 0, y: 24 }}
@@ -28,14 +28,14 @@ export function Features() {
           <div className="flex flex-col lg:flex-row">
 
             {/* Left panel */}
-            <div className="flex-1 p-8 sm:p-10 lg:p-12 relative overflow-hidden ">
+            <div className="flex-1 px-8 sm:px-10 lg:px-12 relative overflow-hidden">
 
               <div className="relative z-10 flex flex-col sm:flex-row h-full gap-8 sm:gap-10">
 
                 {/* Text */}
                 <div className="flex-1">
-                  <h3 className="text-4xl sm:text-5xl font-medium text-[var(--app-text-primary-color)] mb-6 font-[family-name:var(--font-dancing-script)] leading-tight">
-                    Overview
+                  <h3 className="text-3xl sm:text-4xl font-medium text-[var(--app-text-primary-color)] mb-6 font-[family-name:var(--font-dancing-script)] leading-tight">
+                    Features
                   </h3>
 
                   <p className="text-[var(--app-text-secondary-color)] text-sm sm:text-base leading-relaxed">

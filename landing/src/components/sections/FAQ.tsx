@@ -70,19 +70,19 @@ function FAQItem({ question, answer, isOpen, onToggle, index }: FAQItemProps) {
         className="w-full py-5 flex items-center justify-between text-left group"
         aria-expanded={isOpen}
       >
-        <span className="text-lg font-medium text-[var(--app-text-primary-color)] group-hover:text-violet-400 transition-colors pr-4">
+        <span className="text-base font-medium text-[var(--app-text-primary-color)] group-hover:text-[var(--app-accent-secondary-color)] transition-colors pr-4">
           {question}
         </span>
         <motion.div
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.2 }}
-          className={`flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center transition-colors ${
+          className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-colors ${
             isOpen
-              ? "bg-violet-600 text-white"
+              ? "bg-[var(--app-accent-color)] text-white"
               : "bg-[var(--app-bg-tertiary-color)] text-[var(--app-text-secondary-color)]"
           }`}
         >
-          <ChevronDown className="w-5 h-5" />
+          <ChevronDown className="w-4 h-4" />
         </motion.div>
       </button>
 
@@ -95,7 +95,7 @@ function FAQItem({ question, answer, isOpen, onToggle, index }: FAQItemProps) {
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <p className="pb-5 text-[var(--app-text-secondary-color)] leading-relaxed">
+            <p className="pb-5 text-sm text-[var(--app-text-secondary-color)] leading-relaxed">
               {answer}
             </p>
           </motion.div>
@@ -113,25 +113,25 @@ export function FAQ() {
   };
 
   return (
-    <Section id="faq">
+    <Section id="faq" className="!py-0">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
         {/* Left column - Header */}
         <div className="lg:col-span-4">
           <div className="lg:sticky lg:top-28">
-            <div className="inline-flex items-center gap-2 mb-4 px-4 py-2 rounded-full bg-violet-600/15">
-              <HelpCircle className="w-4 h-4 text-violet-400" />
-              <span className="text-sm font-medium text-violet-400">FAQs</span>
+            <div className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-full bg-[var(--app-accent-secondary-color)]/15">
+              <HelpCircle className="w-3.5 h-3.5 text-[var(--app-accent-secondary-color)]" />
+              <span className="text-sm font-medium text-[var(--app-accent-secondary-color)]">FAQs</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-bold text-[var(--app-text-primary-color)] mb-4">
+            <h2 className="text-3xl sm:text-4xl font-medium text-[var(--app-text-primary-color)] mb-4 font-[family-name:var(--font-dancing-script)] leading-tight">
               Frequently Asked Questions
             </h2>
-            <p className="text-[var(--app-text-secondary-color)] mb-6">
+            <p className="text-sm text-[var(--app-text-secondary-color)] mb-6 leading-relaxed">
               Everything you need to know about The Room. Can&apos;t find what
               you&apos;re looking for?
             </p>
             <a
               href="mailto:support@theroom.ai"
-              className="inline-flex items-center gap-2 text-violet-400 hover:underline font-medium"
+              className="inline-flex items-center gap-2 text-sm text-[var(--app-accent-secondary-color)] hover:underline font-medium"
             >
               Contact our support team
               <svg
