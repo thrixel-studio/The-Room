@@ -35,7 +35,7 @@ export function Features() {
                 {/* Text */}
                 <div className="flex-1">
                   <h3 className="text-3xl sm:text-4xl font-medium text-[var(--app-text-primary-color)] mb-6 font-[family-name:var(--font-dancing-script)] leading-tight">
-                    Features
+                    A Quick Overview
                   </h3>
 
                   <p className="text-[var(--app-text-secondary-color)] text-sm sm:text-base leading-relaxed">
