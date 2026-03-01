@@ -2,7 +2,6 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { ArrowRight, ShieldCheck } from "lucide-react";
 
 import { Button } from "@/components/ui/Button";
@@ -29,7 +28,7 @@ export function Hero() {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden">
+    <section className="relative min-h-screen flex items-center pt-10 overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 grid-pattern" />
       <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-gradient-radial opacity-30" />
@@ -39,44 +38,24 @@ export function Hero() {
         <div className="relative z-10 max-w-7xl mx-auto text-center">
 
           {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="mb-8"
-          >
-            <Badge variant="light" color="secondary" size="md" icon={<ShieldCheck className="w-3.5 h-3.5" />} className="!bg-transparent border border-[var(--app-accent-secondary-color)] !text-[var(--app-accent-secondary-color)]">
+          <div className="mb-8 hero-fade-in">
+            <Badge variant="light" color="secondary" size="md" icon={<ShieldCheck className="w-3.5 h-3.5" />} className="!bg-[var(--app-accent-secondary-color)]/15 !border-0 !text-[var(--app-accent-secondary-color)]">
               Expert-Guided & Completely Private
             </Badge>
-          </motion.div>
+          </div>
 
           {/* Main Heading */}
-          <motion.h1
-            className="mt-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight font-[family-name:var(--font-dancing-script)]"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
+          <h1 className="mt-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold leading-tight font-[family-name:var(--font-dancing-script)] hero-fade-in hero-delay-1">
             <span className="font-bold text-[var(--app-text-primary-color)]">Master Your Mental Wellness</span>
-          </motion.h1>
+          </h1>
 
           {/* Subheading */}
-          <motion.p
-            className="mt-6 text-lg sm:text-xl text-[var(--app-text-secondary-color)] max-w-2xl mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-          >
+          <p className="mt-6 text-lg sm:text-xl text-[var(--app-text-secondary-color)] max-w-2xl mx-auto hero-fade-in hero-delay-2">
             Journal. Reflect. Transform. — talk through anything with an AI that adapts to how your mind actually works. No judgment. No waiting. Just clarity.
-          </motion.p>
+          </p>
 
           {/* CTA Buttons */}
-          <motion.div
-            className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
+          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center hero-fade-in hero-delay-3">
             <a href={appUrl}>
               <Button
                 variant="accent"
@@ -95,18 +74,15 @@ export function Hero() {
             >
               Watch a Demo
             </Button>
-          </motion.div>
+          </div>
 
           {/* Hero Gallery */}
-          <motion.div
+          <div
             ref={galleryRef}
-            className="mt-16 relative"
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.4 }}
+            className="mt-16 relative hero-fade-in-lg hero-delay-4"
           >
             {/* Image carousel — dissolve */}
-            <div className="relative rounded-xl overflow-hidden border-[1.5px] border-[var(--app-border-primary-color)] shadow-2xl max-w-4xl mx-auto aspect-[1400/876]">
+            <div className="relative rounded-2xl overflow-hidden border-[1.5px] border-[var(--app-border-primary-color)] max-w-4xl mx-auto aspect-[1400/876] shadow-lg">
               {images.map((img, i) => (
                 <div
                   key={i}
@@ -147,7 +123,7 @@ export function Hero() {
 
             {/* Decorative glow */}
             <div className="absolute -inset-4 bg-violet-600/10 rounded-3xl blur-3xl -z-10" />
-          </motion.div>
+          </div>
         </div>
       </Container>
     </section>

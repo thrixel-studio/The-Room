@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Menu, X } from "lucide-react";
+import { LogIn, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Container } from "@/components/ui/Container";
 import clsx from "clsx";
@@ -26,11 +26,11 @@ export function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center group">
             <Image
-              src="/logo/logo-full.png"
+              src="/logo/logo-full.svg"
               alt="The Room"
               width={210}
               height={70}
-              className="h-16 w-auto transition-opacity group-hover:opacity-80"
+              className="h-12 w-auto transition-opacity group-hover:opacity-80"
               priority
             />
           </Link>
@@ -56,7 +56,7 @@ export function Header() {
               </Button>
             </a>
             <a href={`${appUrl}/signin`}>
-              <Button variant="primary" size="md" className="!bg-transparent !border-[var(--app-accent-secondary-color)] !text-[var(--app-accent-secondary-color)] !px-3 !py-2 hover:!bg-[var(--app-accent-secondary-color)] hover:!text-[var(--app-bg-primary-color)]">
+              <Button variant="primary" size="md" icon={<LogIn className="w-4 h-4" />} className="!bg-transparent !border-[var(--app-accent-secondary-color)] !text-[var(--app-accent-secondary-color)] !px-3 !py-2 hover:!bg-[var(--app-accent-secondary-color)] hover:!text-[var(--app-bg-primary-color)]">
                 Sign in
               </Button>
             </a>
