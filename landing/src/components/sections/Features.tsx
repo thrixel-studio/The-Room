@@ -2,199 +2,153 @@
 
 import { motion } from "framer-motion";
 import {
+  Sparkles,
   MessageSquare,
   BookOpen,
   BarChart3,
-  Sparkles,
+  Brain,
   Shield,
   Clock,
-  Brain,
 } from "lucide-react";
-import { Section, SectionHeader } from "@/components/ui/Section";
-import { Card } from "@/components/ui/Card";
+import { Section } from "@/components/ui/Section";
 
 const features = [
-  {
-    icon: MessageSquare,
-    title: "AI-Powered Conversations",
-    description:
-      "Engage in meaningful conversations with an AI that truly listens. Our conversational AI provides thoughtful responses and gentle guidance whenever you need it.",
-    colorClass: "primary",
-  },
-  {
-    icon: BookOpen,
-    title: "Reflective Journaling",
-    description:
-      "Document your thoughts, feelings, and experiences in a private space. Our AI analyzes your entries to uncover patterns and provide personalized insights.",
-    colorClass: "secondary",
-  },
-  {
-    icon: BarChart3,
-    title: "Emotional Insights Dashboard",
-    description:
-      "Track your emotional patterns over time with beautiful visualizations. Understand your triggers, celebrate progress, and identify areas for growth.",
-    colorClass: "primary",
-  },
-  {
-    icon: Brain,
-    title: "Personalized Frameworks",
-    description:
-      "Access evidence-based mental wellness frameworks tailored to your needs. From CBT techniques to mindfulness practices, find what works for you.",
-    colorClass: "secondary",
-  },
-  {
-    icon: Shield,
-    title: "Private & Secure",
-    description:
-      "Your mental health journey is deeply personal. We use end-to-end encryption and never share your data. Your thoughts stay yours alone.",
-    colorClass: "primary",
-  },
-  {
-    icon: Clock,
-    title: "Available 24/7",
-    description:
-      "Whether it's 3 AM anxiety or a midday moment of stress, The Room is always here for you. No appointments needed, no waiting rooms.",
-    colorClass: "secondary",
-  },
+  { icon: MessageSquare, label: "AI Conversations", accent: "primary" },
+  { icon: BookOpen, label: "Private Journaling", accent: "secondary" },
+  { icon: BarChart3, label: "Emotional Insights", accent: "primary" },
+  { icon: Brain, label: "Wellness Frameworks", accent: "secondary" },
+  { icon: Shield, label: "End-to-End Encrypted", accent: "primary" },
+  { icon: Clock, label: "Available 24/7", accent: "secondary" },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-    },
-  },
-};
-
-const getIconContainerClass = (colorClass: string) => {
-  if (colorClass === "primary") {
-    return "bg-violet-600/10";
-  }
-  return "bg-amber-500/10";
-};
-
-const getIconClass = (colorClass: string) => {
-  if (colorClass === "primary") {
-    return "text-violet-400";
-  }
-  return "text-amber-400";
-};
+const stats = [
+  { value: "4", label: "Wellness Frameworks", accent: "primary", sub: "CBT · DBT · ACT · Mindfulness" },
+  { value: "6", label: "Core Features", accent: "secondary", sub: "All in one place" },
+  { value: "24/7", label: "Always Available", accent: "primary", sub: "No appointments needed" },
+  { value: "100%", label: "Private & Secure", accent: "secondary", sub: "End-to-end encrypted" },
+  { value: "<1s", label: "AI Response Time", accent: "primary", sub: "Instant, never waiting" },
+  { value: "0", label: "Data Shared", accent: "secondary", sub: "Your thoughts stay yours" },
+];
 
 export function Features() {
   return (
     <Section id="features">
-      <SectionHeader
-        badge="Features"
-        title="Everything You Need for Mental Wellness"
-        subtitle="The Room combines the latest in AI technology with evidence-based mental health practices to support your journey."
-      />
-
       <motion.div
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, margin: "-100px" }}
-      >
-        {features.map((feature) => (
-          <motion.div key={feature.title} variants={itemVariants}>
-            <Card variant="bordered" hover className="h-full">
-              <div
-                className={`w-14 h-14 rounded-2xl ${getIconContainerClass(feature.colorClass)} flex items-center justify-center mb-5`}
-              >
-                <feature.icon className={`w-7 h-7 ${getIconClass(feature.colorClass)}`} />
-              </div>
-              <h3 className="text-xl font-semibold text-[var(--app-text-primary-color)] mb-3">
-                {feature.title}
-              </h3>
-              <p className="text-[var(--app-text-secondary-color)] leading-relaxed">
-                {feature.description}
-              </p>
-            </Card>
-          </motion.div>
-        ))}
-      </motion.div>
-
-      {/* Bottom highlight section */}
-      <motion.div
-        className="mt-16 sm:mt-20"
-        initial={{ opacity: 0, y: 20 }}
+        className="flex flex-col gap-8"
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.3 }}
+        transition={{ duration: 0.5 }}
       >
-        <Card
-          variant="gradient"
-          className="relative overflow-hidden"
-          padding="lg"
-        >
-          <div className="absolute top-0 right-0 w-64 h-64 bg-violet-600/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-0 left-0 w-48 h-48 bg-amber-500/10 rounded-full blur-3xl" />
+        {/* Card */}
+        <div className="relative overflow-hidden rounded-2xl border border-[var(--app-border-primary-color)]">
 
-          <div className="relative z-10 flex flex-col lg:flex-row items-center gap-8">
-            <div className="flex-1 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 mb-4">
-                <Sparkles className="w-5 h-5 text-violet-400" />
-                <span className="text-sm font-medium text-violet-400">
-                  Powered by Advanced AI
+          {/* Gradient top accent line */}
+          <div className="absolute top-0 left-0 right-0 h-[1.5px] bg-gradient-to-r from-[var(--app-accent-color)] via-[var(--app-accent-secondary-color)] to-[var(--app-accent-color)] z-10" />
+
+          <div className="flex flex-col lg:flex-row">
+
+            {/* Left panel */}
+            <div className="flex-1 bg-[var(--app-bg-secondary-color)] p-8 sm:p-10 lg:p-12 relative overflow-hidden">
+              {/* Decorative ring */}
+              <div className="absolute -bottom-20 -left-20 w-64 h-64 rounded-full border border-[var(--app-accent-color)]/10 pointer-events-none" />
+              <div className="absolute -bottom-10 -left-10 w-40 h-40 rounded-full border border-[var(--app-accent-color)]/8 pointer-events-none" />
+              {/* Ambient glow */}
+              <div className="absolute top-0 right-0 w-72 h-72 bg-[var(--app-accent-color)]/5 rounded-full blur-3xl pointer-events-none" />
+
+              <div className="relative z-10 flex flex-col sm:flex-row h-full gap-8 sm:gap-10">
+
+                {/* Text */}
+                <div className="flex-1">
+                  <div className="inline-flex items-center gap-2 mb-7 px-3 py-1.5 rounded-full border border-[var(--app-accent-color)]/25 bg-[var(--app-accent-color)]/8">
+                    <Sparkles className="w-3.5 h-3.5 text-[var(--app-accent-color)]" />
+                    <span className="text-xs font-medium tracking-wide text-[var(--app-accent-color)]">
+                      Powered by Advanced AI
+                    </span>
+                  </div>
+
+                  <h3 className="text-4xl sm:text-5xl font-medium text-[var(--app-text-primary-color)] mb-6 font-[family-name:var(--font-dancing-script)] leading-tight">
+                    Everything You Need,<br />Nothing You Don&apos;t
+                  </h3>
+
+                  <p className="text-[var(--app-text-secondary-color)] text-sm sm:text-base leading-relaxed">
+                    The Room isn&apos;t a generic wellness app. Every feature is built around how your mind actually works — adapting to your patterns, your language, and your pace. Fully private, always available, never judgmental.
+                  </p>
+                </div>
+
+                {/* Vertical divider */}
+                <div className="hidden sm:block w-px bg-gradient-to-b from-transparent via-[var(--app-border-primary-color)] to-transparent shrink-0" />
+
+                {/* Metrics grid */}
+                <div className="grid grid-cols-2 gap-x-8 gap-y-6 shrink-0 content-center">
+                  {stats.map((s) => (
+                    <div key={s.label} className="flex flex-col gap-0.5">
+                      <div
+                        className="text-2xl font-bold"
+                        style={{
+                          color: s.accent === "primary"
+                            ? "var(--app-accent-color)"
+                            : "var(--app-accent-secondary-color)",
+                        }}
+                      >
+                        {s.value}
+                      </div>
+                      <div className="text-xs font-medium text-[var(--app-text-primary-color)]">
+                        {s.label}
+                      </div>
+                      <div className="text-[10px] text-[var(--app-text-tertiary-color)]">
+                        {s.sub}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+              </div>
+            </div>
+
+            {/* Right panel — feature list */}
+            <div className="lg:w-60 xl:w-68 bg-[var(--app-bg-tertiary-color)] border-t lg:border-t-0 lg:border-l border-[var(--app-border-primary-color)] flex flex-col shrink-0">
+              {/* Panel header */}
+              <div className="px-6 py-4 border-b border-[var(--app-border-primary-color)]">
+                <span className="text-[10px] font-semibold tracking-[0.15em] uppercase text-[var(--app-text-tertiary-color)]">
+                  What&apos;s Inside
                 </span>
               </div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-[var(--app-text-primary-color)] mb-4">
-                Different by Design
-              </h3>
-              <p className="text-[var(--app-text-secondary-color)] max-w-xl">
-                The Room isn&apos;t just another chatbot. Our AI is specifically
-                trained on mental wellness principles, guided by specialists,
-                and designed to grow with you over time.
-              </p>
+
+              {/* Feature rows */}
+              {features.map((f) => (
+                <div
+                  key={f.label}
+                  className="flex items-center gap-3 px-6 py-4 border-b border-[var(--app-border-primary-color)] last:border-0 group hover:bg-[var(--app-bg-secondary-color)] transition-colors duration-150"
+                >
+                  <div
+                    className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
+                    style={{
+                      background: f.accent === "primary"
+                        ? "rgba(83,85,200,0.1)"
+                        : "rgba(199,152,112,0.1)",
+                    }}
+                  >
+                    <f.icon
+                      className="w-3.5 h-3.5"
+                      style={{
+                        color: f.accent === "primary"
+                          ? "var(--app-accent-color)"
+                          : "var(--app-accent-secondary-color)",
+                      }}
+                    />
+                  </div>
+                  <span className="text-sm text-[var(--app-text-secondary-color)] group-hover:text-[var(--app-text-primary-color)] transition-colors duration-150">
+                    {f.label}
+                  </span>
+                </div>
+              ))}
             </div>
 
-            <div className="flex gap-6 sm:gap-10">
-              <div className="text-center">
-                <div className="text-3xl sm:text-4xl font-bold text-violet-400 mb-1">
-                  50+
-                </div>
-                <div className="text-sm text-[var(--app-text-secondary-color)]">
-                  Wellness
-                  <br />
-                  Frameworks
-                </div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl sm:text-4xl font-bold text-amber-400 mb-1">
-                  24/7
-                </div>
-                <div className="text-sm text-[var(--app-text-secondary-color)]">
-                  Always
-                  <br />
-                  Available
-                </div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl sm:text-4xl font-bold text-violet-400 mb-1">
-                  100%
-                </div>
-                <div className="text-sm text-[var(--app-text-secondary-color)]">
-                  Private &<br />
-                  Secure
-                </div>
-              </div>
-            </div>
           </div>
-        </Card>
+        </div>
+
+
       </motion.div>
     </Section>
   );
