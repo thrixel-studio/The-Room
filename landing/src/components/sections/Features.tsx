@@ -1,32 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import {
-  Sparkles,
-  MessageSquare,
-  BookOpen,
-  BarChart3,
-  Brain,
-  Shield,
-  Clock,
-} from "lucide-react";
 import { Section } from "@/components/ui/Section";
-
-const features = [
-  { icon: MessageSquare, label: "AI Chat Sessions", accent: "primary" },
-  { icon: BookOpen, label: "Private Journaling", accent: "secondary" },
-  { icon: BarChart3, label: "Emotional Insights Dashboard", accent: "primary" },
-  { icon: Brain, label: "4 Wellness Frameworks", accent: "secondary" },
-  { icon: Sparkles, label: "Personalized Suggestions", accent: "primary" },
-  { icon: Clock, label: "Weekly Progress Tracking", accent: "secondary" },
-];
 
 const stats = [
   { value: "4", label: "Wellness Frameworks", accent: "primary", sub: "Each with a unique approach" },
   { value: "30d", label: "Insights Window", accent: "secondary", sub: "Emotional pattern analysis" },
   { value: "24/7", label: "Always Available", accent: "primary", sub: "No appointments needed" },
   { value: "100%", label: "Private & Secure", accent: "secondary", sub: "End-to-end encrypted" },
-  { value: "Auto", label: "Emotion Detection", accent: "primary", sub: "From your journal entries" },
+  { value: "Auto", label: "Emotion Insights", accent: "primary", sub: "From your journal entries" },
   { value: "0", label: "Data Shared", accent: "secondary", sub: "Your thoughts stay yours" },
 ];
 
@@ -34,7 +16,7 @@ export function Features() {
   return (
     <Section id="features">
       <motion.div
-        className="flex flex-col gap-8"
+        className="flex flex-col gap-8 max-w-4xl mx-auto"
         initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -65,7 +47,7 @@ export function Features() {
                   </h3>
 
                   <p className="text-[var(--app-text-secondary-color)] text-sm sm:text-base leading-relaxed">
-                    Journal your thoughts, talk through them with an AI companion, and watch your emotional patterns emerge over time. Pick a framework that fits your goal and let The Room adapt to you.
+                    Journal your thoughts, talk through them with an AI companion, and watch your emotional patterns emerge over time. Pick a framework that fits your goal — whether that&apos;s clarity, decisions, productivity, or problem-solving — and let The Room adapt to you.
                   </p>
                 </div>
 
@@ -94,34 +76,8 @@ export function Features() {
 
               </div>
             </div>
-
-            {/* Right panel — feature list */}
-            <div className="lg:w-60 xl:w-68 bg-[var(--app-bg-tertiary-color)] border-t lg:border-t-0 lg:border-l border-[var(--app-border-primary-color)] flex flex-col shrink-0">
-              {/* Feature rows */}
-              {features.map((f) => (
-                <div
-                  key={f.label}
-                  className="flex items-center gap-3 px-6 py-4 border-b border-[var(--app-border-primary-color)] last:border-0"
-                >
-                  <div
-                    className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
-                    style={{ background: "rgba(83,85,200,0.1)" }}
-                  >
-                    <f.icon
-                      className="w-3.5 h-3.5"
-                      style={{ color: "var(--app-accent-color)" }}
-                    />
-                  </div>
-                  <span className="text-sm text-[var(--app-text-secondary-color)]">
-                    {f.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-
           </div>
         </div>
-
 
       </motion.div>
     </Section>
