@@ -16,14 +16,14 @@ const members = [
     image: "/team/qfzssuxt1qsdovvrvye6.webp",
   },
   {
+    name: "Viktoria Taranenko",
+    role: "Professional Psychologist",
+    image: "/team/aldghgbljhvberoub.webp",
+  },
+  {
     name: "Rasul Kusainov",
     role: "Web Developer",
     image: "/team/ebqidvxmk1f7dfbxukgc.webp",
-  },
-  {
-    name: "Yaroslav Knyazev",
-    role: "UI/UX Designer",
-    image: "/team/wh9wf0se3oxhgfgdbqls.webp",
   },
 ];
 
@@ -41,7 +41,7 @@ export function Team() {
           The Team
         </h2>
         <p className="mt-3 text-sm text-[var(--app-text-secondary-color)] max-w-md mx-auto leading-relaxed">
-          A team of professional developers with 5+ years of experience, united by a shared belief in accessible mental wellness.
+          A team of professional developers and a certified psychologist, united by a shared belief in accessible mental wellness.
         </p>
       </motion.div>
 
