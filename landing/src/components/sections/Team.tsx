@@ -15,12 +15,12 @@ const members = [
     image: "/team/qfzssuxt1qsdovvrvye6.webp",
   },
   {
-    name: "Rasul Kusainov",
+    name: "Amir Seitkali",
     role: "Web Developer",
     image: "/team/ebqidvxmk1f7dfbxukgc.webp",
   },
   {
-    name: "Yaroslav Knyazev",
+    name: "Nikita Orekhov",
     role: "UX/UI Designer",
     image: "/team/wh9wf0se3oxhgfgdbqls.webp",
   },

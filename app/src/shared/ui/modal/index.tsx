@@ -82,7 +82,7 @@ export const Modal: React.FC<ModalProps> = ({
     <div className="fixed inset-0 flex items-center justify-center overflow-y-auto modal z-99999">
       {!isFullscreen && (
         <div
-          className={`fixed inset-0 h-full w-full bg-gray-400/50 backdrop-blur-[8px] ${isClosing ? 'animate-modal-fade-out' : 'animate-modal-fade-in'}`}
+          className={`fixed inset-0 h-full w-full bg-[#111111]/85 backdrop-blur-sm ${isClosing ? 'animate-modal-fade-out' : 'animate-modal-fade-in'}`}
           onClick={handleClose}
         ></div>
       )}

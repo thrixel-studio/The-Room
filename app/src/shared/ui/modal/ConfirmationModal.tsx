@@ -101,7 +101,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
             variant="primary"
             icon={<X className="w-4 h-4" />}
             disabled={isLoading}
-            className="px-3 py-1.5 !bg-transparent !text-[var(--app-text-tertiary-color)] border !border-[var(--app-text-tertiary-color)] hover:!bg-[var(--app-text-tertiary-color)] hover:!text-white"
+            className="px-4 py-2 !bg-white/10 !text-white/70 hover:!bg-white/15 hover:!text-white !border-0 transition-colors"
           >
             {cancelText}
           </Button>
@@ -110,7 +110,7 @@ export const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
             variant={confirmColor}
             icon={<Check className="w-4 h-4" />}
             disabled={isLoading}
-            className="px-3 py-1.5 !bg-transparent !text-[var(--app-danger-color)] border !border-[var(--app-danger-color)] hover:!bg-[var(--app-danger-color)] hover:!text-white"
+            className="px-4 py-2 !bg-[var(--app-danger-color)] !text-white hover:brightness-110 !border-0 transition-all"
           >
             {isLoading ? "Deleting..." : confirmText}
           </Button>
