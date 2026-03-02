@@ -125,7 +125,7 @@
   body {
     @apply relative font-normal font-outfit z-1;
     background-color: #1e1f22;
-    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
     background-size: 36px 36px;
   }
 }
@@ -223,19 +223,21 @@
     90deg,
     transparent 0%,
     rgba(255, 255, 255, 0.03) 25%,
-    rgba(83, 85, 200, 0.05) 50%,
+    rgba(199, 152, 112, 0.08) 50%,
     rgba(255, 255, 255, 0.03) 75%,
     transparent 100%
   );
-  animation: skeleton-image-shimmer 2s ease-in-out infinite;
+  transform: skewX(-15deg);
+  animation: skeleton-image-shimmer 3.5s ease-in-out infinite;
 }
 
 @keyframes skeleton-image-shimmer {
-  0% {
-    left: -100%;
+  0%,
+  60% {
+    left: -120%;
   }
   100% {
-    left: 100%;
+    left: 120%;
   }
 }
 

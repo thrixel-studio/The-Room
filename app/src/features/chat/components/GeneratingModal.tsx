@@ -189,7 +189,7 @@ export function GeneratingCardModal({ isOpen, sessionId, onComplete, messageCoun
               Click on a card to see expanded analysis of your conversation.
             </p>
             <div
-              className="cursor-pointer transform transition-transform hover:scale-102"
+              className="cursor-pointer"
               onClick={handleCardClick}
             >
               <JournalEntryCard entry={{
