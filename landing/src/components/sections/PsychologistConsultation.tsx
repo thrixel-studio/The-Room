@@ -76,7 +76,7 @@ export function PsychologistConsultation() {
             <div className="relative w-28 h-28 rounded-full overflow-hidden border-2 border-[var(--app-border-primary-color)]">
               <Image
                 src="/team/aldghgbljhvberoub.webp"
-                alt="Viktoria Taranenko"
+                alt="Elena Morozova"
                 fill
                 className="object-cover"
               />
@@ -85,10 +85,10 @@ export function PsychologistConsultation() {
 
           <div className="text-center">
             <p className="text-base font-semibold text-[var(--app-text-primary-color)]">
-              Viktoria Taranenko
+              Elena Morozova
             </p>
             <p className="text-sm text-[var(--app-text-secondary-color)] mt-0.5">
-              Professional Psychologist
+              Psychologist
             </p>
           </div>
 
