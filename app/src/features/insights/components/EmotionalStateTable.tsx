@@ -47,7 +47,8 @@ const EmotionalStateTable = React.memo(function EmotionalStateTable() {
 
     const packLayout = pack<any>()
       .size([width, height])
-      .padding(10);
+      // Smaller padding packs circles closer together
+      .padding(4);
 
     packLayout(root as any);
 
@@ -90,44 +91,49 @@ const EmotionalStateTable = React.memo(function EmotionalStateTable() {
               height="100%"
               preserveAspectRatio="xMidYMid meet"
             >
-              {nodes.map((node: any, i: number) => (
-                <g
-                  key={i}
-                  transform={`translate(${node.x},${node.y})`}
-                  className="animate-fade-in"
-                  style={{
-                    animationDelay: `${i * 0.05}s`,
-                    animationFillMode: 'both'
-                  }}
-                >
-                  <circle
-                    r={node.r}
-                    fill="var(--app-accent-color-transparent)"
-                    stroke="var(--app-accent-color)"
-                    strokeWidth="2"
-                  />
-                  <text
-                    textAnchor="middle"
-                    dy="0"
-                    className="fill-white font-semibold pointer-events-none"
+              {nodes.map((node: any, i: number) => {
+                const radiusScale = 1.25; // make circles visually bigger
+                const scaledR = node.r * radiusScale;
+
+                return (
+                  <g
+                    key={i}
+                    transform={`translate(${node.x},${node.y})`}
+                    className="animate-fade-in"
                     style={{
-                      fontSize: `${Math.min(node.r / 3.5, 14)}px`,
+                      animationDelay: `${i * 0.05}s`,
+                      animationFillMode: 'both'
                     }}
                   >
-                    {node.data.name}
-                  </text>
-                  <text
-                    textAnchor="middle"
-                    dy="1.2em"
-                    className="fill-white pointer-events-none"
-                    style={{
-                      fontSize: `${Math.min(node.r / 5, 10)}px`,
-                    }}
-                  >
-                    {node.data.count} {node.data.count === 1 ? "entry" : "entries"}
-                  </text>
-                </g>
-              ))}
+                    <circle
+                      r={scaledR}
+                      fill="var(--app-accent-color-transparent)"
+                      stroke="var(--app-accent-color)"
+                      strokeWidth="2"
+                    />
+                    <text
+                      textAnchor="middle"
+                      dy="0"
+                      className="fill-white font-semibold pointer-events-none"
+                      style={{
+                        fontSize: `${Math.min(scaledR / 3.5, 16)}px`,
+                      }}
+                    >
+                      {node.data.name}
+                    </text>
+                    <text
+                      textAnchor="middle"
+                      dy="1.2em"
+                      className="fill-white pointer-events-none"
+                      style={{
+                        fontSize: `${Math.min(scaledR / 5, 12)}px`,
+                      }}
+                    >
+                      {node.data.count} {node.data.count === 1 ? "entry" : "entries"}
+                    </text>
+                  </g>
+                );
+              })}
             </svg>
           )}
         </div>
