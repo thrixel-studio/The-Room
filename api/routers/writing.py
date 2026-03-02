@@ -75,7 +75,8 @@ async def list_active_chat_sessions(
                 metadata=msg.metadata_ or {},
                 created_at=msg.created_at,
                 completion_percentage=(msg.metadata_ or {}).get("completion_percentage"),
-                suggested_framework=(msg.metadata_ or {}).get("suggested_framework")
+                suggested_framework=(msg.metadata_ or {}).get("suggested_framework"),
+                crisis_score=(msg.metadata_ or {}).get("crisis_score")
             )
             for msg in visible_messages
         ]
@@ -118,7 +119,8 @@ async def get_chat_session(
             metadata=msg.metadata_ or {},
             created_at=msg.created_at,
             completion_percentage=(msg.metadata_ or {}).get("completion_percentage"),
-            suggested_framework=(msg.metadata_ or {}).get("suggested_framework")
+            suggested_framework=(msg.metadata_ or {}).get("suggested_framework"),
+            crisis_score=(msg.metadata_ or {}).get("crisis_score")
         )
         for msg in visible_messages
     ]
@@ -183,7 +185,8 @@ async def send_chat_message(
         metadata=ai_message.metadata_ or {},
         created_at=ai_message.created_at,
         completion_percentage=(ai_message.metadata_ or {}).get("completion_percentage"),
-        suggested_framework=(ai_message.metadata_ or {}).get("suggested_framework")
+        suggested_framework=(ai_message.metadata_ or {}).get("suggested_framework"),
+        crisis_score=(ai_message.metadata_ or {}).get("crisis_score")
     )
 
 

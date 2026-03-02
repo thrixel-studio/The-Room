@@ -40,7 +40,14 @@ export function useAuth() {
       // After registration, log in automatically
       await login(email, password, keepLoggedIn);
     } catch (error: any) {
-      throw new Error(error.data?.detail || 'Registration failed');
+      const detail = error.data?.detail;
+      let message = 'Registration failed';
+      if (typeof detail === 'string') {
+        message = detail;
+      } else if (Array.isArray(detail) && detail.length > 0) {
+        message = detail.map((e: any) => e.msg || JSON.stringify(e)).join(', ');
+      }
+      throw new Error(message);
     }
   };
 

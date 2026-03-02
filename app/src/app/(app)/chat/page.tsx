@@ -119,6 +119,7 @@ export default function ChatWelcomePage() {
               onKeyDown={handleKeyDown}
               textareaRef={textareaRef}
               disabled={isSending}
+              isLoading={isSending}
             />
           </div>
         </div>

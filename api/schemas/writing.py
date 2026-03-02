@@ -14,6 +14,7 @@ class ChatMessageResponse(BaseModel):
     created_at: datetime
     completion_percentage: Optional[float] = None
     suggested_framework: Optional[str] = None
+    crisis_score: Optional[int] = None
 
     class Config:
         from_attributes = True

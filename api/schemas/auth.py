@@ -19,10 +19,10 @@ class TokenRefresh(BaseModel):
 
 class UserRegister(BaseModel):
     email: EmailStr
-    password: str = Field(min_length=12, max_length=128)
+    password: str = Field(min_length=12, max_length=72)
     first_name: Optional[str] = Field(None, min_length=1, max_length=100)
     last_name: Optional[str] = Field(None, min_length=1, max_length=100)
-    
+
     @validator('password')
     def validate_password_strength(cls, v):
         """
@@ -34,8 +34,8 @@ class UserRegister(BaseModel):
         """
         if len(v) < 12:
             raise ValueError('Password must be at least 12 characters long')
-        if len(v) > 128:
-            raise ValueError('Password must not exceed 128 characters')
+        if len(v) > 72:
+            raise ValueError('Password must not exceed 72 characters')
         if not re.search(r'[A-Z]', v):
             raise ValueError('Password must contain at least one uppercase letter')
         if not re.search(r'[a-z]', v):
@@ -109,15 +109,15 @@ class PasswordResetRequest(BaseModel):
 
 class PasswordReset(BaseModel):
     token: str
-    new_password: str = Field(min_length=12, max_length=128)
-    
+    new_password: str = Field(min_length=12, max_length=72)
+
     @validator('new_password')
     def validate_password_strength(cls, v):
         """Same validation as registration password."""
         if len(v) < 12:
             raise ValueError('Password must be at least 12 characters long')
-        if len(v) > 128:
-            raise ValueError('Password must not exceed 128 characters')
+        if len(v) > 72:
+            raise ValueError('Password must not exceed 72 characters')
         if not re.search(r'[A-Z]', v):
             raise ValueError('Password must contain at least one uppercase letter')
         if not re.search(r'[a-z]', v):

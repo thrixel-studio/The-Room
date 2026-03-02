@@ -12,6 +12,15 @@ import { useAuth } from "../hooks/useAuth";
 import GridShape from "@/shared/components/GridShape";
 import GoogleAuthButton from "./ui/GoogleAuthButton";
 
+const PASSWORD_RULES = [
+  { label: 'At least 12 characters', test: (p: string) => p.length >= 12 },
+  { label: 'No more than 72 characters', test: (p: string) => p.length <= 72 },
+  { label: 'One uppercase letter', test: (p: string) => /[A-Z]/.test(p) },
+  { label: 'One lowercase letter', test: (p: string) => /[a-z]/.test(p) },
+  { label: 'One digit', test: (p: string) => /\d/.test(p) },
+  { label: 'One special character', test: (p: string) => /[!@#$%^&*(),.?":{}|<>_\-+=\[\]\\;/`~]/.test(p) },
+];
+
 export default function SignUpForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
@@ -19,20 +28,24 @@ export default function SignUpForm() {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [passwordTouched, setPasswordTouched] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { register } = useAuth();
 
+  const passwordValid = PASSWORD_RULES.every(rule => rule.test(password));
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!isChecked) {
       setError('Please accept the Terms and Conditions');
       return;
     }
 
-    if (password.length < 8) {
-      setError('Password must be at least 8 characters long');
+    if (!passwordValid) {
+      setPasswordTouched(true);
+      setError('Please fix the password requirements below');
       return;
     }
 
@@ -130,15 +143,14 @@ export default function SignUpForm() {
                 {/* <!-- Password --> */}
                 <div>
                   <Label>
-                    Password <span className="text-[var(--app-danger-color)]">*</span> <span className="text-xs text-[var(--app-text-tertiary-color)]">(min 8 characters)</span>
+                    Password <span className="text-[var(--app-danger-color)]">*</span>
                   </Label>
                   <div className="relative">
                     <Input
                       placeholder="Enter your password"
                       type={showPassword ? "text" : "password"}
                       value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      minLength={8}
+                      onChange={(e) => { setPassword(e.target.value); setPasswordTouched(true); }}
                       required
                     />
                     <span
@@ -152,6 +164,19 @@ export default function SignUpForm() {
                       )}
                     </span>
                   </div>
+                  {passwordTouched && (
+                    <ul className="mt-2 space-y-1">
+                      {PASSWORD_RULES.map((rule) => {
+                        const ok = rule.test(password);
+                        return (
+                          <li key={rule.label} className={`flex items-center gap-1.5 text-xs ${ok ? 'text-green-500' : 'text-[var(--app-text-tertiary-color)]'}`}>
+                            <span>{ok ? '✓' : '○'}</span>
+                            {rule.label}
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  )}
                 </div>
                 {/* <!-- Checkbox --> */}
                 <div className="flex items-center gap-2">

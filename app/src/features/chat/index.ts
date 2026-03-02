@@ -13,6 +13,7 @@ export { ChatProgress } from './components/ChatProgress';
 export { LoadingIndicator } from './components/LoadingIndicator';
 export { SwitchFrameworkButton } from './components/SwitchFrameworkButton';
 export { FrameworkSwitchDivider } from './components/FrameworkSwitchDivider';
+export { EmergencyInline } from './components/EmergencyInline';
 
 // Hooks
 export { useChat } from './hooks/useChat';

@@ -309,8 +309,8 @@ export default function JournalEntryCards({
     return (
       <div className="flex justify-center items-center pt-20">
         <div className="text-center">
-          <p className="text-gray-500 text-gray-400 mb-4">No journal entries yet</p>
-          <p className="text-sm text-gray-400 text-gray-500">
+          <p className="text-[var(--app-text-secondary-color)] mb-4">No journal entries yet</p>
+          <p className="text-sm text-[var(--app-text-tertiary-color)]">
             Start writing to create your first entry
           </p>
         </div>

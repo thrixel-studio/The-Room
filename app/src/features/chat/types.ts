@@ -14,6 +14,7 @@ export interface ChatMessage {
   created_at: string;
   completion_percentage?: number;  // 0.0-1.0
   suggested_framework?: FrameworkKey;
+  crisis_score?: number;  // 1-10 safety score, hidden from user
 }
 
 export interface ChatSession {

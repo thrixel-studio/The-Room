@@ -20,6 +20,7 @@ import {
   useMessageAnimations,
   useSwitchSessionFrameworkMutation,
 } from "@/features/chat";
+import { EmergencyInline } from "@/features/chat/components/EmergencyInline";
 import { useContentReady } from "@/shared/contexts/NavigationContext";
 import { tokenStorage } from "@/shared/lib/storage";
 import type { ChatMessage } from "@/features/chat";
@@ -95,6 +96,16 @@ export default function ChatSessionPage() {
   const lastUserMessageId = [...messages].reverse().find(m => m.role === 'user')?.id;
   const lastAIMessageId = [...messages].reverse().find(m => m.role === 'assistant')?.id;
 
+  // Show emergency contacts if the last AI message has crisis_score >= 10
+  // and no user message has been sent after it
+  const showEmergencyContacts = (() => {
+    const lastAI = [...messages].reverse().find(m => m.role === 'assistant');
+    if (!lastAI || lastAI.crisis_score === undefined || lastAI.crisis_score < 10) return false;
+    const lastAIIndex = messages.findIndex(m => m.id === lastAI.id);
+    const hasUserMessageAfter = messages.slice(lastAIIndex + 1).some(m => m.role === 'user');
+    return !hasUserMessageAfter;
+  })();
+
   // True once any framework switch system message exists — hides switch button permanently
   const hasEverSwitched = messages.some(
     m => m.role === 'system' && m.metadata?.event === 'framework_switch'
@@ -154,6 +165,7 @@ export default function ChatSessionPage() {
           aiMessage,
         ];
       });
+
     } catch (err: any) {
       console.error('Failed to send message:', err);
       setError(err.message || 'Failed to send message');
@@ -257,7 +269,6 @@ export default function ChatSessionPage() {
                 return (
                   <React.Fragment key={message.id}>
                     <FrameworkSwitchDivider frameworkKey={message.metadata.to_framework as FrameworkKey} />
-                    {isLastMessage && <div className="flex-1 min-h-[60vh]" />}
                   </React.Fragment>
                 );
               }
@@ -282,8 +293,8 @@ export default function ChatSessionPage() {
                     <LoadingIndicator show={true} />
                   )}
 
-                  {/* Analyze Button - right after last AI message, only when 100% complete */}
-                  {isLastAIMessage && isConversationComplete && !isFinishing && !isSending && typingMessageIds.size === 0 && (
+                  {/* Analyze Button - right after last AI message, only when 100% complete and no crisis */}
+                  {isLastAIMessage && isConversationComplete && !showEmergencyContacts && !isFinishing && !isSending && typingMessageIds.size === 0 && (
                     <div className="flex justify-start">
                       <Button
                         variant="primary"
@@ -308,13 +319,12 @@ export default function ChatSessionPage() {
                     </div>
                   )}
 
-                  {isLastMessage && (
-                    <div className="flex-1 min-h-[60vh]" />
-                  )}
                 </React.Fragment>
               );
             })}
 
+            {showEmergencyContacts && <EmergencyInline />}
+            <div className="flex-1 min-h-[60vh]" />
             <div ref={messagesEndRef} />
           </div>
         </div>
@@ -330,6 +340,7 @@ export default function ChatSessionPage() {
               onSend={handleSendMessage}
               onKeyDown={handleKeyDown}
               textareaRef={textareaRef}
+              isLoading={isSending}
             />
           </div>
         </div>
@@ -341,6 +352,7 @@ export default function ChatSessionPage() {
         sessionId={generatingSessionId || ""}
         onComplete={onModalComplete}
       />
+
     </div>
   );
 }

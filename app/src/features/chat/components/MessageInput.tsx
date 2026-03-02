@@ -9,6 +9,7 @@ interface MessageInputProps {
   onKeyDown?: (e: React.KeyboardEvent<HTMLTextAreaElement>) => void;
   placeholder?: string;
   disabled?: boolean;
+  isLoading?: boolean;
   showActions?: boolean;
   actions?: React.ReactNode;
   textareaRef?: React.RefObject<HTMLTextAreaElement | null>;
@@ -21,6 +22,7 @@ export default function MessageInput({
   onKeyDown,
   placeholder = "Type your thoughts here...",
   disabled = false,
+  isLoading = false,
   showActions = true,
   actions,
   textareaRef,
@@ -62,11 +64,18 @@ export default function MessageInput({
         />
         {showActions && (
           <button
-            disabled={!value.trim() || disabled}
+            disabled={!value.trim() || disabled || isLoading}
             onClick={onSend}
             className="absolute bottom-3 right-1.5 p-2 rounded-xl bg-[var(--app-accent-color)] text-white hover:brightness-90 disabled:opacity-50 disabled:hover:brightness-100 transition-all disabled:cursor-not-allowed"
           >
-            <CornerDownLeft className="w-4 h-4" />
+            {isLoading ? (
+              <svg className="w-4 h-4 animate-spin" viewBox="0 0 16 16" fill="none">
+                <circle cx="8" cy="8" r="6" stroke="currentColor" strokeWidth="2" strokeOpacity="0.3" />
+                <path d="M8 2a6 6 0 0 1 6 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            ) : (
+              <CornerDownLeft className="w-4 h-4" />
+            )}
           </button>
         )}
       </div>

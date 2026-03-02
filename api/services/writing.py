@@ -242,6 +242,18 @@ class WritingService:
             if suggested_framework:
                 metadata["suggested_framework"] = suggested_framework
 
+            # Extract and validate crisis_score (1-10)
+            crisis_score = ai_response.get("crisis_score")
+            if crisis_score is not None:
+                try:
+                    crisis_score = int(crisis_score)
+                    crisis_score = max(1, min(10, crisis_score))
+                except (ValueError, TypeError):
+                    logger.warning(f"Invalid crisis_score value: {crisis_score}")
+                    crisis_score = None
+            if crisis_score is not None:
+                metadata["crisis_score"] = crisis_score
+
         except json.JSONDecodeError:
             logger.warning(f"AI returned invalid JSON, using raw content")
             response_content = ai_content
