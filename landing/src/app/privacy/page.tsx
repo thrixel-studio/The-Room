@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { Shield, Lock, Eye, Trash2 } from "lucide-react";
 
@@ -30,75 +27,64 @@ const privacyHighlights = [
 export default function PrivacyPage() {
   return (
     <>
+      {/* Hero */}
       <section className="relative pt-32 pb-12 overflow-hidden">
         <div className="absolute inset-0 grid-pattern" />
-
         <Container size="md">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <h1 className="text-3xl sm:text-4xl font-bold text-[var(--app-text-primary-color)] mb-4">
-              Privacy Policy
-            </h1>
-            <p className="text-[var(--app-text-secondary-color)]">
-              Last updated: January 1, 2026
-            </p>
-          </motion.div>
+          <h1 className="text-3xl sm:text-4xl font-medium text-[var(--app-text-primary-color)] mb-3 font-[family-name:var(--font-dancing-script)] leading-tight">
+            Privacy Policy
+          </h1>
+          <p className="text-sm text-[var(--app-text-tertiary-color)]">
+            Last updated: March 1, 2026
+          </p>
         </Container>
       </section>
 
-      <section className="pb-12">
+      <section className="pb-20">
         <Container size="md">
-          {/* Privacy Highlights */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="mb-12 p-6 rounded-2xl bg-violet-600/10 border border-violet-600/30"
-          >
-            <h2 className="font-semibold text-[var(--app-text-primary-color)] mb-2 flex items-center gap-2">
-              <Shield className="w-5 h-5 text-violet-400" />
-              Privacy is Our Priority
-            </h2>
-            <p className="text-[var(--app-text-secondary-color)] text-sm mb-6">
-              Your mental health journey is deeply personal. Here&apos;s how we
-              protect it:
+
+          {/* Privacy highlights card */}
+          <div className="mb-10 rounded-2xl bg-[var(--app-bg-secondary-color)] border border-[var(--app-border-primary-color)] p-6">
+            <div className="flex items-center gap-2 mb-1">
+              <Shield className="w-4 h-4" style={{ color: "var(--app-accent-color)" }} />
+              <h2 className="text-sm font-semibold text-[var(--app-text-primary-color)]">
+                Privacy is Our Priority
+              </h2>
+            </div>
+            <p className="text-xs text-[var(--app-text-secondary-color)] mb-6 leading-relaxed">
+              Your mental health journey is deeply personal. Here&apos;s how we protect it:
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {privacyHighlights.map((item) => (
                 <div key={item.title} className="flex items-start gap-3">
-                  <div className="w-10 h-10 rounded-lg bg-violet-600/20 flex items-center justify-center flex-shrink-0">
-                    <item.icon className="w-5 h-5 text-violet-400" />
+                  <div
+                    className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+                    style={{ backgroundColor: "var(--app-accent-color-transparent)" }}
+                  >
+                    <item.icon className="w-4 h-4" style={{ color: "var(--app-accent-color)" }} />
                   </div>
                   <div>
-                    <h3 className="font-medium text-[var(--app-text-primary-color)] text-sm">
+                    <p className="text-sm font-medium text-[var(--app-text-primary-color)]">
                       {item.title}
-                    </h3>
-                    <p className="text-[var(--app-text-tertiary-color)] text-xs">
+                    </p>
+                    <p className="text-xs text-[var(--app-text-tertiary-color)] mt-0.5 leading-relaxed">
                       {item.description}
                     </p>
                   </div>
                 </div>
               ))}
             </div>
-          </motion.div>
-        </Container>
-      </section>
+          </div>
 
-      <section className="pb-20">
-        <Container size="md">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+          {/* Prose */}
+          <div
             className="prose prose-lg prose-invert max-w-none
-              prose-headings:text-[var(--app-text-primary-color)] prose-headings:font-bold
-              prose-h2:text-xl prose-h2:mt-8 prose-h2:mb-4
-              prose-p:text-[var(--app-text-secondary-color)] prose-p:leading-relaxed prose-p:mb-4
-              prose-ul:text-[var(--app-text-secondary-color)]
-              prose-li:my-1"
+              prose-headings:text-[var(--app-text-primary-color)] prose-headings:font-semibold
+              prose-h2:text-base prose-h2:mt-8 prose-h2:mb-3
+              prose-p:text-[var(--app-text-secondary-color)] prose-p:leading-relaxed prose-p:mb-4 prose-p:text-sm
+              prose-ul:text-[var(--app-text-secondary-color)] prose-ul:text-sm
+              prose-li:my-1
+              prose-a:text-[var(--app-accent-color)] prose-a:no-underline hover:prose-a:underline"
           >
             <h2>1. Information We Collect</h2>
             <p>We collect information you provide directly, including:</p>
@@ -120,10 +106,7 @@ export default function PrivacyPage() {
             </ul>
 
             <h2>3. Data Security</h2>
-            <p>
-              We implement industry-standard security measures to protect your
-              data:
-            </p>
+            <p>We implement industry-standard security measures to protect your data:</p>
             <ul>
               <li>All data is encrypted in transit using TLS 1.3</li>
               <li>Data at rest is encrypted using AES-256</li>
@@ -177,20 +160,16 @@ export default function PrivacyPage() {
             <h2>9. Changes to This Policy</h2>
             <p>
               We may update this Privacy Policy from time to time. We will
-              notify you of significant changes via email or through the
-              Service.
+              notify you of significant changes via email or through the Service.
             </p>
 
             <h2>10. Contact Us</h2>
             <p>
               For privacy-related questions or to exercise your rights, contact
               us at{" "}
-              <a href="mailto:privacy@theroom.ai" className="text-violet-400">
-                privacy@theroom.ai
-              </a>
-              .
+              <a href="mailto:dvolynov@gmail.com">dvolynov@gmail.com</a>.
             </p>
-          </motion.div>
+          </div>
         </Container>
       </section>
     </>

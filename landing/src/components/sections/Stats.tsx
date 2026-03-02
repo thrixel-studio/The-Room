@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Users, MessageCircle, Star, TrendingUp } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 
@@ -65,11 +64,8 @@ export function Stats() {
         <div className="absolute bottom-0 right-1/4 w-48 h-48 bg-amber-500/5 rounded-full blur-3xl" />
 
         <div className="relative z-10">
-          <motion.div
+          <div
             className="text-center mb-10"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
           >
             <h2 className="text-2xl sm:text-3xl font-bold text-[var(--app-text-primary-color)] mb-2">
               Trusted by Thousands
@@ -77,17 +73,13 @@ export function Stats() {
             <p className="text-[var(--app-text-secondary-color)]">
               Join a growing community prioritizing mental wellness
             </p>
-          </motion.div>
+          </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
-            {stats.map((stat, index) => (
-              <motion.div
+            {stats.map((stat) => (
+              <div
                 key={stat.label}
                 className="text-center"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
               >
                 <div
                   className={`w-14 h-14 rounded-2xl ${getIconContainerClass(stat.colorClass)} flex items-center justify-center mx-auto mb-4`}
@@ -105,17 +97,13 @@ export function Stats() {
                 <p className="text-[var(--app-text-secondary-color)] text-sm mt-2">
                   {stat.label}
                 </p>
-              </motion.div>
+              </div>
             ))}
           </div>
 
           {/* Review ticker */}
-          <motion.div
+          <div
             className="mt-10 pt-8 border-t border-[var(--app-border-primary-color)]"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.4 }}
           >
             <div className="flex items-center justify-center gap-4 flex-wrap">
               <div className="flex items-center gap-2">
@@ -139,7 +127,7 @@ export function Stats() {
                 &quot;Best mental wellness app I&apos;ve ever used&quot; - Recent Review
               </span>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
     </Section>

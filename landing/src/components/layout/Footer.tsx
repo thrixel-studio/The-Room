@@ -10,7 +10,7 @@ const footerLinks = {
     { name: "Frameworks", href: "/#frameworks" },
     { name: "ML-Ranking", href: "/#restrictions" },
     { name: "Demo", href: "/#demo" },
-    { name: "Psychologist", href: "/#psychologist-consultation" },
+    { name: "Expert-Guided", href: "/#psychologist-consultation" },
     { name: "Team", href: "/#team" },
   ],
   legal: [
@@ -79,6 +79,8 @@ export function Footer() {
                   <li key={link.name}>
                     <Link
                       href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="text-sm text-[var(--app-text-secondary-color)] hover:text-[var(--app-text-primary-color)] transition-colors"
                     >
                       {link.name}

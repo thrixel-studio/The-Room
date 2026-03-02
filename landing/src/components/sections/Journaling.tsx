@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { PenLine, Sparkles, BookOpen } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 
@@ -29,12 +28,8 @@ export function Journaling() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
 
         {/* Image */}
-        <motion.div
+        <div
           className="flex items-center justify-center"
-          initial={{ opacity: 0, x: -24 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55 }}
         >
           <Image
             src="/assets/cards.webp"
@@ -43,16 +38,10 @@ export function Journaling() {
             height={360}
             className="w-full max-w-sm lg:max-w-md object-contain drop-shadow-2xl"
           />
-        </motion.div>
+        </div>
 
         {/* Text */}
-        <motion.div
-          initial={{ opacity: 0, x: 24 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55 }}
-        >
-
+        <div>
 
           <h2 className="text-3xl sm:text-4xl font-medium text-[var(--app-text-primary-color)] mb-4 font-[family-name:var(--font-dancing-script)] leading-tight">
             Your Thoughts, Made Beautiful
@@ -63,14 +52,10 @@ export function Journaling() {
           </p>
 
           <div className="flex flex-col gap-6">
-            {highlights.map((item, i) => (
-              <motion.div
+            {highlights.map((item) => (
+              <div
                 key={item.title}
                 className="flex items-start gap-4"
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
               >
                 <div
                   className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-[var(--app-accent-secondary-color)]/15"
@@ -81,10 +66,10 @@ export function Journaling() {
                   <p className="text-sm font-medium text-[var(--app-text-primary-color)] mb-0.5">{item.title}</p>
                   <p className="text-sm text-[var(--app-text-secondary-color)] leading-relaxed">{item.description}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
       </div>
     </Section>

@@ -14,7 +14,7 @@ const navigation = [
   { name: "Frameworks", href: "#frameworks" },
   { name: "ML-Ranking", href: "#restrictions" },
   { name: "Demo", href: "#demo" },
-  { name: "Psychologist", href: "#psychologist-consultation" },
+  { name: "Expert-Guided", href: "#psychologist-consultation" },
   { name: "Team", href: "#team" },
 ];
 

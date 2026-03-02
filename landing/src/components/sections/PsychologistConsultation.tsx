@@ -1,48 +1,79 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { Heart, PhoneCall, Wind, Bot, ShieldCheck, SlidersHorizontal, ClipboardList, Trash2, type LucideIcon } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 
-const stats = [
-  { value: "15", label: "years of experience" },
-  { value: "3", label: "years on crisis hotline" },
-  { value: "2", label: "psychology specializations" },
+const credentials = [
+  { value: "15 yrs", label: "experience" },
+  { value: "3 yrs", label: "crisis hotline" },
+  { value: "2", label: "specializations" },
+];
+
+const topics: { text: string; icon: LucideIcon }[] = [
+  { text: "Working with people facing mental health challenges", icon: Heart },
+  { text: "Handling critical cases and crisis communication", icon: PhoneCall },
+  { text: "Stress relief technique recommendations", icon: Wind },
+  { text: "Scope and limits of AI in mental health support", icon: Bot },
+];
+
+const outcomes: { text: string; icon: LucideIcon }[] = [
+  { text: "Safe AI communication with vulnerable users", icon: ShieldCheck },
+  { text: "Crisis tone calibration per severity level", icon: SlidersHorizontal },
+  { text: "Emotional state assessment methodology", icon: ClipboardList },
+  { text: "Features removed to protect high-risk users", icon: Trash2 },
 ];
 
 export function PsychologistConsultation() {
   return (
     <Section id="psychologist-consultation" className="!py-0">
-      {/* Header */}
-      <motion.div
+
+      {/* Section header */}
+      <div
         className="text-center mb-16"
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
       >
         <h2 className="text-3xl sm:text-4xl font-medium text-[var(--app-text-primary-color)] font-[family-name:var(--font-dancing-script)] leading-tight">
-          Psychologist Consultation
+          Expert-Guided
         </h2>
         <p className="mt-3 text-sm text-[var(--app-text-secondary-color)] max-w-lg mx-auto leading-relaxed">
-          Before a single line of code was written, we sat down with a professional.
+          Before writing any code, we consulted a licensed specialist to make sure The Room supports — and never harms.
         </p>
-      </motion.div>
+      </div>
 
-      <div className="max-w-5xl mx-auto flex flex-col gap-14">
+      {/* Content row */}
+      <div
+        className="flex flex-col lg:flex-row"
+      >
 
-        {/* Main row: photo + text */}
-        <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
+        {/* Left: topics covered */}
+        <div className="flex-1 flex flex-col items-end gap-4 pr-0 lg:pr-14 pb-10 lg:pb-0 justify-center text-right">
+          <p className="text-xs font-medium text-[var(--app-text-tertiary-color)] uppercase tracking-wider">
+            Topics covered
+          </p>
+          <div className="flex flex-col gap-3">
+            {topics.map(({ text, icon: Icon }) => (
+              <div key={text} className="flex items-start gap-2.5 flex-row-reverse">
+                <Icon
+                  className="w-4 h-4 mt-0.5 shrink-0"
+                  style={{ color: "var(--app-accent-secondary-color)" }}
+                />
+                <span className="text-sm text-[var(--app-text-secondary-color)] leading-relaxed">
+                  {text}
+                </span>
+              </div>
+            ))}
+          </div>
 
-          {/* Left: photo + identity */}
-          <motion.div
-            className="flex flex-col items-center lg:items-start gap-4 shrink-0"
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="relative w-52 h-64 rounded-3xl overflow-hidden">
+        </div>
+
+        {/* Divider */}
+        <div className="hidden lg:block self-stretch w-px bg-gradient-to-b from-transparent via-[var(--app-border-primary-color)] to-transparent shrink-0" />
+        <div className="lg:hidden h-px bg-gradient-to-r from-transparent via-[var(--app-border-primary-color)] to-transparent" />
+
+        {/* Center: photo + identity + credentials */}
+        <div className="flex flex-col items-center gap-5 px-14 py-10 lg:py-0 shrink-0 justify-center">
+          <div className="relative">
+            <div className="relative w-28 h-28 rounded-full overflow-hidden border-2 border-[var(--app-border-primary-color)]">
               <Image
                 src="/team/aldghgbljhvberoub.webp"
                 alt="Viktoria Taranenko"
@@ -50,60 +81,58 @@ export function PsychologistConsultation() {
                 className="object-cover"
               />
             </div>
-            <div className="text-center lg:text-left">
-              <p className="text-sm font-semibold text-[var(--app-text-primary-color)]">
-                Viktoria Taranenko
-              </p>
-              <p className="text-xs text-[var(--app-text-secondary-color)] mt-0.5">
-                Professional Psychologist
-              </p>
-            </div>
-          </motion.div>
+          </div>
 
-          {/* Right: story */}
-          <motion.div
-            className="flex-1 flex flex-col justify-center gap-5 pt-2"
-            initial={{ opacity: 0, x: 20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <p className="text-sm text-[var(--app-text-secondary-color)] leading-relaxed">
-              The first thing we did was go straight to a professional psychologist who worked 3 years on an emergency hotline. We discussed how to work with people facing mental health challenges, methods for handling critical cases, stress relief techniques, and a framework for communicating with people prone to self-harm. Key questions were also drafted to accurately assess each individual&apos;s situation.
+          <div className="text-center">
+            <p className="text-base font-semibold text-[var(--app-text-primary-color)]">
+              Viktoria Taranenko
             </p>
-            <p className="text-sm text-[var(--app-text-secondary-color)] leading-relaxed">
-              As a result of the consultation, we dropped several features that could potentially — and unintentionally — harm the user in a critical moment.
+            <p className="text-sm text-[var(--app-text-secondary-color)] mt-0.5">
+              Professional Psychologist
             </p>
-          </motion.div>
+          </div>
 
+          <div className="flex flex-col gap-2 w-full">
+            {credentials.map((c) => (
+              <div
+                key={c.label}
+                className="flex items-center gap-3 px-4 py-2 rounded-xl bg-[var(--app-light-color-transparent)]"
+              >
+                <span
+                  className="text-sm font-bold tabular-nums shrink-0"
+                  style={{ color: "var(--app-accent-secondary-color)" }}
+                >
+                  {c.value}
+                </span>
+                <span className="text-sm text-[var(--app-text-secondary-color)]">{c.label}</span>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Stats row */}
-        <motion.div
-          className="grid grid-cols-1 sm:grid-cols-3 divide-y sm:divide-y-0 sm:divide-x divide-[var(--app-border-primary-color)]"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          {stats.map((stat, i) => (
-            <motion.div
-              key={stat.label}
-              className="px-8 py-5 first:pl-0 last:pr-0 flex flex-col gap-1"
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.3 + i * 0.08 }}
-            >
-              <p className="text-3xl font-semibold text-[var(--app-text-primary-color)]">
-                {stat.value}
-              </p>
-              <p className="text-xs text-[var(--app-text-secondary-color)]">
-                {stat.label}
-              </p>
-            </motion.div>
-          ))}
-        </motion.div>
+        {/* Divider */}
+        <div className="hidden lg:block self-stretch w-px bg-gradient-to-b from-transparent via-[var(--app-border-primary-color)] to-transparent shrink-0" />
+        <div className="lg:hidden h-px bg-gradient-to-r from-transparent via-[var(--app-border-primary-color)] to-transparent" />
+
+        {/* Right: outcomes */}
+        <div className="flex-1 flex flex-col gap-4 pl-0 lg:pl-14 pt-10 lg:pt-0 justify-center">
+          <p className="text-xs font-medium text-[var(--app-text-tertiary-color)] uppercase tracking-wider">
+            Consultation outcomes
+          </p>
+          <div className="flex flex-col gap-3">
+            {outcomes.map(({ text, icon: Icon }) => (
+              <div key={text} className="flex items-start gap-2.5">
+                <Icon
+                  className="w-4 h-4 mt-0.5 shrink-0"
+                  style={{ color: "var(--app-accent-secondary-color)" }}
+                />
+                <span className="text-sm text-[var(--app-text-secondary-color)] leading-relaxed">
+                  {text}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
 
       </div>
     </Section>

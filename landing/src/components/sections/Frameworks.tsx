@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { Heart, Target, Zap, Lightbulb, CircleCheck, Circle } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 
@@ -68,12 +67,7 @@ export function Frameworks() {
       <div className="grid grid-cols-1 lg:grid-cols-2 items-center max-w-4xl mx-auto w-full">
 
         {/* Text */}
-        <motion.div
-          initial={{ opacity: 0, x: -24 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55 }}
-        >
+        <div>
           <h2 className="text-3xl sm:text-4xl font-medium text-[var(--app-text-primary-color)] mb-4 font-[family-name:var(--font-dancing-script)] leading-tight">
             Choose Your Framework
           </h2>
@@ -83,14 +77,10 @@ export function Frameworks() {
           </p>
 
           <div className="flex flex-col gap-6">
-            {frameworks.map((item, i) => (
-              <motion.div
+            {frameworks.map((item) => (
+              <div
                 key={item.title}
                 className="flex items-start gap-4"
-                initial={{ opacity: 0, y: 12 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.4, delay: i * 0.1 }}
               >
                 <div className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0 bg-[var(--app-accent-secondary-color)]/15">
                   <item.icon className="w-4 h-4" style={{ color: "var(--app-accent-secondary-color)" }} />
@@ -99,18 +89,14 @@ export function Frameworks() {
                   <p className="text-sm font-medium text-[var(--app-text-primary-color)] mb-0.5">{item.title}</p>
                   <p className="text-sm text-[var(--app-text-secondary-color)] leading-relaxed">{item.description}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </motion.div>
+        </div>
 
         {/* Cards Grid */}
-        <motion.div
+        <div
           className="grid grid-cols-2 gap-3 max-w-sm ml-auto"
-          initial={{ opacity: 0, x: 24 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55 }}
         >
           {cards.map((card) => {
             const isSelected = selected === card.key;
@@ -149,7 +135,7 @@ export function Frameworks() {
               </div>
             );
           })}
-        </motion.div>
+        </div>
 
       </div>
     </Section>

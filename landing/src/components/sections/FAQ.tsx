@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { ChevronDown, HelpCircle } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 
@@ -56,13 +56,9 @@ interface FAQItemProps {
   index: number;
 }
 
-function FAQItem({ question, answer, isOpen, onToggle, index }: FAQItemProps) {
+function FAQItem({ question, answer, isOpen, onToggle }: FAQItemProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ delay: index * 0.05 }}
+    <div
       className="border-b border-[var(--app-border-primary-color)] last:border-b-0"
     >
       <button
@@ -73,9 +69,7 @@ function FAQItem({ question, answer, isOpen, onToggle, index }: FAQItemProps) {
         <span className="text-base font-medium text-[var(--app-text-primary-color)] group-hover:text-[var(--app-accent-secondary-color)] transition-colors pr-4">
           {question}
         </span>
-        <motion.div
-          animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.2 }}
+        <div
           className={`flex-shrink-0 w-7 h-7 rounded-full flex items-center justify-center transition-colors ${
             isOpen
               ? "bg-[var(--app-accent-color)] text-white"
@@ -83,25 +77,21 @@ function FAQItem({ question, answer, isOpen, onToggle, index }: FAQItemProps) {
           }`}
         >
           <ChevronDown className="w-4 h-4" />
-        </motion.div>
+        </div>
       </button>
 
       <AnimatePresence>
         {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2 }}
+          <div
             className="overflow-hidden"
           >
             <p className="pb-5 text-sm text-[var(--app-text-secondary-color)] leading-relaxed">
               {answer}
             </p>
-          </motion.div>
+          </div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </div>
   );
 }
 

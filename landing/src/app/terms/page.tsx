@@ -1,54 +1,46 @@
-"use client";
-
-import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { AlertTriangle } from "lucide-react";
 
 export default function TermsPage() {
   return (
     <>
+      {/* Hero */}
       <section className="relative pt-32 pb-12 overflow-hidden">
         <div className="absolute inset-0 grid-pattern" />
-
         <Container size="md">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <h1 className="text-3xl sm:text-4xl font-bold text-[var(--app-text-primary-color)] mb-4">
-              Terms of Service
-            </h1>
-            <p className="text-[var(--app-text-secondary-color)]">
-              Last updated: January 1, 2026
-            </p>
-          </motion.div>
+          <h1 className="text-3xl sm:text-4xl font-medium text-[var(--app-text-primary-color)] mb-3 font-[family-name:var(--font-dancing-script)] leading-tight">
+            Terms of Service
+          </h1>
+          <p className="text-sm text-[var(--app-text-tertiary-color)]">
+            Last updated: March 1, 2026
+          </p>
         </Container>
       </section>
 
       <section className="pb-20">
         <Container size="md">
-          {/* Crisis Warning */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="mb-12 p-6 rounded-2xl bg-red-500/10 border border-red-500/30"
-          >
+
+          {/* Crisis warning card */}
+          <div className="mb-10 rounded-2xl bg-[var(--app-bg-secondary-color)] border border-[var(--app-danger-color-transparent)] p-6">
             <div className="flex items-start gap-4">
-              <AlertTriangle className="w-6 h-6 text-red-500 flex-shrink-0 mt-0.5" />
+              <div
+                className="w-9 h-9 rounded-xl flex items-center justify-center shrink-0"
+                style={{ backgroundColor: "var(--app-danger-color-transparent)" }}
+              >
+                <AlertTriangle className="w-4 h-4" style={{ color: "var(--app-danger-color)" }} />
+              </div>
               <div>
-                <h2 className="font-semibold text-[var(--app-text-primary-color)] mb-2">
+                <h2 className="text-sm font-semibold text-[var(--app-text-primary-color)] mb-1">
                   Important Safety Information
                 </h2>
-                <p className="text-[var(--app-text-secondary-color)] text-sm">
+                <p className="text-xs text-[var(--app-text-secondary-color)] leading-relaxed">
                   The Room is not a crisis service. If you are experiencing a
                   mental health emergency, please contact emergency services
                   (911), the National Suicide Prevention Lifeline (988), or
                   visit{" "}
                   <a
                     href="https://findahelpline.com"
-                    className="text-violet-400 hover:underline"
+                    className="text-[var(--app-accent-color)] hover:underline"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -58,18 +50,17 @@ export default function TermsPage() {
                 </p>
               </div>
             </div>
-          </motion.div>
+          </div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+          {/* Prose */}
+          <div
             className="prose prose-lg prose-invert max-w-none
-              prose-headings:text-[var(--app-text-primary-color)] prose-headings:font-bold
-              prose-h2:text-xl prose-h2:mt-8 prose-h2:mb-4
-              prose-p:text-[var(--app-text-secondary-color)] prose-p:leading-relaxed prose-p:mb-4
-              prose-ul:text-[var(--app-text-secondary-color)]
-              prose-li:my-1"
+              prose-headings:text-[var(--app-text-primary-color)] prose-headings:font-semibold
+              prose-h2:text-base prose-h2:mt-8 prose-h2:mb-3
+              prose-p:text-[var(--app-text-secondary-color)] prose-p:leading-relaxed prose-p:mb-4 prose-p:text-sm
+              prose-ul:text-[var(--app-text-secondary-color)] prose-ul:text-sm
+              prose-li:my-1
+              prose-a:text-[var(--app-accent-color)] prose-a:no-underline hover:prose-a:underline"
           >
             <h2>1. Acceptance of Terms</h2>
             <p>
@@ -109,9 +100,7 @@ export default function TermsPage() {
               <li>Use the Service for any unlawful purpose</li>
               <li>Attempt to gain unauthorized access to the Service</li>
               <li>Interfere with or disrupt the Service</li>
-              <li>
-                Use the Service to harm, threaten, or harass others
-              </li>
+              <li>Use the Service to harm, threaten, or harass others</li>
               <li>Share your account with others</li>
             </ul>
 
@@ -138,19 +127,15 @@ export default function TermsPage() {
             <h2>9. Changes to Terms</h2>
             <p>
               We reserve the right to modify these terms at any time. We will
-              notify you of significant changes via email or through the
-              Service.
+              notify you of significant changes via email or through the Service.
             </p>
 
             <h2>10. Contact Us</h2>
             <p>
               If you have questions about these Terms, please contact us at{" "}
-              <a href="mailto:legal@theroom.ai" className="text-violet-400">
-                legal@theroom.ai
-              </a>
-              .
+              <a href="mailto:dvolynov@gmail.com">dvolynov@gmail.com</a>.
             </p>
-          </motion.div>
+          </div>
         </Container>
       </section>
     </>

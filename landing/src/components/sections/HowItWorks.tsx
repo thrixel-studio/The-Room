@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Sparkles, PenLine, LineChart, Target } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 
@@ -50,13 +49,9 @@ export function HowItWorks() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-6">
           {steps.map((step, index) => (
-            <motion.div
+            <div
               key={step.number}
               className="relative"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
             >
               <div className="relative bg-[var(--app-bg-secondary-color)] rounded-2xl p-6 border border-[var(--app-border-primary-color)] h-full">
                 {/* Step Number Circle */}
@@ -107,18 +102,14 @@ export function HowItWorks() {
                   <div className="w-5 h-5 rounded-full bg-[var(--app-bg-primary-color)] border border-[var(--app-border-primary-color)]" />
                 </div>
               )}
-            </motion.div>
+            </div>
           ))}
         </div>
       </div>
 
       {/* See The Room in Action */}
-      <motion.div
+      <div
         className="mt-16 sm:mt-20"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5, delay: 0.4 }}
       >
         <div className="text-center mb-10">
           <h3 className="text-3xl sm:text-4xl font-medium text-[var(--app-text-primary-color)] mb-3 font-[family-name:var(--font-dancing-script)] leading-tight">
@@ -203,7 +194,7 @@ export function HowItWorks() {
             </div>
           </div>
         </div>
-      </motion.div>
+      </div>
     </Section>
   );
 }

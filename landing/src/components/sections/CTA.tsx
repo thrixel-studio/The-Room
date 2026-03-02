@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
@@ -14,21 +13,15 @@ export function CTA() {
         <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-amber-500/10 rounded-full blur-3xl" />
       </div>
 
-      <motion.div
+      <div
         className="relative z-10 text-center max-w-3xl mx-auto"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
       >
         {/* Icon */}
-        <motion.div
+        <div
           className="inline-flex items-center justify-center w-20 h-20 rounded-3xl bg-gradient-to-br from-violet-600 to-amber-500 mb-8"
-          animate={{ y: [0, -10, 0] }}
-          transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
         >
           <Sparkles className="w-10 h-10 text-white" />
-        </motion.div>
+        </div>
 
         {/* Heading */}
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-[var(--app-text-primary-color)] mb-6">
@@ -67,7 +60,7 @@ export function CTA() {
           <span className="w-1 h-1 rounded-full bg-[var(--app-text-tertiary-color)]" />
           <span className="text-sm">14-day free trial</span>
         </div>
-      </motion.div>
+      </div>
     </Section>
   );
 }

@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { Section } from "@/components/ui/Section";
 
 const stats = [
@@ -15,12 +14,8 @@ const stats = [
 export function Features() {
   return (
     <Section id="features" className="!py-0">
-      <motion.div
+      <div
         className="flex flex-col gap-8 max-w-4xl mx-auto"
-        initial={{ opacity: 0, y: 24 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
       >
         {/* Card */}
         <div className="relative overflow-hidden rounded-2xl">
@@ -71,7 +66,7 @@ export function Features() {
           </div>
         </div>
 
-      </motion.div>
+      </div>
     </Section>
   );
 }

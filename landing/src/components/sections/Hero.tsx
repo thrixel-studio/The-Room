@@ -23,24 +23,24 @@ export function Hero() {
         <div className="relative z-10 max-w-7xl mx-auto text-center">
 
           {/* Badge */}
-          <div className="mb-8 hero-fade-in">
+          <div className="mb-8">
             <Badge variant="light" color="secondary" size="md" icon={<ShieldCheck className="w-3.5 h-3.5" />} className="!bg-[var(--app-accent-secondary-color)]/15 !border-0 !text-[var(--app-accent-secondary-color)]">
               Expert-Guided & Completely Private
             </Badge>
           </div>
 
           {/* Main Heading */}
-          <h1 className="mt-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium leading-tight font-[family-name:var(--font-dancing-script)] hero-fade-in hero-delay-1">
+          <h1 className="mt-8 text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium leading-tight font-[family-name:var(--font-dancing-script)]">
             <span className="font-medium text-[var(--app-text-primary-color)]">Master Your Mental Wellness</span>
           </h1>
 
           {/* Subheading */}
-          <p className="mt-6 text-base sm:text-lg text-[var(--app-text-secondary-color)] max-w-3xl mx-auto hero-fade-in hero-delay-2">
+          <p className="mt-6 text-base sm:text-lg text-[var(--app-text-secondary-color)] max-w-3xl mx-auto">
             Your private space to think, feel, and grow — with an AI that listens without judgment, helps you understand your patterns, and supports you at any hour of the day.
           </p>
 
           {/* CTA Buttons */}
-          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center hero-fade-in hero-delay-3">
+          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
             <a href={appUrl}>
               <Button
                 variant="accent"

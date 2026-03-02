@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import { Section, SectionHeader } from "@/components/ui/Section";
 
@@ -77,12 +77,8 @@ export function Testimonials() {
       {/* Main Testimonial Carousel */}
       <div className="relative max-w-4xl mx-auto">
         <AnimatePresence mode="wait">
-          <motion.div
+          <div
             key={currentIndex}
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -50 }}
-            transition={{ duration: 0.3 }}
             className="relative bg-[var(--app-bg-primary-color)] rounded-3xl p-8 sm:p-12 border border-[var(--app-border-primary-color)]"
           >
             {/* Quote Icon */}
@@ -117,7 +113,7 @@ export function Testimonials() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </AnimatePresence>
 
         {/* Navigation */}
@@ -174,12 +170,8 @@ export function Testimonials() {
           { text: "My daily mental gym", rating: 5, date: "1 day ago" },
           { text: "Wish I found this sooner", rating: 5, date: "4 days ago" },
         ].map((review, index) => (
-          <motion.div
+          <div
             key={index}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.05 }}
             className="bg-[var(--app-bg-primary-color)] rounded-xl p-4 border border-[var(--app-border-primary-color)]"
           >
             <div className="flex gap-0.5 mb-2">
@@ -197,7 +189,7 @@ export function Testimonials() {
               {review.text}
             </p>
             <p className="text-[var(--app-text-tertiary-color)] text-xs mt-1">{review.date}</p>
-          </motion.div>
+          </div>
         ))}
       </div>
     </Section>

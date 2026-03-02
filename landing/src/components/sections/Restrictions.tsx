@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { ExternalLink, Phone } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 
@@ -40,14 +39,10 @@ interface AiMessageProps {
   delay: number;
 }
 
-function AiMessage({ text, delay }: AiMessageProps) {
+function AiMessage({ text }: AiMessageProps) {
   return (
-    <motion.div
+    <div
       className="flex flex-col"
-      initial={{ opacity: 0, y: 8 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.4, delay }}
     >
       <div
         className="px-2.5 py-1.5"
@@ -57,7 +52,7 @@ function AiMessage({ text, delay }: AiMessageProps) {
           {text}
         </p>
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -67,15 +62,11 @@ interface UserMessageProps {
   delay: number;
 }
 
-function UserMessage({ text, level, delay }: UserMessageProps) {
+function UserMessage({ text, level }: UserMessageProps) {
   const color = levelColor(level);
   return (
-    <motion.div
+    <div
       className="flex justify-end items-center gap-2.5"
-      initial={{ opacity: 0, y: 8 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.35, delay }}
     >
       <div className="max-w-[80%]">
         <div className="py-1.5 px-3 rounded-tl-xl rounded-tr-xl rounded-bl-xl rounded-br-md shadow-sm" style={{ backgroundColor: `${color}22` }}>
@@ -91,7 +82,7 @@ function UserMessage({ text, level, delay }: UserMessageProps) {
       >
         {level}
       </div>
-    </motion.div>
+    </div>
   );
 }
 
@@ -99,12 +90,8 @@ export function Restrictions() {
   return (
     <Section id="restrictions" className="!py-0">
       {/* Header */}
-      <motion.div
+      <div
         className="text-center mb-12"
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.5 }}
       >
         <h2 className="text-3xl sm:text-4xl font-medium text-[var(--app-text-primary-color)] font-[family-name:var(--font-dancing-script)] leading-tight">
           ML-Ranking
@@ -112,17 +99,13 @@ export function Restrictions() {
         <p className="mt-3 text-sm text-[var(--app-text-secondary-color)] max-w-lg mx-auto leading-relaxed">
           When the bot recognizes it cannot safely help, it steps aside — and connects the person to real professionals.
         </p>
-      </motion.div>
+      </div>
 
       <div className="flex flex-col lg:flex-row gap-0 items-start max-w-5xl mx-auto">
 
         {/* Left: Severity scale */}
-        <motion.div
+        <div
           className="flex-1 lg:max-w-[46%] flex flex-col gap-6 lg:pr-10 justify-center"
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
         >
           <div className="flex flex-col gap-6">
 
@@ -161,13 +144,9 @@ export function Restrictions() {
               </div>
               <div className="flex items-center justify-between gap-1.5">
                 {severityColors.map((color, i) => (
-                  <motion.div
+                  <div
                     key={i}
                     className="flex-1 flex flex-col items-center gap-1"
-                    initial={{ opacity: 0, y: 8 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.3, delay: i * 0.04 }}
                   >
                     <div
                       className="w-full h-7 rounded-lg flex items-center justify-center text-[10px] font-bold"
@@ -180,30 +159,26 @@ export function Restrictions() {
                     >
                       {i + 1}
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
 
             {/* Second paragraph */}
             <p className="text-sm text-[var(--app-text-secondary-color)] leading-relaxed">
-              Every message is scored from 1 to 10. A low score means the bot keeps supporting you — listening, reflecting, and offering gentle support. As the score rises, the bot shifts its tone: asking more direct questions, checking in on safety, and reducing the depth of emotional exploration. At level 10 — when someone is in immediate danger — it steps back entirely and hands off to emergency resources and real professionals who are trained to help.
+              Every message is scored 1–10. Low scores keep the bot in supportive mode. As the score rises, it shifts tone — asking more direct questions and checking in on safety. At level 10, it steps back entirely and hands off to emergency resources and real professionals.
             </p>
 
           </div>
 
-        </motion.div>
+        </div>
 
         {/* Vertical divider */}
         <div className="hidden lg:block self-stretch w-px bg-gradient-to-b from-transparent via-[var(--app-border-primary-color)] to-transparent shrink-0" />
 
         {/* Right: Chat window */}
-        <motion.div
+        <div
           className="flex-1 lg:max-w-[49%] overflow-hidden"
-          initial={{ opacity: 0, x: 20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
         >
           {/* Messages */}
           <div className="lg:pl-10 flex flex-col gap-5">
@@ -219,18 +194,7 @@ export function Restrictions() {
               delay={0.2}
             />
 
-            {/* Exchange 2 — level 7 */}
-            <UserMessage
-              text="I just want everything to stop. I can't take it anymore"
-              level={5}
-              delay={0.3}
-            />
-            <AiMessage
-              text="Thank you for trusting me with this. When you say you want it to stop — are you having thoughts of hurting yourself?"
-              delay={0.4}
-            />
-
-            {/* Exchange 3 — level 10 */}
+            {/* Exchange 2 — level 10 */}
             <UserMessage
               text="I'm standing at the window right now"
               level={10}
@@ -242,12 +206,8 @@ export function Restrictions() {
             />
 
             {/* Resource cards — inline */}
-            <motion.div
+            <div
               className="grid grid-cols-2 gap-2"
-              initial={{ opacity: 0, y: 8 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.75 }}
             >
               {resources.map((r) => (
                 <a
@@ -264,15 +224,11 @@ export function Restrictions() {
                   <p className="text-[10px] text-[var(--app-text-tertiary-color)]">{r.desc}</p>
                 </a>
               ))}
-            </motion.div>
+            </div>
 
             {/* Emergency contacts */}
-            <motion.div
+            <div
               className="flex items-center justify-center gap-10 px-1 py-1"
-              initial={{ opacity: 0, y: 8 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: 0.85 }}
             >
               {emergency.map((e) => (
                 <a
@@ -284,10 +240,10 @@ export function Restrictions() {
                   {e.region} <span className="font-semibold text-[var(--app-text-primary-color)]">{e.number}</span>
                 </a>
               ))}
-            </motion.div>
+            </div>
 
           </div>
-        </motion.div>
+        </div>
 
       </div>
     </Section>

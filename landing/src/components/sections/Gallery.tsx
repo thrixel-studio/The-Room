@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { Section } from "@/components/ui/Section";
 
 const images = [
@@ -47,12 +46,8 @@ export function Gallery() {
     <Section id="demo" className="!py-0">
       <div ref={sectionRef}>
         {/* Header */}
-        <motion.div
+        <div
           className="text-center mb-10"
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
         >
 <h2 className="text-3xl sm:text-4xl font-medium text-[var(--app-text-primary-color)] mb-3 font-[family-name:var(--font-dancing-script)] leading-tight">
             Product Demo
@@ -60,15 +55,10 @@ export function Gallery() {
           <p className="text-sm text-[var(--app-text-secondary-color)] max-w-xl mx-auto leading-relaxed">
             A glimpse into how The Room helps you understand your emotions, reflect deeper, and grow with intention.
           </p>
-        </motion.div>
+        </div>
 
         {/* Gallery */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.55, delay: 0.1 }}
-        >
+        <div>
           <div className="relative rounded-2xl overflow-hidden border-[1.5px] border-[var(--app-border-primary-color)] max-w-4xl mx-auto aspect-[1400/876] shadow-xl">
             {images.map((img, i) => (
               <div
@@ -106,7 +96,7 @@ export function Gallery() {
               </button>
             ))}
           </div>
-        </motion.div>
+        </div>
       </div>
     </Section>
   );
