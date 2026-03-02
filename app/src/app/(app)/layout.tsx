@@ -49,10 +49,10 @@ const AppLayout = React.memo(function AppLayout({
       <Backdrop />
       {/* Main Content Area */}
       <div
-        className="flex-1 transition-all duration-300 ease-in-out flex flex-col h-screen lg:ml-[60px]"
+        className="flex-1 transition-all duration-300 ease-in-out flex flex-col h-screen md:ml-[60px]"
       >
         {/* Page Content - Each page now shows header immediately */}
-        <div className="flex-1 min-h-0 overflow-y-auto pt-3 lg:pr-3 mx-auto max-w-(--breakpoint-2xl) w-full shadow-none">
+        <div className="flex-1 min-h-0 overflow-y-auto pt-3 md:pr-3 mx-auto max-w-(--breakpoint-2xl) w-full shadow-none">
           <PageTransition>
             {children}
           </PageTransition>

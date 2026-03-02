@@ -3,7 +3,8 @@ import React, { useEffect, useRef, useState, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { useAppSelector } from "@/shared/store/hooks";
+import { useAppSelector, useAppDispatch } from "@/shared/store/hooks";
+import { closeMobileSidebar } from "@/shared/store/slices/uiSlice";
 import { PencilLine, NotebookText, SquareUser, LayoutDashboard, Settings } from "lucide-react";
 import {
   ChevronDownIcon,
@@ -47,10 +48,12 @@ const mainNavItems: NavItem[] = [
 
 const AppSidebar: React.FC = React.memo(() => {
   const isMobileOpen = useAppSelector((state) => state.ui.sidebarMobileOpen);
+  const dispatch = useAppDispatch();
   const pathname = usePathname();
   const router = useRouter();
 
   const handleNavClick = (e: React.MouseEvent, path: string) => {
+    dispatch(closeMobileSidebar());
     // For Chat, always navigate to /chat (welcome screen)
     // This ensures a fresh start without creating a session until user sends a message
     if (path === "/chat") {
@@ -124,7 +127,7 @@ const AppSidebar: React.FC = React.memo(() => {
               }}
             >
               <ul className="mt-2 space-y-1 ml-9">
-                {nav.subItems.map((subItem) => (
+                {nav.subItems?.map((subItem) => (
                   <li key={subItem.name}>
                     <Link
                       href={subItem.path}
@@ -243,7 +246,7 @@ const AppSidebar: React.FC = React.memo(() => {
     <aside
       className={`fixed flex-col top-0 left-0 text-white h-screen transition-all duration-300 ease-in-out z-50 py-3 overflow-visible flex justify-between w-[60px] bg-[#1e1f22]
         ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}
-        lg:translate-x-0`}
+        md:translate-x-0`}
     >
       {/* Main Sidebar Content */}
       <div className="flex flex-col min-h-0">

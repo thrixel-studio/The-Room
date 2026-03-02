@@ -12,6 +12,7 @@ import { useAuth } from "@/features/auth";
 import { useToast } from '@/shared/hooks/useToast';
 import { SkeletonBase } from '@/shared/ui/skeletons/SkeletonBase';
 import { useContentReady } from "@/shared/contexts/NavigationContext";
+import { MobileHeader } from "@/shared/components/layout/MobileHeader";
 
 function SettingsSkeleton() {
   return (
@@ -74,6 +75,7 @@ export default function Settings() {
   // Signal content ready immediately - skeleton shows until data loads
   useContentReady(true);
   const [isEditing, setIsEditing] = useState(false);
+
   const [isSaving, setIsSaving] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -145,8 +147,9 @@ export default function Settings() {
 
   return (
     <div className="flex flex-col gap-2 xl:gap-3 h-full pb-3">
-      <div className="flex-1 overflow-y-auto min-h-0 relative z-0">
-        <div className="max-w-2xl mx-auto mt-6">
+      <MobileHeader title="Settings" />
+      <div className="flex-1 overflow-y-auto min-h-0 relative z-0 p-3 md:p-0">
+        <div className="max-w-2xl mx-auto md:mt-6">
           <div
             className={`bg-[var(--app-bg-secondary-color)] shadow-sm rounded-2xl transition-all duration-300 ease-out ${
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'

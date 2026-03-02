@@ -247,13 +247,13 @@ export default function ChatSessionPage() {
 
       {/* Framework Badge - Bottom Right Corner (desktop only) */}
       {showBadge && (
-        <div className="hidden lg:block fixed bottom-4 right-5 z-30">
+        <div className="hidden md:block fixed bottom-4 right-5 z-30">
           <FrameworkBadge frameworkKey={displayFramework as any} />
         </div>
       )}
 
       {/* Progress Bar - Fixed at top right corner (desktop only) */}
-      <div className="hidden lg:block">
+      <div className="hidden md:block">
         <ChatProgress messages={messages} />
       </div>
 
@@ -269,7 +269,7 @@ export default function ChatSessionPage() {
       {/* Messages Area - Scrollable */}
       <div className="flex-1 overflow-y-auto pb-4 bg-transparent">
         <div className="flex justify-center w-full">
-          <div className="w-full max-w-2xl space-y-3 px-4 pt-5 lg:pt-0">
+          <div className="w-full max-w-2xl space-y-3 px-4 pt-5 md:pt-0">
             {messages.map((message, index) => {
               const isLastMessage = index === messages.length - 1;
 

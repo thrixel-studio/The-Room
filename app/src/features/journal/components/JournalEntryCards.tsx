@@ -165,16 +165,7 @@ export default function JournalEntryCards({
   }, [hasNextPage, isFetchingFinal]);
 
   // Calculate grid layout based on container width
-  const cardsPerRow = useMemo(() => {
-    if (containerWidth === 0) return CARDS_PER_ROW;
-
-    // Responsive breakpoints
-    if (containerWidth < 640) return 1;  // sm
-    if (containerWidth < 768) return 2;  // md
-    if (containerWidth < 900) return 3;  // lg
-    if (containerWidth < 1100) return 4; // xl
-    return CARDS_PER_ROW; // 5 cards for screens >= 1100px
-  }, [containerWidth]);
+  const cardsPerRow = Math.max(1, Math.floor((containerWidth || 1200) / (230 + 15)));
 
   // Track container width for responsive layout
   useEffect(() => {
@@ -285,17 +276,15 @@ export default function JournalEntryCards({
     );
   }
 
+  const isMobile = containerWidth === 0 || containerWidth < 768;
+  const gridStyle = { gridTemplateColumns: 'repeat(auto-fill, 230px)', justifyContent: isMobile ? 'center' : 'space-between', gap: '15px' };
+
   // Show skeleton grid while loading
   if (isLoading) {
     return (
       <div className="flex justify-center pb-8 h-full overflow-auto">
         <div className="w-full max-w-[1600px] pr-4">
-          <div
-            className="grid gap-4"
-            style={{
-              gridTemplateColumns: `repeat(${cardsPerRow || 5}, minmax(0, 1fr))`,
-            }}
-          >
+          <div className="grid" style={gridStyle}>
             {Array.from({ length: 10 }).map((_, index) => (
               <JournalCardSkeleton key={index} animationDelay={index * 30} />
             ))}
@@ -324,14 +313,8 @@ export default function JournalEntryCards({
       className="flex justify-center pb-8 h-full overflow-auto"
     >
       <div className="w-full max-w-[1600px] pr-4">
-        <div
-          className="grid gap-4"
-          style={{
-            gridTemplateColumns: `repeat(${cardsPerRow}, minmax(0, 1fr))`,
-          }}
-        >
+        <div className="grid" style={gridStyle}>
           {entries.map((item, index) => {
-            // Calculate if this card should have priority (first 2 rows)
             const isPriority = index < cardsPerRow * 2;
 
             const entry = item as JournalEntry & { isDraft?: boolean };

@@ -6,6 +6,7 @@ import { Circle, CircleCheck, Heart, Target, Zap, Lightbulb } from "lucide-react
 import { useFrameworks } from "@/features/frameworks";
 import { useToast } from '@/shared/hooks/useToast';
 import { useContentReady } from "@/shared/contexts/NavigationContext";
+import { MobileHeader } from "@/shared/components/layout/MobileHeader";
 import type { FrameworkKey } from "@/features/frameworks";
 
 // Hook for staggered card animation
@@ -48,25 +49,27 @@ export default function Frameworks() {
   };
 
   return (
-    <div className="flex flex-col h-full flex-1 min-h-0">
-      <div className="flex flex-1 min-h-0">
+    <div className="flex flex-col md:h-full md:flex-1 md:min-h-0">
+      <MobileHeader title="Frameworks" />
+
+      <div className="flex md:flex-1 md:min-h-0">
         {/* Framework Cards */}
-        <div className="flex-1 overflow-y-scroll min-h-0 relative z-0">
-          <div className="flex justify-center items-start min-h-full pt-16 pb-8">
-            <div className="w-full max-w-[1600px] pr-4">
+        <div className="flex-1 md:overflow-y-scroll md:min-h-0 relative z-0">
+          <div className="flex justify-center items-start md:min-h-full p-3 md:p-0 md:pt-16 md:pb-8">
+            <div className="w-full md:max-w-[1600px] md:pr-4">
               {/* Explanation Text */}
-              <div className="max-w-3xl mx-auto mb-8 text-center px-4">
-                <h2 className="text-xl md:text-2xl font-semibold text-white/90 mb-1.5">
+              <div className="max-w-3xl mx-auto mb-6 md:mb-8 text-center">
+                <h2 className="hidden md:block text-xl md:text-2xl font-semibold text-white/90 mb-1.5">
                   Choose Your Framework
                 </h2>
                 <p className="text-xs md:text-sm text-white/60 leading-relaxed">
-                  Unique perspectives to help you explore different aspects 
+                  Unique perspectives to help you explore different aspects
                   of your thoughts.
                 </p>
               </div>
 
               {/* Framework Cards Grid */}
-              <div className="max-w-5xl mx-auto w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+              <div className="max-w-[480px] mx-auto md:max-w-5xl md:mx-auto grid grid-cols-2 lg:grid-cols-4 gap-3">
                 {frameworks.map((framework, index) => (
                   <FrameworkCard
                     key={framework.key}

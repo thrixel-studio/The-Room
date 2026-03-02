@@ -137,7 +137,7 @@ const JournalEntryCard = React.memo(function JournalEntryCard({ entry, onImageLo
   return (
     <>
     <div
-      className={`group relative rounded-2xl cursor-pointer flex flex-col aspect-[10/13] transition-all duration-300 ease-out overflow-hidden border-[var(--app-bg-primary-color)] hover:border-[var(--app-accent-secondary-color)] ${
+      className={`group relative rounded-2xl cursor-pointer flex flex-col w-[230px] h-[310px] transition-all duration-300 ease-out overflow-hidden border-[var(--app-bg-primary-color)] hover:border-[var(--app-accent-secondary-color)] ${
         isVisible
           ? 'opacity-100 translate-y-0'
           : 'opacity-0 translate-y-6'

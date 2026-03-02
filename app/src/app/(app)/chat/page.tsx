@@ -12,6 +12,7 @@ import {
 } from "@/features/chat";
 import { FrameworkBadge, useFrameworks } from "@/features/frameworks";
 import { useContentReady } from "@/shared/contexts/NavigationContext";
+import { MobileHeader } from "@/shared/components/layout/MobileHeader";
 
 /**
  * Welcome screen for starting a new chat.
@@ -84,6 +85,9 @@ export default function ChatWelcomePage() {
 
   return (
     <div className="flex flex-col h-full flex-1 min-h-0 relative shadow-none">
+      {/* Mobile Header - with inline progress on the right */}
+      <MobileHeader title="Chat" right={<ChatProgress messages={[]} inline={true} />} />
+
       {/* Framework Badge - Bottom Right Corner (deferred to avoid hydration mismatch) */}
       {mounted && selectedFramework && (
         <div className="fixed bottom-4 right-5 z-30">
@@ -91,8 +95,10 @@ export default function ChatWelcomePage() {
         </div>
       )}
 
-      {/* Progress Bar - Fixed at top right corner */}
-      <ChatProgress messages={[]} />
+      {/* Progress Bar - Fixed at top right corner (desktop only) */}
+      <div className="hidden md:block">
+        <ChatProgress messages={[]} />
+      </div>
 
       {/* Error Message */}
       {error && (

@@ -3,6 +3,7 @@
 import { JournalEntryCards } from "@/features/journal";
 import React from "react";
 import { useContentReady } from "@/shared/contexts/NavigationContext";
+import { MobileHeader } from "@/shared/components/layout/MobileHeader";
 
 export default function JournalPage() {
   // Signal content ready immediately - skeleton shows until data loads
@@ -10,9 +11,10 @@ export default function JournalPage() {
 
   return (
     <div className="flex flex-col h-full flex-1 min-h-0">
+      <MobileHeader title="Journal" />
       <div className="flex flex-1 min-h-0">
         {/* Journal Cards */}
-        <div className="flex-1 overflow-y-scroll min-h-0 relative z-0">
+        <div className="flex-1 overflow-y-scroll min-h-0 relative z-0 pt-3 md:pt-0">
           <JournalEntryCards />
         </div>
       </div>

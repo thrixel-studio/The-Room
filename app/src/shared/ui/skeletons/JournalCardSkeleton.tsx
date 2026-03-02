@@ -21,7 +21,7 @@ export function JournalCardSkeleton({ animationDelay = 0 }: JournalCardSkeletonP
 
   return (
     <div
-      className={`group relative rounded-2xl flex flex-col aspect-[10/13] transition-all duration-300 ease-out overflow-hidden border-2 border-[var(--app-bg-primary-color)] ${
+      className={`group relative rounded-2xl flex flex-col w-[230px] h-[310px] transition-all duration-300 ease-out overflow-hidden border-2 border-[var(--app-bg-primary-color)] ${
         isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
       }`}
       style={{
