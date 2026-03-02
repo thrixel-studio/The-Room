@@ -14,6 +14,7 @@ export { LoadingIndicator } from './components/LoadingIndicator';
 export { SwitchFrameworkButton } from './components/SwitchFrameworkButton';
 export { FrameworkSwitchDivider } from './components/FrameworkSwitchDivider';
 export { EmergencyInline } from './components/EmergencyInline';
+export { ChatMobileHeader } from './components/ChatMobileHeader';
 
 // Hooks
 export { useChat } from './hooks/useChat';

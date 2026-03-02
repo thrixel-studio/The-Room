@@ -10,6 +10,7 @@ import {
   GeneratingCardModal,
   MessageRenderer,
   ChatProgress,
+  ChatMobileHeader,
   LoadingIndicator,
   SwitchFrameworkButton,
   FrameworkSwitchDivider,
@@ -238,15 +239,23 @@ export default function ChatSessionPage() {
 
   return (
     <div className="flex flex-col h-full flex-1 min-h-0 relative shadow-none">
-      {/* Framework Badge - Bottom Right Corner */}
+      {/* Mobile Header - sidebar toggle, framework, progress (mobile only) */}
+      <ChatMobileHeader
+        frameworkKey={displayFramework as FrameworkKey | undefined}
+        messages={messages}
+      />
+
+      {/* Framework Badge - Bottom Right Corner (desktop only) */}
       {showBadge && (
-        <div className="fixed bottom-4 right-5 z-30">
+        <div className="hidden lg:block fixed bottom-4 right-5 z-30">
           <FrameworkBadge frameworkKey={displayFramework as any} />
         </div>
       )}
 
-      {/* Progress Bar - Fixed at top right corner */}
-      <ChatProgress messages={messages} />
+      {/* Progress Bar - Fixed at top right corner (desktop only) */}
+      <div className="hidden lg:block">
+        <ChatProgress messages={messages} />
+      </div>
 
       {/* Error Message */}
       {error && (
@@ -260,7 +269,7 @@ export default function ChatSessionPage() {
       {/* Messages Area - Scrollable */}
       <div className="flex-1 overflow-y-auto pb-4 bg-transparent">
         <div className="flex justify-center w-full">
-          <div className="w-full max-w-2xl space-y-3 px-4">
+          <div className="w-full max-w-2xl space-y-3 px-4 pt-5 lg:pt-0">
             {messages.map((message, index) => {
               const isLastMessage = index === messages.length - 1;
 

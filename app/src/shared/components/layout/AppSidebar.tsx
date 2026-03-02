@@ -85,19 +85,6 @@ const AppSidebar: React.FC = React.memo(() => {
               >
                 {nav.icon}
               </span>
-              {isMobileOpen && (
-                <span className={`text-sm font-medium`}>{nav.name}</span>
-              )}
-              {isMobileOpen && (
-                <ChevronDownIcon
-                  className={`ml-auto w-5 h-5 transition-transform duration-200 ${
-                    openSubmenu?.type === menuType &&
-                    openSubmenu?.index === index
-                      ? "rotate-180 text-[var(--app-accent-color)]"
-                      : ""
-                  }`}
-                />
-              )}
             </button>
           ) : (
             nav.path && (
@@ -120,13 +107,10 @@ const AppSidebar: React.FC = React.memo(() => {
               >
                 {nav.icon}
               </span>
-              {isMobileOpen && (
-                <span className={`text-sm font-medium`}>{nav.name}</span>
-              )}
               </Link>
             )
           )}
-          {nav.subItems && isMobileOpen && (
+          {nav.subItems && false && (
             <div
               ref={(el) => {
                 subMenuRefs.current[`${menuType}-${index}`] = el;
@@ -257,7 +241,7 @@ const AppSidebar: React.FC = React.memo(() => {
 
   return (
     <aside
-      className={`fixed flex-col top-0 left-0 text-white h-screen transition-all duration-300 ease-in-out z-50 py-3 overflow-visible flex justify-between w-[60px]
+      className={`fixed flex-col top-0 left-0 text-white h-screen transition-all duration-300 ease-in-out z-50 py-3 overflow-visible flex justify-between w-[60px] bg-[#1e1f22]
         ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}
         lg:translate-x-0`}
     >
@@ -279,12 +263,8 @@ const AppSidebar: React.FC = React.memo(() => {
         <nav className="flex-1 overflow-y-auto duration-300 ease-linear">
           <div className="flex flex-col gap-3">
             <div>
-              <h2 className="mb-3 text-xs uppercase flex leading-[20px] text-[var(--app-text-tertiary-color)] lg:justify-center justify-start">
-                {isMobileOpen ? (
-                  "Menu"
-                ) : (
-                  <HorizontaLDots />
-                )}
+              <h2 className="mb-3 text-xs uppercase flex leading-[20px] text-[var(--app-text-tertiary-color)] justify-center">
+                <HorizontaLDots />
               </h2>
               {renderMenuItems(mainNavItems, "main")}
             </div>

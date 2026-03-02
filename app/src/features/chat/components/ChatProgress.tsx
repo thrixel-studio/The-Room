@@ -4,17 +4,19 @@ import { ChatMessage } from '../types';
 
 interface ChatProgressProps {
   messages?: ChatMessage[];
+  inline?: boolean;
 }
 
 /**
  * Displays circular progress indicator showing chat completion status
  * Progress is calculated ONLY from AI-provided completion_percentage (0.0-1.0)
  * Shows 0% until AI provides the first completion percentage
- * Fixed position in top right corner
+ * Fixed position in top right corner (or inline when inline=true)
  *
  * @param messages - Array of chat messages to extract AI completion percentage
+ * @param inline - When true, renders without fixed positioning (for use in headers)
  */
-export function ChatProgress({ messages }: ChatProgressProps) {
+export function ChatProgress({ messages, inline }: ChatProgressProps) {
   // Find the last assistant message with completion_percentage
   let progress = 0;
 
@@ -31,5 +33,5 @@ export function ChatProgress({ messages }: ChatProgressProps) {
     progress = maxPercentage * 100;
   }
 
-  return <ProgressBar progress={progress} unfilledColor="var(--app-bg-tertiary-color)" />;
+  return <ProgressBar progress={progress} unfilledColor="var(--app-bg-tertiary-color)" inline={inline} />;
 }
