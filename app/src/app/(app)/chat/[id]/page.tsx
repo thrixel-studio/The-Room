@@ -351,6 +351,7 @@ export default function ChatSessionPage() {
         isOpen={showGeneratingModal}
         sessionId={generatingSessionId || ""}
         onComplete={onModalComplete}
+        messageCount={messages.length}
       />
 
     </div>

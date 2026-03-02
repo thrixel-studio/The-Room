@@ -16,6 +16,7 @@ interface GeneratingCardModalProps {
   isOpen: boolean;
   sessionId: string;
   onComplete: (entryId: string) => void;
+  messageCount?: number;
 }
 
 interface AnalysisStatusResponse {
@@ -27,7 +28,7 @@ interface AnalysisStatusResponse {
   error?: string;
 }
 
-export function GeneratingCardModal({ isOpen, sessionId, onComplete }: GeneratingCardModalProps) {
+export function GeneratingCardModal({ isOpen, sessionId, onComplete, messageCount = 0 }: GeneratingCardModalProps) {
   const router = useRouter();
   const { showToast } = useToastContext();
   const [status, setStatus] = useState<'loading' | 'completed'>('loading');
@@ -153,15 +154,17 @@ export function GeneratingCardModal({ isOpen, sessionId, onComplete }: Generatin
       isFullscreen={true}
     >
       <div className="fixed inset-0 bg-[#111111]/85 backdrop-blur-sm flex items-center justify-center p-4">
-        {/* Back Button - Top Left */}
-        <button
-          onClick={handleBackClick}
-          className="absolute top-4 left-4 md:top-6 md:left-6 z-20 flex items-center gap-2 px-3 py-2 rounded-lg transition-colors"
-          aria-label="Go back"
-        >
-          <ArrowLeft className="w-5 h-5 text-gray-300" />
-          <span className="text-sm font-medium text-gray-300">Back</span>
-        </button>
+        {/* Back Button - Top Left — hidden while generating if conversation has 10+ messages */}
+        {!(status === 'loading' && messageCount >= 10) && (
+          <button
+            onClick={handleBackClick}
+            className="absolute top-4 left-4 md:top-6 md:left-6 z-20 flex items-center gap-2 px-3 py-2 rounded-lg transition-colors"
+            aria-label="Go back"
+          >
+            <ArrowLeft className="w-5 h-5 text-gray-300" />
+            <span className="text-sm font-medium text-gray-300">Back</span>
+          </button>
+        )}
 
         {status === 'loading' && (
           <div className="flex flex-col items-center space-y-4 -mt-16">

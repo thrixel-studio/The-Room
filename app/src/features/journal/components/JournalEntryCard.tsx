@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { NotebookText, Image, Sparkles, CirclePlay, Play, ExternalLink, Heart, Target, Zap, Lightbulb, type LucideIcon } from "lucide-react";
 import { decodeHtmlEntities } from "@/shared/lib/text";
 import OptimizedImage from "@/shared/components/OptimizedImage";
+import styles from "../styles/journal.module.css";
 
 const frameworkIcons: Record<string, LucideIcon> = {
   mental_wellness: Heart,
@@ -265,7 +266,11 @@ const JournalEntryCard = React.memo(function JournalEntryCard({ entry, onImageLo
         )}
         {isDraft ? (
           /* Draft: Show last 5 messages aligned to bottom */
-          <div ref={messagesRef} className="flex flex-col gap-1.5 overflow-y-auto" style={{ height: '85cqh', maskImage: 'linear-gradient(to bottom, transparent 0%, black 16px)' }}>
+          <div
+            ref={messagesRef}
+            className={`flex flex-col gap-1.5 overflow-y-auto ${styles.chatHistory}`}
+            style={{ height: '85cqh', maskImage: 'linear-gradient(to bottom, transparent 0%, black 16px)' }}
+          >
             <div className="mt-auto" />
             {entry.recent_messages && entry.recent_messages.length > 0 ? (
               entry.recent_messages

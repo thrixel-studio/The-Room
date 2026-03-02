@@ -222,6 +222,19 @@ class WritingService:
                     logger.warning(f"Invalid completion_percentage value: {completion_percentage}")
                     completion_percentage = None
 
+            # Enforce minimum step of 0.05 over the previous AI message's completion_percentage
+            prev_completion = None
+            for msg in reversed(chat.messages):
+                if msg.role == MessageRoleEnum.ASSISTANT and msg.metadata_:
+                    prev_val = msg.metadata_.get("completion_percentage")
+                    if prev_val is not None:
+                        prev_completion = float(prev_val)
+                        break
+            if completion_percentage is not None and prev_completion is not None:
+                completion_percentage = min(1.0, max(completion_percentage, prev_completion + 0.05))
+            elif completion_percentage is None and prev_completion is not None:
+                completion_percentage = min(1.0, prev_completion + 0.05)
+
             metadata = {
                 "prompt_type": ai_response.get("prompt_type", "question"),
                 "framework": framework_key,

@@ -19,15 +19,16 @@ export function ChatProgress({ messages }: ChatProgressProps) {
   let progress = 0;
 
   if (messages && messages.length > 0) {
-    // Search backwards for the last assistant message with completion_percentage
-    const lastAIMessage = [...messages].reverse().find(
-      msg => msg.role === 'assistant' && msg.completion_percentage !== undefined
-    );
+    // Use the maximum completion_percentage across all assistant messages
+    // so the bar can only increase or stay the same, never go backwards
+    const maxPercentage = messages.reduce((max, msg) => {
+      if (msg.role === 'assistant' && msg.completion_percentage !== undefined) {
+        return Math.max(max, msg.completion_percentage);
+      }
+      return max;
+    }, 0);
 
-    if (lastAIMessage && lastAIMessage.completion_percentage !== undefined) {
-      // Convert 0.0-1.0 to 0-100
-      progress = lastAIMessage.completion_percentage * 100;
-    }
+    progress = maxPercentage * 100;
   }
 
   return <ProgressBar progress={progress} unfilledColor="var(--app-bg-tertiary-color)" />;

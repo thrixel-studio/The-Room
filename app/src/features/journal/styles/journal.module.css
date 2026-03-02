@@ -16,3 +16,15 @@
 .entryHero {
   /* Entry hero image specific styles */
 }
+
+.chatHistory {
+  /* Hide scrollbars while preserving scroll behavior */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.chatHistory::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  display: none; /* Safari and Chrome */
+}
