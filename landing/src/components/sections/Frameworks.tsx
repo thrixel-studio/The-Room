@@ -96,7 +96,7 @@ export function Frameworks() {
 
         {/* Cards Grid */}
         <div
-          className="grid grid-cols-2 gap-3 max-w-sm ml-auto"
+          className="grid grid-cols-2 gap-3 max-w-sm mx-auto mt-10 lg:mt-0 lg:ml-auto lg:mr-0"
         >
           {cards.map((card) => {
             const isSelected = selected === card.key;

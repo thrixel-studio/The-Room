@@ -46,13 +46,13 @@ export function PsychologistConsultation() {
       >
 
         {/* Left: topics covered */}
-        <div className="flex-1 flex flex-col items-end gap-4 pr-0 lg:pr-14 pb-10 lg:pb-0 justify-center text-right">
+        <div className="flex-1 flex flex-col items-center lg:items-end gap-4 pr-0 lg:pr-14 pb-10 lg:pb-0 justify-center text-center lg:text-right">
           <p className="text-xs font-medium text-[var(--app-text-tertiary-color)] uppercase tracking-wider">
             Topics covered
           </p>
           <div className="flex flex-col gap-3">
             {topics.map(({ text, icon: Icon }) => (
-              <div key={text} className="flex items-start gap-2.5 flex-row-reverse">
+              <div key={text} className="flex items-start gap-2.5 flex-row lg:flex-row-reverse">
                 <Icon
                   className="w-4 h-4 mt-0.5 shrink-0"
                   style={{ color: "var(--app-accent-secondary-color)" }}
@@ -115,7 +115,7 @@ export function PsychologistConsultation() {
         <div className="lg:hidden h-px bg-gradient-to-r from-transparent via-[var(--app-border-primary-color)] to-transparent" />
 
         {/* Right: outcomes */}
-        <div className="flex-1 flex flex-col gap-4 pl-0 lg:pl-14 pt-10 lg:pt-0 justify-center">
+        <div className="flex-1 flex flex-col items-center lg:items-start gap-4 pl-0 lg:pl-14 pt-10 lg:pt-0 justify-center">
           <p className="text-xs font-medium text-[var(--app-text-tertiary-color)] uppercase tracking-wider">
             Consultation outcomes
           </p>

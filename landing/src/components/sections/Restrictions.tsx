@@ -178,7 +178,7 @@ export function Restrictions() {
 
         {/* Right: Chat window */}
         <div
-          className="flex-1 lg:max-w-[49%] overflow-hidden"
+          className="flex-1 lg:max-w-[49%] overflow-hidden mt-10 lg:mt-0"
         >
           {/* Messages */}
           <div className="lg:pl-10 flex flex-col gap-5">
