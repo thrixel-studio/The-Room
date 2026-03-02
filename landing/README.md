@@ -27,6 +27,10 @@ The **landing site** is focused on:
 - Building trust via testimonials, stats, FAQs, and clear CTAs.
 - Providing legal and informational content (privacy policy, terms, resources).
 
+It mirrors the production experience available at:
+
+- **Live URL**: [`the-room-one.vercel.app`](https://the-room-one.vercel.app)
+
 The site is optimized for:
 
 - Modern, animated hero sections and UI polish.
@@ -66,6 +70,7 @@ The landing site is intentionally simpler than the main app and focuses on **pre
   - `Testimonials`
   - `FAQ`
   - `CTA`
+  - Additional sections such as **Frameworks**, **ML‑Ranking**, **Expert‑Guided** (psychologist consultation), **Team**, and **Restrictions**.
 - `src/components/ui` – Reusable UI components:
   - `Button`
   - `Badge`

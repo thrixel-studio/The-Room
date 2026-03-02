@@ -2,6 +2,8 @@
 
 **The Room** is an AI‑powered mental wellness companion that provides 24/7 emotional support through AI‑guided conversations, journaling, and personalized insights.
 
+- **Live product**: [`the-room-one.vercel.app`](https://the-room-one.vercel.app)
+
 This repository contains:
 
 - `app/` – the main product application (authenticated experience).
@@ -50,9 +52,9 @@ There is **no shared Node workspace** at the root; each app manages its own depe
 The main app is what authenticated users interact with day‑to‑day. It provides:
 
 - **AI chat** – a conversational interface that redirects users to `/chat` after login.
-- **Journaling** – guided sessions, entry details, and the ability to revisit or continue writing.
-- **Insights** – dashboards with emotional trends, calendars, and summaries.
-- **Frameworks** – configurable mental‑health / coaching frameworks that shape how the AI responds.
+- **Journaling** – guided sessions where each entry becomes a visual card with its own scene, title, and emotional context.
+- **Insights** – dashboards with emotional trends, 30‑day windows, calendars, and summaries.
+- **Frameworks** – configurable wellness / coaching frameworks (e.g. “Psychologist”, “Advisor”, “Strategist”, “Mediator”) that shape how the AI responds.
 - **Suggestions** – context‑aware recommendations based on recent activity and patterns.
 - **Settings & profile** – user profile, bio, metadata, and data controls (including destructive actions such as deleting entries).
 
@@ -69,10 +71,11 @@ For more details, see `app/README.md`.
 
 ### Landing Site (`landing/`)
 
-The landing site is a focused marketing experience for The Room:
+The landing site is a focused marketing experience for The Room and mirrors the live product at [`the-room-one.vercel.app`](https://the-room-one.vercel.app):
 
 - Hero section showcasing the AI‑powered mental wellness companion.
-- Feature overview, “how it works”, testimonials, stats, FAQ, and CTAs.
+- Feature overview, “how it works”, stats, testimonials, FAQ, and CTAs.
+- Sections for **Frameworks**, **ML‑Ranking**, **Expert‑Guided** (psychologist consultation), and **Team**.
 - Legal and informational pages like **privacy**, **terms**, and **resources**.
 
 Implementation highlights:
@@ -90,14 +93,14 @@ For more details, see `landing/README.md`.
 **Core**
 
 - **Language**: TypeScript
-- **Framework**: Next.js (App Router)
+- **Framework**: Next.js (App Router) – Next.js 16 for the main app, Next.js 15 for the landing site
 - **UI Library**: React 19
 - **Styling**: Tailwind CSS 4 + CSS modules
 
 **Main App (`app/`)**
 
 - **State Management**: Redux Toolkit
-- **Data Fetching**: RTK Query
+- **Data Fetching**: RTK Query (primary) + TanStack React Query (for selected workflows and legacy consumers)
 - **Forms & Validation**: `react-hook-form`, `zod`
 - **Scheduling & Calendars**: FullCalendar
 - **Charts & Visualizations**: ApexCharts, D3 hierarchy
@@ -108,6 +111,19 @@ For more details, see `landing/README.md`.
 
 - **Animations**: Framer Motion
 - **Icons**: lucide-react
+
+---
+
+## Safety, ML Ranking & Expert Guidance
+
+- **ML‑based safety scoring**: incoming messages are scored for crisis language, and severe cases are guided toward real‑world emergency resources rather than AI replies (see the **ML‑Ranking** section on the landing site).
+- **Crisis‑aware UX**: the main app includes dedicated emergency components and flows that change tone and surface crisis resources when needed.
+- **Expert‑guided design**: the product was shaped with consultation from a licensed psychologist to calibrate tone, crisis handling, and feature scope.
+
+See:
+
+- `app/README.md` – implementation details for the authenticated app.
+- `landing/README.md` – structure and content model for the marketing site.
 
 ---
 

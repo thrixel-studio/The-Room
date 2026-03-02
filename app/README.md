@@ -33,9 +33,9 @@ The app is built with **Next.js 16 (App Router)**, **React 19**, **TypeScript**,
 The **The Room** app provides:
 
 - **AI‑guided conversations** through an always‑on chat interface.
-- **Structured journaling** sessions that can be revisited and refined.
+- **Structured journaling** sessions that can be revisited and refined, with each entry rendered as a visual “card” carrying its own scene, title, and emotional context.
 - **Personalized insights** surfaced from your historical entries and sessions.
-- **Wellness frameworks** that guide how conversations and insights are generated.
+- **Wellness frameworks** that guide how conversations and insights are generated, aligned with goals like mental wellness, decision‑making, productivity, and problem‑solving.
 
 The primary user‑facing routes live under the App Router segment `src/app/(app)`:
 
@@ -57,6 +57,8 @@ Authentication flows live under `src/app/(auth)` and error handling under `src/a
 - **Configurable frameworks** that shape how the assistant responds and what it notices.
 - **Suggestions engine** that proposes next steps, prompts, or reflections.
 - **Profile & data controls** to manage user information and journal data.
+
+> For a product‑level overview and live demo, see the landing site at [`the-room-one.vercel.app`](https://the-room-one.vercel.app).
 
 ---
 
@@ -172,11 +174,14 @@ Location: `src/features/settings`
 - **Redux Toolkit** powers app‑wide client state.
   - Store configuration: `src/shared/store/store.ts`.
   - Root reducer: `src/shared/store/rootReducer.ts`.
-- **RTK Query** is used for all HTTP APIs:
+- **RTK Query** is used for the primary HTTP API layer:
   - Base API: `src/shared/store/api/baseApi.ts` with typed cache tiers and tags.
   - Feature modules inject their own endpoints (e.g. chat, journal, insights).
   - `baseQueryWithReauth` handles authentication and token refresh logic.
-- **React Query‑style ergonomics** are provided via RTK Query hooks (e.g. `useGetEntriesQuery`, `useSendMessageMutation`, etc.).
+- **TanStack React Query** is available via a shared `QueryClient`:
+  - Provider setup: `src/shared/providers/Providers.tsx` wraps the app with `QueryClientProvider`.
+  - Used for selected workflows and legacy consumers (e.g. `src/lib/insights.ts`).
+- **React Query‑style ergonomics** are provided via RTK Query hooks (e.g. `useGetEntriesQuery`, `useSendMessageMutation`, etc.) and, where applicable, via TanStack React Query hooks.
 
 ---
 
