@@ -230,9 +230,9 @@ export default function JournalEntryPage() {
       <div ref={scrollContainerRef} className="flex-1 overflow-y-auto min-h-0 relative z-0 h-full">
         <div className="max-w-4xl mx-auto">
           <div className="bg-transparent overflow-hidden relative">
-            {/* Image Section */}
-            {entry.hero_image_url && (
-              <div className="w-full h-[700px] overflow-hidden relative bg-neutral-900 rounded-b-2xl">
+            {/* Image Section - always reserve space, even without generated image */}
+            <div className="w-full h-[700px] overflow-hidden relative bg-neutral-900 rounded-b-2xl">
+              {entry.hero_image_url && (
                 <Image
                   src={entry.hero_image_url.startsWith('http')
                     ? entry.hero_image_url
@@ -246,68 +246,68 @@ export default function JournalEntryPage() {
                   unoptimized
                   onLoad={handleImageLoad}
                 />
-                
-                {/* Inset Shadow Overlay */}
-                <div 
-                  className="absolute inset-0 pointer-events-none z-[1]"
-                  style={{ 
-                    boxShadow: 'inset 0 0 80px 10px rgba(0, 0, 0, 0.4)',
-                  }}
-                />
-                
-                {/* Emotions - Bottom Right */}
-                {entry.emotions.length > 0 && (
-                  <div className="absolute bottom-5 right-3 z-[2]">
-                    <div className="flex flex-col md:flex-row gap-2 items-end md:items-center">
-                      {entry.emotions.map((emotion) => (
-                        <span
-                          key={emotion.id}
-                          className="text-sm font-medium text-white drop-shadow-lg bg-black/30 backdrop-blur-sm px-2 py-1 rounded-lg whitespace-nowrap"
-                        >
-                          {emotion.name}: {Math.round(emotion.intensity * 100)}%
-                        </span>
-                      ))}
-                    </div>
+              )}
+              
+              {/* Inset Shadow Overlay */}
+              <div 
+                className="absolute inset-0 pointer-events-none z-[1]"
+                style={{ 
+                  boxShadow: 'inset 0 0 80px 10px rgba(0, 0, 0, 0.4)',
+                }}
+              />
+              
+              {/* Emotions - Bottom Right */}
+              {entry.emotions.length > 0 && (
+                <div className="absolute bottom-5 right-3 z-[2]">
+                  <div className="flex flex-col md:flex-row gap-2 items-end md:items-center">
+                    {entry.emotions.map((emotion) => (
+                      <span
+                        key={emotion.id}
+                        className="text-sm font-medium text-white drop-shadow-lg bg-black/30 backdrop-blur-sm px-2 py-1 rounded-lg whitespace-nowrap"
+                      >
+                        {emotion.name}: {Math.round(emotion.intensity * 100)}%
+                      </span>
+                    ))}
                   </div>
-                )}
-                
-                {/* Expand, Share, and Delete Buttons - Bottom Left */}
-                <div className="absolute bottom-3 left-3 flex items-center gap-2 z-[2]">
-                  <button
-                    onClick={handleExpandImage}
-                    className="bg-black/30 backdrop-blur-sm rounded-full p-2 transition-colors duration-300 hover:bg-black/50 shadow-lg"
-                    style={{ borderRadius: '9999px' }}
-                    aria-label="Expand image"
-                  >
-                    <Maximize className="w-4 h-4 text-white" />
-                  </button>
-                  <button
-                    onClick={() => {
-                      if (navigator.share && entry.hero_image_url) {
-                        navigator.share({
-                          title: entry.title || 'Journal Entry',
-                          text: 'Check out my journal entry',
-                          url: window.location.href
-                        }).catch(err => console.log('Error sharing:', err));
-                      }
-                    }}
-                    className="bg-black/30 backdrop-blur-sm rounded-full p-2 transition-colors duration-300 hover:bg-black/50 shadow-lg"
-                    style={{ borderRadius: '9999px' }}
-                    aria-label="Share"
-                  >
-                    <Share2 className="w-4 h-4 text-white" />
-                  </button>
-                  <button
-                    onClick={handleDeleteClick}
-                    className="bg-black/30 backdrop-blur-sm rounded-full p-2 transition-colors duration-300 hover:bg-black/50 shadow-lg"
-                    style={{ borderRadius: '9999px' }}
-                    aria-label="Delete entry"
-                  >
-                    <Trash2 className="w-4 h-4 text-white" />
-                  </button>
                 </div>
+              )}
+              
+              {/* Expand, Share, and Delete Buttons - Bottom Left */}
+              <div className="absolute bottom-3 left-3 flex items-center gap-2 z-[2]">
+                <button
+                  onClick={handleExpandImage}
+                  className="bg-black/30 backdrop-blur-sm rounded-full p-2 transition-colors duration-300 hover:bg-black/50 shadow-lg"
+                  style={{ borderRadius: '9999px' }}
+                  aria-label="Expand image"
+                >
+                  <Maximize className="w-4 h-4 text-white" />
+                </button>
+                <button
+                  onClick={() => {
+                    if (navigator.share && entry.hero_image_url) {
+                      navigator.share({
+                        title: entry.title || 'Journal Entry',
+                        text: 'Check out my journal entry',
+                        url: window.location.href
+                      }).catch(err => console.log('Error sharing:', err));
+                    }
+                  }}
+                  className="bg-black/30 backdrop-blur-sm rounded-full p-2 transition-colors duration-300 hover:bg-black/50 shadow-lg"
+                  style={{ borderRadius: '9999px' }}
+                  aria-label="Share"
+                >
+                  <Share2 className="w-4 h-4 text-white" />
+                </button>
+                <button
+                  onClick={handleDeleteClick}
+                  className="bg-black/30 backdrop-blur-sm rounded-full p-2 transition-colors duration-300 hover:bg-black/50 shadow-lg"
+                  style={{ borderRadius: '9999px' }}
+                  aria-label="Delete entry"
+                >
+                  <Trash2 className="w-4 h-4 text-white" />
+                </button>
               </div>
-            )}
+            </div>
 
             {/* Content Section */}
             <div className="p-6 lg:p-8 relative">

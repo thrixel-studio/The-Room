@@ -209,11 +209,11 @@ async def get_entry(
         for ce in chat.emotions
     ]
     
-    # Get summary with all enriched fields
+    # Get summary with all enriched fields (even if there are no bullet points)
     summary = None
-    if chat.summary and chat.summary.bullet_points:
+    if chat.summary:
         summary = {
-            "summary_bullets": chat.summary.bullet_points,
+            "summary_bullets": chat.summary.bullet_points or [],
             "one_line_summary": chat.summary.one_line_summary,
             "tips": [
                 {

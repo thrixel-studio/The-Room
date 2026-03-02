@@ -141,6 +141,8 @@ class AnalysisService:
                 ChatSummary.chat_id == entry_id
             ).first()
             
+            # Core summary fields from analysis
+            key_points = analysis.get("key_points", [])
             summary_text = analysis.get("summary", "")
             title = analysis.get("title", "")
             tips = analysis.get("tips", [])
@@ -149,7 +151,8 @@ class AnalysisService:
             reflection_questions = analysis.get("reflection_questions", [])
 
             if existing_summary:
-                existing_summary.bullet_points = []
+                # Restore bullet points (Key Points) from analysis
+                existing_summary.bullet_points = key_points
                 existing_summary.one_line_summary = summary_text
                 existing_summary.title = title
                 existing_summary.summary_text = summary_text
@@ -167,7 +170,7 @@ class AnalysisService:
                     chat_id=entry_id,
                     title=title,
                     summary_text=summary_text,
-                    bullet_points=[],
+                    bullet_points=key_points,
                     one_line_summary=summary_text,
                     tips_json=tips,
                     key_insight=key_insight,
