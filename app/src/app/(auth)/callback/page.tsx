@@ -43,15 +43,7 @@ function AuthCallbackContent() {
     );
   }
 
-  return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="text-center">
-        <div className="inline-block w-12 h-12 mb-4 border-4 border-brand-500 border-t-transparent rounded-full animate-spin"></div>
-        <h2 className="text-xl font-semibold text-gray-800 text-white">Completing sign in...</h2>
-        <p className="mt-2 text-gray-600 text-gray-400">Please wait while we log you in.</p>
-      </div>
-    </div>
-  );
+  return null;
 }
 
 // Loading fallback for Suspense
