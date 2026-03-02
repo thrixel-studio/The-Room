@@ -17,7 +17,7 @@ const members = [
   },
   {
     name: "Viktoria Taranenko",
-    role: "Professional Psychologist",
+    role: "Psychologist",
     image: "/team/aldghgbljhvberoub.webp",
   },
   {

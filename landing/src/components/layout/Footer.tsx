@@ -6,8 +6,11 @@ import { Container } from "@/components/ui/Container";
 const footerLinks = {
   product: [
     { name: "Journaling", href: "/#journaling" },
+    { name: "Overview", href: "/#features" },
     { name: "Frameworks", href: "/#frameworks" },
+    { name: "ML-Ranking", href: "/#restrictions" },
     { name: "Demo", href: "/#demo" },
+    { name: "Psychologist", href: "/#psychologist-consultation" },
     { name: "Team", href: "/#team" },
   ],
   legal: [

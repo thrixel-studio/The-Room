@@ -19,14 +19,14 @@ const severityColors = [
 ];
 
 const emergency = [
-  { region: "America", number: "911" },
-  { region: "Europe", number: "112" },
-  { region: "Russia", number: "112" },
+  { region: "America", number: "911", tel: "tel:911" },
+  { region: "Europe", number: "112", tel: "tel:112" },
+  { region: "Russia", number: "112", tel: "tel:112" },
 ];
 
 const resources = [
-  { name: "Complicated Life", desc: "Mental health support platform" },
-  { name: "International Therapist Directory", desc: "Find professional therapists worldwide" },
+  { name: "Complicated Life", desc: "Mental health support platform", href: "https://complicated.life" },
+  { name: "International Therapist Directory", desc: "Find professional therapists worldwide", href: "https://internationaltherapistdirectory.com" },
 ];
 
 
@@ -147,7 +147,6 @@ export function Restrictions() {
 
             {/* First paragraph */}
             <div>
-              <p className="text-xs font-semibold text-[var(--app-text-primary-color)] mb-1">ML-powered ranking</p>
               <p className="text-sm text-[var(--app-text-secondary-color)] leading-relaxed">
                 We use <a href="https://huggingface.co/sentinet/suicidality" target="_blank" rel="noopener noreferrer" className="text-[var(--app-text-primary-color)] font-medium underline underline-offset-2">sentinet/suicidality</a> — an ELECTRA-based transformer fine-tuned on crisis-language datasets from Reddit, Twitter, and clinical suicide notes. It classifies every message in real time with 93.9% accuracy, 93.2% F1 score, and flags suicidal intent before a human ever has to.
               </p>
@@ -188,7 +187,7 @@ export function Restrictions() {
 
             {/* Second paragraph */}
             <p className="text-sm text-[var(--app-text-secondary-color)] leading-relaxed">
-              Every message is scored from 1 to 10. A low score means the bot keeps supporting you. At level 10 — when someone is in immediate danger — it hands off to emergency resources.
+              Every message is scored from 1 to 10. A low score means the bot keeps supporting you — listening, reflecting, and offering gentle support. As the score rises, the bot shifts its tone: asking more direct questions, checking in on safety, and reducing the depth of emotional exploration. At level 10 — when someone is in immediate danger — it steps back entirely and hands off to emergency resources and real professionals who are trained to help.
             </p>
 
           </div>
@@ -251,16 +250,19 @@ export function Restrictions() {
               transition={{ duration: 0.4, delay: 0.75 }}
             >
               {resources.map((r) => (
-                <div
+                <a
                   key={r.name}
-                  className="flex flex-col gap-1 px-3 py-2.5 rounded-xl border border-[var(--app-border-primary-color)]"
+                  href={r.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-col gap-1 px-3 py-2.5 rounded-xl border border-[var(--app-border-primary-color)] hover:border-[var(--app-text-tertiary-color)] transition-colors"
                 >
                   <div className="flex items-center justify-between gap-1">
                     <p className="text-xs font-semibold text-[var(--app-text-primary-color)] leading-snug">{r.name}</p>
                     <ExternalLink className="w-3 h-3 shrink-0 text-[var(--app-text-tertiary-color)]" />
                   </div>
                   <p className="text-[10px] text-[var(--app-text-tertiary-color)]">{r.desc}</p>
-                </div>
+                </a>
               ))}
             </motion.div>
 
@@ -273,10 +275,14 @@ export function Restrictions() {
               transition={{ duration: 0.4, delay: 0.85 }}
             >
               {emergency.map((e) => (
-                <span key={e.region} className="flex items-center gap-1 text-[11px] text-[var(--app-text-secondary-color)]">
+                <a
+                  key={e.region}
+                  href={e.tel}
+                  className="flex items-center gap-1 text-[11px] text-[var(--app-text-secondary-color)] hover:text-[var(--app-text-primary-color)] transition-colors"
+                >
                   <Phone className="w-3 h-3 shrink-0 text-[var(--app-text-tertiary-color)]" />
                   {e.region} <span className="font-semibold text-[var(--app-text-primary-color)]">{e.number}</span>
-                </span>
+                </a>
               ))}
             </motion.div>
 
