@@ -8,13 +8,14 @@ import { toggleMobileSidebar } from "@/shared/store/slices/uiSlice";
 interface MobileHeaderProps {
   title?: string;
   right?: React.ReactNode;
+  className?: string;
 }
 
-export function MobileHeader({ title, right }: MobileHeaderProps) {
+export function MobileHeader({ title, right, className = "" }: MobileHeaderProps) {
   const dispatch = useAppDispatch();
 
   return (
-    <div className="md:hidden flex-shrink-0 flex items-center justify-between px-4 py-1.5 -mt-3 border-b border-[var(--app-border-primary-color)]">
+    <div className={`md:hidden flex-shrink-0 flex items-center justify-between px-4 py-1.5 -mt-3 border-b border-[var(--app-border-primary-color)] ${className}`}>
       <button
         onClick={() => dispatch(toggleMobileSidebar())}
         className="p-1.5 -ml-1.5 text-[var(--app-text-secondary-color)] hover:text-[var(--app-text-primary-color)] transition-colors"

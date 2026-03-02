@@ -15,6 +15,7 @@ import { decodeHtmlEntities } from "@/shared/lib/text";
 import { useGetEntryQuery, useUpdateEntryMutation } from "@/features/journal/api/journal.endpoints";
 import { EntryDetailSkeleton } from "@/shared/ui/skeletons/EntryDetailSkeleton";
 import { useContentReady } from "@/shared/contexts/NavigationContext";
+import { MobileHeader } from "@/shared/components/layout/MobileHeader";
 import { FrameworkBadge } from "@/features/frameworks";
 import type { FrameworkKey } from "@/features/frameworks";
 import { useCreateChatFromSuggestionMutation } from "@/features/suggestions";
@@ -180,16 +181,23 @@ export default function JournalEntryPage() {
   };
 
   return (
-      <div className="flex flex-col h-screen flex-1 min-h-0 -mt-4 md:-mt-6 -mx-4 md:-mx-6 relative">
-        {/* Back Arrow - Positioned absolutely in top left - Always visible */}
-        <button
-        onClick={() => router.push('/journal')}
-        className="absolute top-4 left-4 md:top-6 md:left-6 z-20 flex items-center gap-2 px-3 py-2 rounded-lg transition-colors"
-        aria-label="Go back"
-      >
-        <ArrowLeft className="w-5 h-5 text-white" />
-        <span className="text-sm font-medium text-white">Back</span>
-      </button>
+    <div className="flex flex-col h-screen flex-1 min-h-0">
+      <MobileHeader
+        title="Journal"
+        right={
+          <button
+            onClick={() => router.push('/journal')}
+            className="p-1.5 -mr-1.5 text-[var(--app-text-secondary-color)] hover:text-[var(--app-text-primary-color)] transition-colors"
+            aria-label="Go back"
+          >
+            <ArrowLeft className="w-5 h-5" />
+          </button>
+        }
+        className="fixed top-0 left-0 right-0 z-50 mt-0 bg-[var(--app-bg-primary-color)]"
+      />
+      {/* Spacer to push content below fixed header on mobile */}
+      <div className="md:hidden h-11 flex-shrink-0" />
+      <div className="flex flex-col flex-1 min-h-0 md:-mt-6 md:-mx-6 relative p-3 md:p-0">
 {/* Hidden image preloader - loads image while skeleton is showing */}
       {entry?.hero_image_url && !imageLoaded && (
         <img
@@ -249,15 +257,8 @@ export default function JournalEntryPage() {
                 
                 {/* Emotions - Bottom Right */}
                 {entry.emotions.length > 0 && (
-                  <div 
-                    className="absolute bottom-5 right-3 z-[2]"
-                    style={{ 
-                      maxWidth: entry.emotions.length > 3 ? 'calc(100% - 180px)' : 'auto',
-                      overflowX: entry.emotions.length > 3 ? 'auto' : 'visible',
-                      WebkitOverflowScrolling: 'touch'
-                    }}
-                  >
-                    <div className="flex flex-row gap-2 items-center">
+                  <div className="absolute bottom-5 right-3 z-[2]">
+                    <div className="flex flex-col md:flex-row gap-2 items-end md:items-center">
                       {entry.emotions.map((emotion) => (
                         <span
                           key={emotion.id}
@@ -553,5 +554,6 @@ export default function JournalEntryPage() {
       </>
       )}
       </div>
+    </div>
   );
 }
