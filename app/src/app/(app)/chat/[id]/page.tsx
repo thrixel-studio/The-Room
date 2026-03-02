@@ -297,8 +297,8 @@ export default function ChatSessionPage() {
                     />
                   </div>
 
-                  {/* Loading Indicator - right after last user message */}
-                  {isLastUserMessage && isSending && (
+                  {/* Loading Indicator - right after last user message, only if no AI reply yet */}
+                  {isLastUserMessage && isLastMessage && isSending && (
                     <LoadingIndicator show={true} />
                   )}
 

@@ -473,6 +473,23 @@ export default function JournalEntryPage() {
                 </div>
               )}
 
+              {/* Key Points */}
+              {entry.summary && entry.summary.summary_bullets.length > 0 && (
+                <div className="space-y-4 mb-6 animate-slide-in-from-left" style={{ animationDelay: '0.8s' }}>
+                  <h3 className="text-xl font-semibold text-white mb-4">
+                    Key Points
+                  </h3>
+                  <ul className="space-y-2">
+                    {entry.summary.summary_bullets.map((bullet, index) => (
+                      <li key={index} className="text-base text-white/80 flex items-start leading-relaxed">
+                        <span className="mr-2 text-white/60 flex-shrink-0">•</span>
+                        <span className="flex-1">{decodeHtmlEntities(bullet)}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+
               {/* Tags */}
               {entry.tags.length > 0 && (
                 <div className="mt-6">

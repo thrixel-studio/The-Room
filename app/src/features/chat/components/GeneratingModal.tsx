@@ -174,7 +174,7 @@ export function GeneratingCardModal({ isOpen, sessionId, onComplete, messageCoun
             <p className="text-white/80 text-md text-center max-w-md mb-10">
               Conversation is under processing, please wait 20-25 seconds.
             </p>
-            <div className="w-[280px]">
+            <div className="w-[240px]">
               <GeneratingSummarySkeleton />
             </div>
           </div>
@@ -189,7 +189,7 @@ export function GeneratingCardModal({ isOpen, sessionId, onComplete, messageCoun
               Click on a card to see expanded analysis of your conversation.
             </p>
             <div
-              className="w-[280px] cursor-pointer transform transition-transform hover:scale-102"
+              className="cursor-pointer transform transition-transform hover:scale-102"
               onClick={handleCardClick}
             >
               <JournalEntryCard entry={{
