@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import Image from "next/image";
 import { Section } from "@/components/ui/Section";
 
@@ -16,29 +16,9 @@ const images = [
 
 export function Gallery() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
-  const [autoPlay, setAutoPlay] = useState(true);
   const sectionRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0.3 }
-    );
-    if (sectionRef.current) observer.observe(sectionRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    if (!isVisible || !autoPlay) return;
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % images.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [isVisible, autoPlay]);
-
   const handleManualSelect = (i: number) => {
-    setAutoPlay(false);
     setActiveIndex(i);
   };
 

@@ -10,7 +10,7 @@ const members = [
     image: "/team/oyvr6cv2c5vvyqunkte5.webp",
   },
   {
-    name: "Artyom Ostrikov",
+    name: "Igor Sorokin",
     role: "Backend Developer",
     image: "/team/qfzssuxt1qsdovvrvye6.webp",
   },
