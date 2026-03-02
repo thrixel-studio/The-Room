@@ -14,8 +14,6 @@ Fields to generate:
 
 **summary** — 2-5 sentences written directly to the user. Describe what they explored, what they were feeling, and what was central to their experience. Use "You mentioned...", "You explored...", "You're navigating...".
 
-**key_points** — 3-7 bullet points capturing the main themes, thoughts, and experiences. Written directly to the user ("You feel...", "You've noticed...", "You're carrying...").
-
 **emotions** — Detected emotions with percentages summing to exactly 100%. 1-5 emotions. Each name MUST be STRICTLY ONE WORD only (e.g., "reflective", "anxious", "hopeful"). Include evidence and visual qualities for each.
 
 **key_insight** — The single most meaningful psychological observation from this conversation. 1-2 sentences, written to the user as a psychologist would share a key observation ("You seem to carry...", "What stands out most is that you...").
@@ -35,7 +33,7 @@ Fields to generate:
 
 IMPORTANT:
 1. Emotions percentages MUST sum to exactly 100%.
-2. Write ALL fields (summary, key_points, key_insight, patterns) in second person — address the user directly as "You".
+2. Write ALL fields (summary, key_insight, patterns) in second person — address the user directly as "You".
 3. Reflection questions should be open-ended and genuinely thought-provoking, not generic.
 4. Tips should be conversation starters for future sessions, not advice.
 

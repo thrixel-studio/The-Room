@@ -30,6 +30,9 @@ export async function apiFetch(endpoint: string, options: RequestInit = {}) {
 
 export async function fetchJson<T>(endpoint: string, options: RequestInit = {}): Promise<T> {
   const response = await apiFetch(endpoint, options);
+  if (response.status === 204 || response.headers.get('Content-Length') === '0') {
+    return undefined as T;
+  }
   return response.json();
 }
 

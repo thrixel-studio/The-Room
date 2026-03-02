@@ -1,7 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
-import { ExternalLink, Phone } from "lucide-react";
+import { ExternalLink, Phone, Copy, Check, RefreshCw, Ellipsis } from "lucide-react";
 import { Section } from "@/components/ui/Section";
 
 const severityColors = [
@@ -40,10 +41,18 @@ interface AiMessageProps {
 }
 
 function AiMessage({ text }: AiMessageProps) {
+  const [isCopied, setIsCopied] = useState(false);
+
+  const handleCopy = async () => {
+    try {
+      await navigator.clipboard.writeText(text);
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 1000);
+    } catch {}
+  };
+
   return (
-    <div
-      className="flex flex-col"
-    >
+    <div className="flex flex-col">
       <div
         className="px-2.5 py-1.5"
         style={{ borderLeft: "2px solid var(--app-accent-color)" }}
@@ -51,6 +60,37 @@ function AiMessage({ text }: AiMessageProps) {
         <p className="text-sm text-[var(--app-text-secondary-color)] leading-relaxed whitespace-pre-wrap">
           {text}
         </p>
+      </div>
+      <div className="flex gap-2 mt-2">
+        <button
+          className="p-0 bg-transparent border-0 transition-all duration-200 hover:opacity-70"
+          style={{ color: "var(--app-text-secondary-color)" }}
+          onClick={handleCopy}
+          title={isCopied ? "Copied!" : "Copy message"}
+        >
+          <div className="relative w-[14px] h-[14px]">
+            <Copy
+              size={14}
+              className={`absolute inset-0 transition-all duration-200 ${isCopied ? "opacity-0 scale-50" : "opacity-100 scale-100"}`}
+            />
+            <Check
+              size={14}
+              className={`absolute inset-0 transition-all duration-200 ${isCopied ? "opacity-100 scale-100" : "opacity-0 scale-50"}`}
+            />
+          </div>
+        </button>
+        <button
+          className="p-0 bg-transparent border-0 hover:opacity-70 transition-all duration-200"
+          style={{ color: "var(--app-text-secondary-color)" }}
+        >
+          <RefreshCw size={14} />
+        </button>
+        <button
+          className="p-0 bg-transparent border-0 hover:opacity-70 transition-all duration-200"
+          style={{ color: "var(--app-text-secondary-color)" }}
+        >
+          <Ellipsis size={14} />
+        </button>
       </div>
     </div>
   );
@@ -120,10 +160,10 @@ export function Restrictions() {
               />
               <span className="text-3xl font-light text-[var(--app-text-tertiary-color)]">+</span>
               <Image
-                src="/assets/ChatGPT_logo.svg.png"
+                src="/assets/openai.png"
                 alt="ChatGPT"
-                width={72}
-                height={72}
+                width={182}
+                height={45}
                 className="shrink-0 rounded-xl"
               />
             </div>

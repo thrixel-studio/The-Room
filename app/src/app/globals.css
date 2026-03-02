@@ -130,28 +130,6 @@
   }
 }
 
-@utility no-scrollbar {
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-@utility custom-scrollbar {
-  &::-webkit-scrollbar {
-    @apply size-1.5;
-  }
-
-  &::-webkit-scrollbar-track {
-    @apply rounded-full;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    @apply bg-violet-500 rounded-full;
-  }
-}
-
 @layer utilities {
   /* Remove date/time input icons */
   input[type="date"]::-webkit-inner-spin-button,

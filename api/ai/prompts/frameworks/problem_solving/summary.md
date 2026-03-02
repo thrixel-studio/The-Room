@@ -14,8 +14,6 @@ Fields to generate:
 
 **summary** — 2-5 sentences written directly to the user. Describe the problem they're navigating, what they've tried or considered, and where they are now. Use "You're dealing with...", "You mentioned...", "You're trying to resolve...".
 
-**key_points** — 3-7 bullet points capturing the main problem, approaches considered, insights gained, and next steps explored. Written to the user ("You identified the core issue as...", "You've tried...", "You're considering...").
-
 **emotions** — Detected emotions with percentages summing to exactly 100%. 1-5 emotions. Each name MUST be STRICTLY ONE WORD only (e.g., "frustrated", "hopeful", "determined", "stuck"). Include evidence and visual qualities for each.
 
 **key_insight** — The single most important observation about the problem or how the user is relating to it. 1-2 sentences, mediator-voiced ("The core of this challenge seems to be...", "What's really at stake for you here is...", "The perspective shift that might open things up is...").
@@ -35,7 +33,7 @@ Fields to generate:
 
 IMPORTANT:
 1. Emotions percentages MUST sum to exactly 100%.
-2. Write ALL fields (summary, key_points, key_insight, patterns) in second person — address the user as "You".
+2. Write ALL fields (summary, key_insight, patterns) in second person — address the user as "You".
 3. Reflection questions should open new angles, not restate the problem.
 4. Tips should be conversation starters for future sessions, not direct solutions.
 

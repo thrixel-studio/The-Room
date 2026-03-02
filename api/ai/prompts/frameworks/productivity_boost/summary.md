@@ -14,8 +14,6 @@ Fields to generate:
 
 **summary** — 2-5 sentences written directly to the user. Describe what they're working toward, what's blocking them, and where their energy is right now. Use "You're working on...", "You mentioned...", "You're trying to...".
 
-**key_points** — 3-7 bullet points capturing the main goals, blockers, action items, and insights. Written directly to the user ("You're aiming to...", "The main obstacle you're facing is...", "You've already made progress on...").
-
 **emotions** — Detected emotions with percentages summing to exactly 100%. 1-5 emotions. Each name MUST be STRICTLY ONE WORD only (e.g., "motivated", "frustrated", "determined", "overwhelmed"). Include evidence and visual qualities for each.
 
 **key_insight** — The single most strategically important observation from this conversation. 1-2 sentences, strategist-voiced ("The real bottleneck here isn't time — it's...", "What's holding your momentum back most is...", "You're spreading your focus across too many fronts, and the one thing that would move the needle is...").
@@ -35,7 +33,7 @@ Fields to generate:
 
 IMPORTANT:
 1. Emotions percentages MUST sum to exactly 100%.
-2. Write ALL fields (summary, key_points, key_insight, patterns) in second person — address the user as "You".
+2. Write ALL fields (summary, key_insight, patterns) in second person — address the user as "You".
 3. Reflection questions should challenge assumptions or open up new strategic angles.
 4. Tips should be conversation starters for future sessions, not direct instructions.
 

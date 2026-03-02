@@ -12,7 +12,7 @@ export default function JournalPage() {
     <div className="flex flex-col h-full flex-1 min-h-0">
       <div className="flex flex-1 min-h-0">
         {/* Journal Cards */}
-        <div className="flex-1 overflow-y-scroll min-h-0 relative z-0 custom-scrollbar">
+        <div className="flex-1 overflow-y-scroll min-h-0 relative z-0">
           <JournalEntryCards />
         </div>
       </div>

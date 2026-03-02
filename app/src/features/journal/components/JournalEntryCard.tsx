@@ -241,7 +241,7 @@ const JournalEntryCard = React.memo(function JournalEntryCard({ entry, onImageLo
 
       {/* Date and Time Badge - Top Left */}
       <div className="absolute top-3 left-3 z-10">
-        <span className={`text-sm font-medium text-[var(--app-text-secondary-color)] px-2 py-1 rounded-lg whitespace-nowrap ${isDraft ? 'bg-[var(--app-bg-primary-color)]' : 'bg-black/30 backdrop-blur-sm'}`}>
+        <span className={`font-medium text-[var(--app-text-secondary-color)] px-2 py-1 rounded-lg whitespace-nowrap ${isDraft ? 'text-xs bg-[var(--app-bg-primary-color)]' : 'text-xs bg-black/30 backdrop-blur-sm'}`}>
           {isToday ? `Today, ${time}` : `${date}, ${time}`}
         </span>
       </div>
@@ -265,7 +265,7 @@ const JournalEntryCard = React.memo(function JournalEntryCard({ entry, onImageLo
         )}
         {isDraft ? (
           /* Draft: Show last 5 messages aligned to bottom */
-          <div ref={messagesRef} className="flex flex-col gap-1.5 overflow-y-auto" style={{ height: '85cqh', scrollbarWidth: 'none', maskImage: 'linear-gradient(to bottom, transparent 0%, black 16px)' }}>
+          <div ref={messagesRef} className="flex flex-col gap-1.5 overflow-y-auto" style={{ height: '85cqh', maskImage: 'linear-gradient(to bottom, transparent 0%, black 16px)' }}>
             <div className="mt-auto" />
             {entry.recent_messages && entry.recent_messages.length > 0 ? (
               entry.recent_messages
@@ -315,7 +315,7 @@ const JournalEntryCard = React.memo(function JournalEntryCard({ entry, onImageLo
         ) : (
           /* Generated: Show title */
           <div>
-            <h3 className="text-sm text-[var(--app-text-secondary-color)] truncate font-semibold drop-shadow-md px-2 py-1 rounded-lg bg-black/30 backdrop-blur-sm w-fit flex items-center gap-1.5">
+            <h3 className="text-xs text-[var(--app-text-secondary-color)] truncate font-semibold drop-shadow-md px-2 py-1 rounded-lg bg-black/30 backdrop-blur-sm w-fit flex items-center gap-1.5">
               <Sparkles size={14} className="shrink-0" />
               {displayTitle}
             </h3>

@@ -8,12 +8,6 @@
     "summary": {
       "type": "string"
     },
-    "key_points": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
     "emotions": {
       "type": "array",
       "items": {
@@ -89,5 +83,5 @@
       "maxItems": 4
     }
   },
-  "required": ["title", "summary", "key_points", "emotions", "key_insight", "patterns", "reflection_questions", "tips"]
+  "required": ["title", "summary", "emotions", "key_insight", "patterns", "reflection_questions", "tips"]
 }

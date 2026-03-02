@@ -51,7 +51,7 @@ export default function Frameworks() {
     <div className="flex flex-col h-full flex-1 min-h-0">
       <div className="flex flex-1 min-h-0">
         {/* Framework Cards */}
-        <div className="flex-1 overflow-y-scroll min-h-0 relative z-0 custom-scrollbar">
+        <div className="flex-1 overflow-y-scroll min-h-0 relative z-0">
           <div className="flex justify-center items-start min-h-full pt-16 pb-8">
             <div className="w-full max-w-[1600px] pr-4">
               {/* Explanation Text */}

@@ -48,7 +48,7 @@ export default function SignUpForm() {
   };
 
   return (
-    <div className="relative w-full h-full flex items-center justify-center overflow-y-auto no-scrollbar">
+    <div className="relative w-full h-full flex items-center justify-center overflow-y-auto">
       <GridShape />
       {/* Logo - Top Left */}
       <div className="fixed top-6 left-6 z-50">

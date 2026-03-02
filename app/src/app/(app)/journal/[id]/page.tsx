@@ -110,15 +110,11 @@ export default function JournalEntryPage() {
       
       // Invalidate the entries list cache before navigating
       await queryClient.invalidateQueries({ queryKey: ['entries'] });
-      
-      // Show info notification
-      showInfo('Success! Entry Deleted');
-      
+
       // Navigate back to journal page with a flag to refresh
       router.push('/journal?refresh=true');
     } catch (err: any) {
       console.error('Failed to delete entry:', err);
-      showErrorToast('Something Went Wrong');
       setIsDeleting(false);
       setShowDeleteModal(false);
     }
@@ -383,33 +379,19 @@ export default function JournalEntryPage() {
                 </div>
               )}
 
-              {/* Summary */}
-              {entry.summary && entry.summary.one_line_summary && (
-                <div className="mb-6 animate-slide-in-from-left" style={{ animationDelay: '0.3s' }}>
-                  <h3 className="text-xl font-semibold text-white mb-4">
-                    Summary
-                  </h3>
-                  <p className="text-base text-white/80 leading-relaxed">
-                    {decodeHtmlEntities(entry.summary.one_line_summary)}
-                  </p>
-                </div>
-              )}
-
               {/* Patterns Noticed */}
               {entry.summary?.patterns && entry.summary.patterns.length > 0 && (
                 <>
-                  <div className="mb-6 animate-slide-in-from-left" style={{ animationDelay: '0.5s' }}>
+                  <div className="mb-6 animate-slide-in-from-left" style={{ animationDelay: '0.3s' }}>
                     <h3 className="text-xl font-semibold text-white mb-4">Patterns Noticed</h3>
-                    <div className="flex flex-wrap justify-between gap-3">
+                    <div className="space-y-3">
                       {entry.summary.patterns.map((pattern, index) => {
                         const text = decodeHtmlEntities(pattern).replace(/^you\s+/i, '');
                         const display = text.charAt(0).toUpperCase() + text.slice(1);
                         return (
-                          <div key={index} className="flex-1 min-w-[150px] rounded-xl px-4 py-3 overflow-hidden max-h-[100px] hover:max-h-40 transition-[max-height] duration-300 ease-in-out cursor-default" style={{ background: 'rgba(139, 92, 246, 0.08)', border: '1px solid rgba(139, 92, 246, 0.2)' }}>
-                            <p className="text-sm text-white/80 leading-relaxed">
-                              <BringToFront className="w-3.5 h-3.5 inline-block align-middle mr-1.5" style={{ color: 'rgba(167, 139, 250, 0.8)' }} />
-                              {display}
-                            </p>
+                          <div key={index} className="flex items-start gap-3">
+                            <BringToFront className="w-4 h-4 flex-shrink-0 mt-1" style={{ color: 'rgba(167, 139, 250, 0.8)' }} />
+                            <p className="text-base text-white/80 leading-relaxed">{display}</p>
                           </div>
                         );
                       })}
@@ -421,7 +403,7 @@ export default function JournalEntryPage() {
               {/* Reflect On */}
               {entry.summary?.reflection_questions && entry.summary.reflection_questions.length > 0 && (
                 <>
-                  <div className="mb-6 animate-slide-in-from-left" style={{ animationDelay: '0.6s' }}>
+                  <div className="mb-6 animate-slide-in-from-left" style={{ animationDelay: '0.5s' }}>
                     <h3 className="text-xl font-semibold text-white mb-4">Reflect On</h3>
                     <div className="space-y-3">
                       {entry.summary.reflection_questions.map((question, index) => (
@@ -438,7 +420,7 @@ export default function JournalEntryPage() {
               {/* Explore Further — tip-based cards */}
               {entry.suggestions && entry.suggestions.length > 0 && (
                 <>
-                  <div className="mb-6 animate-slide-in-from-left" style={{ animationDelay: '0.7s' }}>
+                  <div className="mb-6 animate-slide-in-from-left" style={{ animationDelay: '0.6s' }}>
                     <h3 className="text-xl font-semibold text-white mb-4">Explore Further</h3>
                     <div className="space-y-3">
                       {entry.suggestions.map((suggestion) => (
@@ -478,23 +460,16 @@ export default function JournalEntryPage() {
                 </>
               )}
 
-              {/* Key Points */}
-              {entry.summary && entry.summary.summary_bullets.length > 0 && (
-                <>
-                  <div className="space-y-4 mb-6 animate-slide-in-from-left" style={{ animationDelay: '0.8s' }}>
-                    <h3 className="text-xl font-semibold text-white mb-4">
-                      Key Points
-                    </h3>
-                    <ul className="space-y-2">
-                      {entry.summary.summary_bullets.map((bullet, index) => (
-                        <li key={index} className="text-base text-white/80 flex items-start leading-relaxed">
-                          <span className="mr-2 text-white/60 flex-shrink-0">•</span>
-                          <span className="flex-1">{decodeHtmlEntities(bullet)}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </>
+              {/* Summary */}
+              {entry.summary && entry.summary.one_line_summary && (
+                <div className="mb-6 animate-slide-in-from-left" style={{ animationDelay: '0.7s' }}>
+                  <h3 className="text-xl font-semibold text-white mb-4">
+                    Summary
+                  </h3>
+                  <p className="text-base text-white/80 leading-relaxed">
+                    {decodeHtmlEntities(entry.summary.one_line_summary)}
+                  </p>
+                </div>
               )}
 
               {/* Tags */}

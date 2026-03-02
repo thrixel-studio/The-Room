@@ -276,7 +276,7 @@ const AppSidebar: React.FC = React.memo(() => {
           </div>
         </div>
         
-        <nav className="flex-1 overflow-y-auto duration-300 ease-linear no-scrollbar">
+        <nav className="flex-1 overflow-y-auto duration-300 ease-linear">
           <div className="flex flex-col gap-3">
             <div>
               <h2 className="mb-3 text-xs uppercase flex leading-[20px] text-[var(--app-text-tertiary-color)] lg:justify-center justify-start">

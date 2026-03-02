@@ -14,8 +14,6 @@ Fields to generate:
 
 **summary** — 2-5 sentences written directly to the user. Describe the decision they're navigating, the tensions they're feeling, and where they currently stand. Use "You're weighing...", "You mentioned...", "You're trying to figure out...".
 
-**key_points** — 3-7 bullet points highlighting the main options, trade-offs, and considerations. Written directly to the user ("You see the main trade-off as...", "You're concerned about...", "You value...").
-
 **emotions** — Detected emotions with percentages summing to exactly 100%. 1-5 emotions. Each name MUST be STRICTLY ONE WORD only (e.g., "anxious", "hopeful", "uncertain", "conflicted"). Include evidence and visual qualities for each.
 
 **key_insight** — The single most important observation about how the user is approaching this decision. 1-2 sentences, advisor-voiced ("What's really driving your hesitation is...", "The core tension you're navigating is...", "Your instinct about X seems to be pointing toward...").
@@ -35,7 +33,7 @@ Fields to generate:
 
 IMPORTANT:
 1. Emotions percentages MUST sum to exactly 100%.
-2. Write ALL fields (summary, key_points, key_insight, patterns) in second person — address the user as "You".
+2. Write ALL fields (summary, key_insight, patterns) in second person — address the user as "You".
 3. Reflection questions should help clarify decision criteria or uncover hidden priorities.
 4. Tips should be conversation starters for future sessions, not direct advice.
 
