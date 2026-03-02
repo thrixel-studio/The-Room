@@ -82,7 +82,7 @@ export default function MessageInput({
       {showActions && (
         <>
           <p className="text-xs text-[var(--app-text-tertiary-color)] text-center mb-1.5">
-            Press <span style={{ color: 'var(--app-accent-secondary-color-transparent)' }}>Enter</span> to send, <span style={{ color: 'var(--app-accent-secondary-color-transparent)' }}>Shift + Enter</span> for new line
+            Press <span>Enter</span> to send, <span>Shift + Enter</span> for new line
           </p>
           {actions && <div className="mt-2 mr-2 flex items-center justify-end gap-2">{actions}</div>}
         </>

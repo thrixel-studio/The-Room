@@ -90,18 +90,20 @@ export function Header() {
       >
         <div className="bg-[var(--app-bg-primary-color)]/95 backdrop-blur-lg border-b border-[var(--app-border-primary-color)]">
           <Container>
-            <div className="py-4 space-y-4">
-              {navigation.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className="block py-2 text-[var(--app-text-secondary-color)] hover:text-[var(--app-text-primary-color)] transition-colors font-medium"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  {item.name}
-                </Link>
-              ))}
-              <div className="pt-4 flex flex-col gap-2">
+            <div className="py-4">
+              <div className="grid grid-cols-2 gap-x-4 gap-y-1">
+                {navigation.map((item) => (
+                  <Link
+                    key={item.name}
+                    href={item.href}
+                    className="block py-2 text-[var(--app-text-secondary-color)] hover:text-[var(--app-text-primary-color)] transition-colors font-medium"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                  >
+                    {item.name}
+                  </Link>
+                ))}
+              </div>
+              <div className="pt-4 mt-2 flex flex-col gap-2">
                 <a href={`${appUrl}/signup`} className="w-full">
                   <Button variant="outline" size="md" fullWidth>
                     Sign up

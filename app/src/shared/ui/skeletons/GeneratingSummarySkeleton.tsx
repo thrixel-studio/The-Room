@@ -1,6 +1,5 @@
 import { SkeletonBase } from './SkeletonBase';
 import { Sparkles } from 'lucide-react';
-import ContentSpinner from '@/shared/components/ContentSpinner';
 
 /**
  * Skeleton component shown while AI is generating the journal entry summary
@@ -14,8 +13,16 @@ export function GeneratingSummarySkeleton() {
         <SkeletonBase width="w-full" height="h-full" rounded="2xl" className="!rounded-b-none" />
 
         {/* Spinner in center */}
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
-          <ContentSpinner size="md" />
+        <div className="absolute top-[55%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+          <div
+            className="rounded-full animate-spin"
+            style={{
+              width: 64,
+              height: 64,
+              border: '3px solid rgba(255,255,255,0.1)',
+              borderTopColor: 'rgba(255,255,255,0.6)',
+            }}
+          />
         </div>
 
         {/* Generating Badge - Top Left */}
