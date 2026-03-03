@@ -4,7 +4,6 @@ import React, { useRef, useEffect, useState } from 'react';
 import { Provider } from 'react-redux';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { makeStore, AppStore } from '@/shared/store/store';
-import { LoadingProvider } from '@/shared/components/LoadingProvider';
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const storeRef = useRef<AppStore | null>(null);
@@ -58,9 +57,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   return (
     <Provider store={storeRef.current!}>
       <QueryClientProvider client={queryClient}>
-        <LoadingProvider>
-          {children}
-        </LoadingProvider>
+        {children}
       </QueryClientProvider>
     </Provider>
   );
