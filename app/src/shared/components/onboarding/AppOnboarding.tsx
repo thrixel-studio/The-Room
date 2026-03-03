@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState, startTransition } from "react";
 import { createPortal } from "react-dom";
 import { usePathname, useRouter } from "next/navigation";
 import { Modal } from "@/shared/ui/modal";
@@ -108,21 +108,21 @@ export function AppOnboarding() {
 
   const handleBack = () => {
     setNavigatingBack(true);
-    dispatch(prevStep());
+    startTransition(() => dispatch(prevStep()));
   };
 
   const handleNext = () => {
     if (isWelcomeStep) {
       setTitleVisible(false);
       setWelcomeButtonVisible(false);
-      window.setTimeout(() => dispatch(nextStep()), 600);
+      window.setTimeout(() => startTransition(() => dispatch(nextStep())), 600);
       return;
     }
 
     setNavigatingBack(false);
     const isLast = safeStepIndex >= lastStepIndex;
     if (!isLast) {
-      dispatch(nextStep());
+      startTransition(() => dispatch(nextStep()));
       return;
     }
 
@@ -136,6 +136,24 @@ export function AppOnboarding() {
 
   return (
     <>
+    {/* Pre-paint the tutorial shell while welcome is visible so the browser has already
+        rasterised the dot-pattern background onto a GPU layer before the user clicks. */}
+    {isOpen && isWelcomeStep && createPortal(
+      <div
+        aria-hidden="true"
+        style={{
+          position: 'fixed', inset: 0, zIndex: -1,
+          opacity: 0.001, pointerEvents: 'none',
+          willChange: 'opacity',
+        }}
+      >
+        <div className="relative flex flex-col md:flex-row md:rounded-3xl overflow-hidden bg-[var(--app-bg-secondary-color)] bg-[radial-gradient(circle,_rgba(255,255,255,0.045)_1px,_transparent_1px)] bg-[length:36px_36px] md:min-h-[640px]">
+          <div className="w-full md:w-1/2 bg-[var(--app-bg-secondary-color)]" />
+          <div className="w-full md:w-1/2 bg-[var(--app-bg-primary-color)]" />
+        </div>
+      </div>,
+      document.body
+    )}
     {isOpen && !isWelcomeStep && hasSeenOnboarding && createPortal(
       <button
         type="button"
@@ -188,7 +206,7 @@ export function AppOnboarding() {
           </div>
         </div>
       ) : (
-        <div className={`relative flex flex-col md:flex-row md:rounded-3xl overflow-hidden bg-[var(--app-bg-secondary-color)] bg-[radial-gradient(circle,_rgba(255,255,255,0.045)_1px,_transparent_1px)] bg-[length:36px_36px] md:min-h-[640px] transition-opacity duration-500 ease-out ${tutorialVisible ? "opacity-100" : "opacity-0"}`}>
+        <div style={{ willChange: 'opacity', contain: 'layout style' }} className={`relative flex flex-col md:flex-row md:rounded-3xl overflow-hidden bg-[var(--app-bg-secondary-color)] bg-[radial-gradient(circle,_rgba(255,255,255,0.045)_1px,_transparent_1px)] bg-[length:36px_36px] md:min-h-[640px] transition-opacity duration-500 ease-out ${tutorialVisible ? "opacity-100" : "opacity-0"}`}>
 
 
           {/* Back button — desktop only (absolute) */}
