@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useMemo, useEffect, useState } from "react";
 import { pack, hierarchy } from "d3-hierarchy";
 
 // Sample emotion data for the emotional map
@@ -21,6 +21,18 @@ const SAMPLE_EMOTIONS = [
 ];
 
 export function Step6Illustration() {
+  const [imageVisible, setImageVisible] = useState(false);
+  const [mapVisible, setMapVisible] = useState(false);
+
+  useEffect(() => {
+    const t1 = window.setTimeout(() => setImageVisible(true), 150);
+    const t2 = window.setTimeout(() => setMapVisible(true), 350);
+    return () => {
+      window.clearTimeout(t1);
+      window.clearTimeout(t2);
+    };
+  }, []);
+
   const { nodes, width, height } = useMemo(() => {
     const width = 500;
     const height = 320;
@@ -55,7 +67,11 @@ export function Step6Illustration() {
   return (
     <div className="flex flex-col h-full w-full gap-0">
       {/* Cards Image - 50% height */}
-      <div className="h-1/2 flex-shrink-0 p-6 pb-4 flex items-center justify-center">
+      <div
+        className={`h-1/2 flex-shrink-0 p-6 pb-4 flex items-center justify-center transition-opacity duration-500 ease-out ${
+          imageVisible ? "opacity-100" : "opacity-0"
+        }`}
+      >
         <img
           src="/images/tutorial/cards.webp"
           alt="Insight cards"
@@ -64,7 +80,11 @@ export function Step6Illustration() {
       </div>
 
       {/* Emotional State Map - 50% height */}
-      <div className="h-1/2 flex-1 rounded-none bg-transparent overflow-hidden flex flex-col">
+      <div
+        className={`h-1/2 flex-1 rounded-none bg-transparent overflow-hidden flex flex-col transition-opacity duration-500 ease-out ${
+          mapVisible ? "opacity-100" : "opacity-0"
+        }`}
+      >
         <div className="flex-1 overflow-hidden min-h-0 flex items-center justify-center relative">
           <svg
             viewBox={`0 0 ${width} ${height}`}

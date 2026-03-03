@@ -40,6 +40,51 @@ export function AppOnboarding() {
   const [tutorialVisible, setTutorialVisible] = useState(false);
   const [continueShimmer, setContinueShimmer] = useState(false);
   const [navigatingBack, setNavigatingBack] = useState(false);
+  const [step3ButtonReady, setStep3ButtonReady] = useState(false);
+  const [step1ButtonReady, setStep1ButtonReady] = useState(false);
+  const [step2ButtonReady, setStep2ButtonReady] = useState(false);
+  const [step5ButtonReady, setStep5ButtonReady] = useState(false);
+  const [step6ButtonReady, setStep6ButtonReady] = useState(false);
+
+  // Step 1 (chat): delay Continue button by 3 seconds
+  useEffect(() => {
+    if (step.id !== 'chat') {
+      setStep1ButtonReady(false);
+      return;
+    }
+    const t = window.setTimeout(() => setStep1ButtonReady(true), 3000);
+    return () => window.clearTimeout(t);
+  }, [step.id]);
+
+  // Step 2: delay Continue button by 2.5 seconds
+  useEffect(() => {
+    if (step.id !== 'step2') {
+      setStep2ButtonReady(false);
+      return;
+    }
+    const t = window.setTimeout(() => setStep2ButtonReady(true), 2500);
+    return () => window.clearTimeout(t);
+  }, [step.id]);
+
+  // Step 5: delay Continue button by 1 second
+  useEffect(() => {
+    if (step.id !== 'step5') {
+      setStep5ButtonReady(false);
+      return;
+    }
+    const t = window.setTimeout(() => setStep5ButtonReady(true), 1000);
+    return () => window.clearTimeout(t);
+  }, [step.id]);
+
+  // Step 6: delay Finish button by 1 second
+  useEffect(() => {
+    if (step.id !== 'step6') {
+      setStep6ButtonReady(false);
+      return;
+    }
+    const t = window.setTimeout(() => setStep6ButtonReady(true), 1000);
+    return () => window.clearTimeout(t);
+  }, [step.id]);
 
   // Welcome animation: fade in title, then fade in button after 1s
   useEffect(() => {
@@ -89,6 +134,17 @@ export function AppOnboarding() {
     const t = window.setTimeout(() => setContinueShimmer(true), 3000);
     return () => window.clearTimeout(t);
   }, [tutorialVisible]);
+
+  // Step 3: delay Continue button by 2 seconds after framework switch
+  useEffect(() => {
+    if (step.id !== 'step3') {
+      setStep3ButtonReady(false);
+      return;
+    }
+    if (!frameworkSwitched) return;
+    const t = window.setTimeout(() => setStep3ButtonReady(true), 2000);
+    return () => window.clearTimeout(t);
+  }, [step.id, frameworkSwitched]);
 
   // Move to step 5 when Analyze is clicked on step 4
   useEffect(() => {
@@ -244,7 +300,7 @@ export function AppOnboarding() {
 
             {/* Continue button for most steps */}
             {step.id !== 'step4' && (step.id !== 'step3' || frameworkSwitched) && (
-              <div className={`transition-opacity duration-500 ease-out w-fit ${step.id === 'step3' ? (frameworkSwitched ? "opacity-100" : "opacity-0") : "opacity-100"}`}>
+              <div className={`transition-opacity duration-500 ease-out w-fit ${step.id === 'step3' ? (step3ButtonReady ? "opacity-100" : "opacity-0") : step.id === 'chat' ? (step1ButtonReady ? "opacity-100" : "opacity-0") : step.id === 'step2' ? (step2ButtonReady ? "opacity-100" : "opacity-0") : step.id === 'step5' ? (step5ButtonReady ? "opacity-100" : "opacity-0") : step.id === 'step6' ? (step6ButtonReady ? "opacity-100" : "opacity-0") : "opacity-100"}`}>
                 <Button
                   onClick={handleNext}
                   variant="accent"
