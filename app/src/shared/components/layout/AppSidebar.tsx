@@ -252,7 +252,7 @@ const AppSidebar: React.FC = React.memo(() => {
 
   return (
     <aside
-      className={`fixed flex-col top-0 left-0 text-white h-screen transition-all duration-300 ease-in-out z-50 py-3 overflow-visible flex justify-between w-[60px] bg-[#1e1f22]
+      className={`fixed flex-col top-0 left-0 text-white h-screen transition-all duration-300 ease-in-out z-50 py-3 overflow-visible flex justify-between w-[60px] bg-[#1e1f22] md:bg-transparent
         ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}
         md:translate-x-0`}
     >

@@ -1,4 +1,3 @@
-import GridShape from "@/shared/components/GridShape";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -8,7 +7,6 @@ import { ArrowLeft } from "lucide-react";
 export default function NotFound() {
   return (
     <div className="relative flex flex-col items-center justify-center min-h-screen p-6 overflow-hidden z-1">
-      <GridShape />
       {/* Logo - Top Left */}
       <div className="fixed top-6 left-6 z-50">
         <div className="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center">

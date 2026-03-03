@@ -78,16 +78,17 @@ export const Modal: React.FC<ModalProps> = ({
 
   const contentClasses = isFullscreen
     ? "w-full h-full"
-    : "relative w-full rounded-3xl bg-[var(--app-bg-secondary-color)]";
+    : "relative w-full md:rounded-3xl bg-[var(--app-bg-secondary-color)]";
 
   const modalContent = (
-    <div className="fixed inset-0 flex items-center justify-center overflow-y-auto modal z-99999">
+    <div className="fixed inset-0 overflow-y-auto modal z-99999">
       {!isFullscreen && (
         <div
           className={`fixed inset-0 h-full w-full bg-[#111111]/85 backdrop-blur-sm ${isClosing ? 'animate-modal-fade-out' : 'animate-modal-fade-in'}`}
           onClick={disableBackdropClose ? undefined : handleClose}
         ></div>
       )}
+      <div className="flex min-h-full items-center justify-center md:p-6">
       <div
         ref={modalRef}
         className={`${contentClasses} ${className} ${isClosing ? 'animate-modal-fade-out' : 'animate-modal-fade-in'}`}
@@ -115,6 +116,7 @@ export const Modal: React.FC<ModalProps> = ({
           </button>
         )}
         <div>{children}</div>
+      </div>
       </div>
     </div>
   );

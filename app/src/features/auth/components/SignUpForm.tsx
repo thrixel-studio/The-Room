@@ -9,7 +9,6 @@ import Link from "next/link";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
-import GridShape from "@/shared/components/GridShape";
 import GoogleAuthButton from "./ui/GoogleAuthButton";
 
 const PASSWORD_RULES = [
@@ -62,7 +61,6 @@ export default function SignUpForm() {
 
   return (
     <div className="relative w-full h-full flex items-center justify-center overflow-y-auto">
-      <GridShape />
       {/* Logo - Top Left */}
       <div className="fixed top-6 left-6 z-50">
         <div className="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center">

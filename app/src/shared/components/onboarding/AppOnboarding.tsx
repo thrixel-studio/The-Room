@@ -148,6 +148,17 @@ export function AppOnboarding() {
       </button>,
       document.body
     )}
+    {isOpen && !isWelcomeStep && safeStepIndex > 1 && createPortal(
+      <button
+        type="button"
+        onClick={handleBack}
+        className="md:hidden fixed top-4 left-6 text-white/50 hover:text-white/80 transition-colors px-2 py-1 text-sm"
+        style={{ zIndex: 100000 }}
+      >
+        Back
+      </button>,
+      document.body
+    )}
     <Modal
       isOpen={isOpen}
       onClose={() => {}}
@@ -177,21 +188,22 @@ export function AppOnboarding() {
           </div>
         </div>
       ) : (
-        <div className={`relative flex rounded-3xl overflow-hidden bg-[var(--app-bg-secondary-color)] bg-[radial-gradient(circle,_rgba(255,255,255,0.045)_1px,_transparent_1px)] bg-[length:36px_36px] min-h-[640px] transition-opacity duration-500 ease-out ${tutorialVisible ? "opacity-100" : "opacity-0"}`}>
+        <div className={`relative flex flex-col md:flex-row md:rounded-3xl overflow-hidden bg-[var(--app-bg-secondary-color)] bg-[radial-gradient(circle,_rgba(255,255,255,0.045)_1px,_transparent_1px)] bg-[length:36px_36px] md:min-h-[640px] transition-opacity duration-500 ease-out ${tutorialVisible ? "opacity-100" : "opacity-0"}`}>
 
-          {/* Back button */}
+
+          {/* Back button — desktop only (absolute) */}
           {safeStepIndex > 1 && (
             <button
               type="button"
               onClick={handleBack}
-              className="absolute top-4 left-4 z-10 px-4 py-2 text-sm text-white/50 hover:text-white/80 transition-colors"
+              className="hidden md:block absolute top-4 left-4 z-10 px-4 py-2 text-sm text-white/50 hover:text-white/80 transition-colors"
             >
               Back
             </button>
           )}
 
           {/* Left — text content */}
-          <div className="w-1/2 flex flex-col justify-center gap-6 px-12 py-12">
+          <div className={`w-full md:w-1/2 flex flex-col justify-start md:justify-center gap-6 px-8 md:px-12 pt-[120px] pb-12 md:py-12`}>
             <div className="flex flex-col gap-3">
               <div className="text-md text-[var(--app-accent-secondary-color)]">
                 Step {safeStepIndex} of {steps.length - 1}
@@ -222,10 +234,10 @@ export function AppOnboarding() {
           </div>
 
           {/* Right — illustration */}
-          <div key={step.id} className="w-1/2 border-l border-white/10 bg-[var(--app-bg-primary-color)] overflow-hidden">
+          <div key={step.id} className="w-full md:w-1/2 border-t md:border-t-0 md:border-l border-white/10 bg-[var(--app-bg-primary-color)] overflow-hidden min-h-[300px] md:min-h-0">
             {step.illustration ? (
               step.id === 'step2'
-                ? React.cloneElement(step.illustration as React.ReactElement, { skipInputAutoFade: navigatingBack })
+                ? React.cloneElement(step.illustration as React.ReactElement<{ skipInputAutoFade?: boolean }>, { skipInputAutoFade: navigatingBack })
                 : step.illustration
             ) : (
               <div className="flex items-center justify-center h-full text-white/20 text-sm">Image</div>

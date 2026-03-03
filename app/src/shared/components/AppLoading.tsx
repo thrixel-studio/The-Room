@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import GridShape from './GridShape';
 
 interface AppLoadingProps {
   isFadingOut?: boolean;
@@ -39,9 +38,6 @@ export default function AppLoading({ isFadingOut = false, onComplete }: AppLoadi
       }`}
       style={{ backgroundColor: 'var(--app-bg-primary-color)' }}
     >
-      {/* Grid Shape Background */}
-      <GridShape />
-
       {/* Main loading container */}
       <div className="relative z-10 flex flex-col items-center justify-center space-y-8">
         {/* Rotating outer ring - Accent color */}
