@@ -5,11 +5,12 @@ import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useAppSelector, useAppDispatch } from "@/shared/store/hooks";
 import { closeMobileSidebar } from "@/shared/store/slices/uiSlice";
-import { PencilLine, NotebookText, SquareUser, LayoutDashboard, Settings } from "lucide-react";
+import { PencilLine, NotebookText, SquareUser, LayoutDashboard, Settings, Info } from "lucide-react";
 import {
   ChevronDownIcon,
   HorizontaLDots,
 } from "@/shared/icons/index";
+import { openTutorial } from "@/shared/store/slices/onboardingSlice";
 
 type NavItem = {
   name: string;
@@ -54,11 +55,13 @@ const AppSidebar: React.FC = React.memo(() => {
 
   const handleNavClick = (e: React.MouseEvent, path: string) => {
     dispatch(closeMobileSidebar());
+
     // For Chat, always navigate to /chat (welcome screen)
     // This ensures a fresh start without creating a session until user sends a message
     if (path === "/chat") {
       e.preventDefault();
       router.push('/chat');
+      return;
     }
   };
 
@@ -242,6 +245,11 @@ const AppSidebar: React.FC = React.memo(() => {
     });
   };
 
+  const openTutorialFromSidebar = () => {
+    dispatch(closeMobileSidebar());
+    dispatch(openTutorial());
+  };
+
   return (
     <aside
       className={`fixed flex-col top-0 left-0 text-white h-screen transition-all duration-300 ease-in-out z-50 py-3 overflow-visible flex justify-between w-[60px] bg-[#1e1f22]
@@ -273,6 +281,20 @@ const AppSidebar: React.FC = React.memo(() => {
             </div>
           </div>
         </nav>
+      </div>
+
+      {/* Bottom actions */}
+      <div className="flex-shrink-0 flex justify-center pb-1">
+        <button
+          type="button"
+          title="Tutorial"
+          onClick={openTutorialFromSidebar}
+          className="flex items-center gap-3 p-2 rounded-lg transition-all duration-200 hover:bg-[var(--app-light-color-transparent)] hover:shadow-sm"
+        >
+          <span className="text-[var(--app-text-secondary-color)] hover:text-[var(--app-text-primary-color)] transition-colors duration-200">
+            <Info size={20} />
+          </span>
+        </button>
       </div>
     </aside>
   );

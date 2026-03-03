@@ -183,7 +183,6 @@ export default function Settings() {
                 setBioText={setBioText}
               />
             </div>
-
             <div className="p-4">
               <DeleteAllEntriesButton />
             </div>

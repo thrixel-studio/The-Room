@@ -422,6 +422,51 @@
   animation: page-fade-in 200ms ease-out forwards;
 }
 
+/* Onboarding button shimmer + scale pulse */
+@keyframes onboarding-btn-scale {
+  0%, 60%, 100% { transform: scale(1); }
+  15% { transform: scale(1.04); }
+  30% { transform: scale(1); }
+}
+
+@keyframes onboarding-btn-sweep {
+  0%, 55%, 100% { transform: translateX(-200%) skewX(-12deg); }
+  25% { transform: translateX(350%) skewX(-12deg); }
+}
+
+.btn-onboarding {
+  position: relative;
+  overflow: hidden;
+  animation: onboarding-btn-scale 3s ease-in-out infinite;
+}
+
+.btn-onboarding::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.22),
+    transparent
+  );
+  pointer-events: none;
+  animation: onboarding-btn-sweep 3s ease-in-out infinite;
+}
+
+/* Floating up/down animation */
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-7px); }
+}
+
+.animate-float-y {
+  animation: float-y 2.4s ease-in-out infinite;
+}
+
 /* Chat textarea placeholder */
 .chat-textarea-placeholder::placeholder {
   color: var(--app-text-secondary-color);

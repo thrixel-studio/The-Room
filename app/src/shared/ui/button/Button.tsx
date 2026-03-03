@@ -5,6 +5,7 @@ interface ButtonProps {
   type?: "button" | "submit" | "reset"; // Button type
   variant?: "primary" | "secondary" | "accent" | "error" | "success" | "warning" | "outline"; // Button variant with color
   icon?: ReactNode; // Lucide icon (required for text buttons)
+  iconPosition?: "before" | "after"; // Icon position relative to text
   onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void; // Click handler
   disabled?: boolean; // Disabled state
   className?: string; // Additional classes
@@ -15,6 +16,7 @@ const Button: React.FC<ButtonProps> = ({
   type = "button",
   variant = "primary",
   icon,
+  iconPosition = "before",
   onClick,
   className = "",
   disabled = false,
@@ -58,8 +60,9 @@ const Button: React.FC<ButtonProps> = ({
       onClick={onClick}
       disabled={disabled}
     >
-      {icon && <span className="flex items-center">{icon}</span>}
+      {icon && iconPosition === "before" && <span className="flex items-center">{icon}</span>}
       {children}
+      {icon && iconPosition === "after" && <span className="flex items-center">{icon}</span>}
     </button>
   );
 };

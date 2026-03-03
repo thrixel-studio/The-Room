@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useUserData } from "@/shared/contexts/UserDataContext";
 import { tokenStorage } from "@/shared/lib/storage";
+import { AppOnboarding } from "@/shared/components/onboarding/AppOnboarding";
 
 const AppLayout = React.memo(function AppLayout({
   children,
@@ -58,6 +59,7 @@ const AppLayout = React.memo(function AppLayout({
           </PageTransition>
         </div>
       </div>
+      <AppOnboarding />
     </div>
   );
 });

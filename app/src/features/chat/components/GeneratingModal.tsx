@@ -169,7 +169,7 @@ export function GeneratingCardModal({ isOpen, sessionId, onComplete, messageCoun
         {status === 'loading' && (
           <div className="flex flex-col items-center space-y-4 -mt-16">
             <h3 className="text-3xl font-medium text-white mb-2">
-              Analyzing...
+              Analyzing
             </h3>
             <p className="text-white/80 text-md text-center max-w-md mb-10">
               Conversation is under processing, please wait 20-25 seconds.
