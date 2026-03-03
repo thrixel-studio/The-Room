@@ -45,8 +45,8 @@ class UserService:
         
         # Update allowed user fields
         allowed_fields = {
-            "first_name", "last_name", "avatar_url", "bio", 
-            "theme", "timezone", "current_framework_id"
+            "first_name", "last_name", "avatar_url", "bio",
+            "theme", "timezone", "current_framework_id", "has_completed_tutorial"
         }
         
         for field, value in kwargs.items():

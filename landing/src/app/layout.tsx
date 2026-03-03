@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { LandingLoader } from "@/components/ui/LandingLoader";
 
 const outfit = localFont({
   src: [
@@ -75,6 +76,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${outfit.variable} ${dancingScript.variable}`}>
       <body className="font-[family-name:var(--font-outfit)] antialiased">
+        <LandingLoader />
         <Header />
         <main>{children}</main>
         <Footer />

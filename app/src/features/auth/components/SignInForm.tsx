@@ -9,6 +9,7 @@ import Link from "next/link";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
+import { useContentReady } from "@/shared/contexts/NavigationContext";
 import GoogleAuthButton from "./ui/GoogleAuthButton";
 
 export default function SignInForm() {
@@ -19,6 +20,7 @@ export default function SignInForm() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { login } = useAuth();
+  useContentReady();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,7 +39,7 @@ export default function SignInForm() {
     <div className="relative w-full h-full flex items-center justify-center">
       {/* Logo - Top Left */}
       <div className="fixed top-6 left-6 z-50">
-        <div className="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center">
+        <a href="https://the-room-one.vercel.app" className="block w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center">
           <Image
             src="/images/logo/logo.svg"
             alt="The Room Logo"
@@ -45,7 +47,7 @@ export default function SignInForm() {
             height={40}
             className="w-full h-full object-contain"
           />
-        </div>
+        </a>
       </div>
       <div className="relative z-10 w-full max-w-md px-6 mb-5">
         <div>

@@ -13,11 +13,13 @@ import {
   setStep,
   skipOnboarding,
 } from "@/shared/store/slices/onboardingSlice";
+import { useUpdateUserMutation } from "@/features/settings/api/profile.endpoints";
 import { ONBOARDING_STEPS } from "./steps";
 import { ArrowRight, X } from "lucide-react";
 
 export function AppOnboarding() {
   const dispatch = useAppDispatch();
+  const [updateUser] = useUpdateUserMutation();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -126,6 +128,7 @@ export function AppOnboarding() {
       return;
     }
 
+    updateUser({ has_completed_tutorial: true });
     dispatch(completeOnboarding());
     if (pathname !== "/chat") {
       router.push("/chat");

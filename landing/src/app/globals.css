@@ -260,6 +260,25 @@
 /* Grid background pattern */
 .grid-pattern {}
 
+/* Page loader animations */
+@keyframes loader-bar {
+  0%   { left: -40%; width: 40%; }
+  50%  { left: 40%;  width: 50%; }
+  100% { left: 110%; width: 40%; }
+}
+@keyframes loader-breathe {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.05); }
+}
+.animate-loader-bar {
+  will-change: left, width;
+  animation: loader-bar 1.6s ease-in-out infinite;
+}
+.animate-loader-breathe {
+  will-change: transform;
+  animation: loader-breathe 3s ease-in-out infinite;
+}
+
 /* Hero entrance animations */
 @keyframes heroFadeInUp {
   from { opacity: 0; transform: translateY(20px); }

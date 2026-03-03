@@ -60,6 +60,7 @@ async def lifespan(app: FastAPI):
             conn.execute(text("ALTER TABLE chat_suggestions ADD COLUMN IF NOT EXISTS title TEXT"))
             conn.execute(text("ALTER TABLE chat_suggestions ADD COLUMN IF NOT EXISTS source_type VARCHAR(50) DEFAULT 'exploration'"))
             conn.execute(text("ALTER TABLE chat_suggestions ALTER COLUMN context_brief DROP NOT NULL"))
+            conn.execute(text("ALTER TABLE users ADD COLUMN IF NOT EXISTS has_completed_tutorial BOOLEAN NOT NULL DEFAULT FALSE"))
             conn.commit()
         logger.info("Column migrations applied successfully")
 

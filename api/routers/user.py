@@ -54,9 +54,10 @@ async def get_me(
         bio=user.bio,
         theme=user.theme.value if hasattr(user.theme, 'value') else user.theme,
         timezone=user.timezone,
-        is_active=True,  # You can add this field to the model if needed
+        is_active=True,
         current_framework_id=user.current_framework_id,
         selected_framework=selected_framework,
+        has_completed_tutorial=user.has_completed_tutorial,
         created_at=user.created_at,
         email_verified_at=user.email_verified_at
     )
@@ -124,6 +125,7 @@ async def update_me(
         is_active=True,
         current_framework_id=user.current_framework_id,
         selected_framework=selected_framework,
+        has_completed_tutorial=user.has_completed_tutorial,
         created_at=user.created_at,
         email_verified_at=user.email_verified_at
     )

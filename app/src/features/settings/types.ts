@@ -10,6 +10,7 @@ export interface User {
   bio: string | null;
   theme: string;
   selected_framework: string;
+  has_completed_tutorial: boolean;
 }
 
 export interface UpdateUserRequest {
@@ -18,4 +19,5 @@ export interface UpdateUserRequest {
   bio?: string;
   theme?: string;
   selected_framework?: string;
+  has_completed_tutorial?: boolean;
 }

@@ -1,6 +1,6 @@
 "use client";
 
-import { useAppSelector } from "@/shared/store/hooks";
+import { useAppDispatch } from "@/shared/store/hooks";
 import AppSidebar from "@/shared/components/layout/AppSidebar";
 import Backdrop from "@/shared/components/layout/Backdrop";
 import { PageTransition } from "@/shared/components/PageTransition";
@@ -9,12 +9,15 @@ import { useRouter } from "next/navigation";
 import { useUserData } from "@/shared/contexts/UserDataContext";
 import { tokenStorage } from "@/shared/lib/storage";
 import { AppOnboarding } from "@/shared/components/onboarding/AppOnboarding";
+import { openWelcome } from "@/shared/store/slices/onboardingSlice";
+import { useAppSelector } from "@/shared/store/hooks";
 const AppLayout = React.memo(function AppLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const isMobileOpen = useAppSelector((state) => state.ui.sidebarMobileOpen);
+  const dispatch = useAppDispatch();
   const router = useRouter();
   const { user, isLoading, isInitialized } = useUserData();
   const [tokenChecked, setTokenChecked] = useState(false);
@@ -36,6 +39,14 @@ const AppLayout = React.memo(function AppLayout({
       router.replace("/signin");
     }
   }, [tokenChecked, isInitialized, isLoading, user, router]);
+
+  // Step 3: Show tutorial for users who haven't completed it (checked against DB)
+  useEffect(() => {
+    if (!tokenChecked || !isInitialized || isLoading || !user) return;
+    if (!user.has_completed_tutorial) {
+      dispatch(openWelcome());
+    }
+  }, [tokenChecked, isInitialized, isLoading, user, dispatch]);
 
   // Show blank screen while auth is being determined (avoids hydration mismatch)
   if (!tokenChecked || !isInitialized || isLoading || !user) {

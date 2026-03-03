@@ -31,6 +31,7 @@ class User(Base):
     theme = Column(SQLEnum(ThemeEnum, name="theme_enum"), nullable=False, default=ThemeEnum.DARK)
     timezone = Column(Text, nullable=False, default="UTC")
     current_framework_id = Column(UUID(as_uuid=True), ForeignKey("frameworks.id"), nullable=True)
+    has_completed_tutorial = Column(Boolean, nullable=False, default=False)
     
     created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
     updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)

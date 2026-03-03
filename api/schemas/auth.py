@@ -79,6 +79,7 @@ class UserResponse(BaseModel):
     is_active: bool = True
     current_framework_id: Optional[UUID] = None
     selected_framework: Optional[str] = None  # Framework key string
+    has_completed_tutorial: bool = False
     created_at: datetime
     email_verified_at: Optional[datetime] = None
 
@@ -95,6 +96,7 @@ class UserUpdate(BaseModel):
     timezone: Optional[str] = None
     current_framework_id: Optional[UUID] = None
     selected_framework: Optional[str] = None  # Framework key string
+    has_completed_tutorial: Optional[bool] = None
 
     @validator('theme')
     def validate_theme(cls, v):

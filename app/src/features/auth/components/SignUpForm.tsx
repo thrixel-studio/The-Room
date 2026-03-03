@@ -9,6 +9,7 @@ import Link from "next/link";
 import Image from "next/image";
 import React, { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
+import { useContentReady } from "@/shared/contexts/NavigationContext";
 import GoogleAuthButton from "./ui/GoogleAuthButton";
 
 const PASSWORD_RULES = [
@@ -31,6 +32,7 @@ export default function SignUpForm() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
   const { register } = useAuth();
+  useContentReady();
 
   const passwordValid = PASSWORD_RULES.every(rule => rule.test(password));
 
@@ -63,7 +65,7 @@ export default function SignUpForm() {
     <div className="relative w-full h-full flex items-center justify-center overflow-y-auto">
       {/* Logo - Top Left */}
       <div className="fixed top-6 left-6 z-50">
-        <div className="w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center">
+        <a href="https://the-room-one.vercel.app" className="block w-10 h-10 rounded-lg overflow-hidden flex items-center justify-center">
           <Image
             src="/images/logo/logo.svg"
             alt="The Room Logo"
@@ -71,7 +73,7 @@ export default function SignUpForm() {
             height={40}
             className="w-full h-full object-contain"
           />
-        </div>
+        </a>
       </div>
       <div className="relative z-10 w-full max-w-md px-6 mb-10">
         <div>
