@@ -110,21 +110,25 @@ export function AppOnboarding() {
 
   const handleBack = () => {
     setNavigatingBack(true);
-    startTransition(() => dispatch(prevStep()));
+    startTransition(() => {
+      dispatch(prevStep());
+    });
   };
 
   const handleNext = () => {
     if (isWelcomeStep) {
       setTitleVisible(false);
       setWelcomeButtonVisible(false);
-      window.setTimeout(() => startTransition(() => dispatch(nextStep())), 600);
+      window.setTimeout(() => startTransition(() => { dispatch(nextStep()); }), 600);
       return;
     }
 
     setNavigatingBack(false);
     const isLast = safeStepIndex >= lastStepIndex;
     if (!isLast) {
-      startTransition(() => dispatch(nextStep()));
+      startTransition(() => {
+        dispatch(nextStep());
+      });
       return;
     }
 
