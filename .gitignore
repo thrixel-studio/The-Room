@@ -18,6 +18,10 @@ Desktop.ini
 .branding/
 .claude/
 
+# ─── Admin (separate tooling) ─────────────────────────
+app-admin/
+api-admin/
+
 # ─── Environment ──────────────────────────────────────
 .env
 .env.*

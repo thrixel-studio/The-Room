@@ -14,7 +14,7 @@ export default function JournalPage() {
       <MobileHeader title="Journal" />
       <div className="flex flex-1 min-h-0">
         {/* Journal Cards */}
-        <div className="flex-1 overflow-y-scroll min-h-0 relative z-0 pt-3 md:pt-0">
+        <div className="flex-1 overflow-y-scroll min-h-0 relative z-0 pt-3 md:pt-0 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
           <JournalEntryCards />
         </div>
       </div>

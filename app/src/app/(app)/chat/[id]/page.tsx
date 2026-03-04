@@ -245,9 +245,9 @@ export default function ChatSessionPage() {
         messages={messages}
       />
 
-      {/* Framework Badge - Bottom Right Corner (desktop only) */}
+      {/* Framework Badge - Top Right Corner (desktop only) */}
       {showBadge && (
-        <div className="hidden md:block fixed bottom-4 right-5 z-30">
+        <div className="hidden md:block absolute top-4 right-5 z-30">
           <FrameworkBadge frameworkKey={displayFramework as any} />
         </div>
       )}
